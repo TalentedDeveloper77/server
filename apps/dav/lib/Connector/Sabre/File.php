@@ -680,6 +680,8 @@ class File extends Node implements IFile {
 	}
 
 	protected function header($string) {
-		\header($string);
+		if (!\OC::$CLI) {
+			\header($string);
+		}
 	}
 }
