@@ -293,15 +293,13 @@ class PreviewManager implements IPreview {
 			Preview\GIF::class,
 			Preview\BMP::class,
 			Preview\HEIC::class,
-			Preview\XBitmap::class,
-			Preview\Krita::class,
+			Preview\XBitmap::class
 		];
 
 		$this->defaultProviders = $this->config->getSystemValue('enabledPreviewProviders', array_merge([
 			Preview\MarkDown::class,
 			Preview\MP3::class,
 			Preview\TXT::class,
-			Preview\OpenDocument::class,
 		], $imageProviders));
 
 		if (in_array(Preview\Image::class, $this->defaultProviders)) {
@@ -341,9 +339,7 @@ class PreviewManager implements IPreview {
 		$this->registerCoreProvider(Preview\GIF::class, '/image\/gif/');
 		$this->registerCoreProvider(Preview\BMP::class, '/image\/bmp/');
 		$this->registerCoreProvider(Preview\XBitmap::class, '/image\/x-xbitmap/');
-		$this->registerCoreProvider(Preview\Krita::class, '/application\/x-krita/');
 		$this->registerCoreProvider(Preview\MP3::class, '/audio\/mpeg/');
-		$this->registerCoreProvider(Preview\OpenDocument::class, '/application\/vnd.oasis.opendocument.*/');
 
 		// SVG, Office and Bitmap require imagick
 		if (extension_loaded('imagick')) {

@@ -7,7 +7,6 @@
 
 namespace Icewind\SMB\Wrapped;
 
-use Icewind\SMB\ACL;
 use Icewind\SMB\IFileInfo;
 
 class FileInfo implements IFileInfo {
@@ -37,25 +36,18 @@ class FileInfo implements IFileInfo {
 	protected $mode;
 
 	/**
-	 * @var callable
-	 */
-	protected $aclCallback;
-
-	/**
 	 * @param string $path
 	 * @param string $name
 	 * @param int $size
 	 * @param int $time
 	 * @param int $mode
-	 * @param callable $aclCallback
 	 */
-	public function __construct($path, $name, $size, $time, $mode, callable $aclCallback) {
+	public function __construct($path, $name, $size, $time, $mode) {
 		$this->path = $path;
 		$this->name = $name;
 		$this->size = $size;
 		$this->time = $time;
 		$this->mode = $mode;
-		$this->aclCallback = $aclCallback;
 	}
 
 	/**
@@ -119,12 +111,5 @@ class FileInfo implements IFileInfo {
 	 */
 	public function isArchived() {
 		return (bool)($this->mode & IFileInfo::MODE_ARCHIVE);
-	}
-
-	/**
-	 * @return ACL[]
-	 */
-	public function getAcls(): array {
-		return ($this->aclCallback)();
 	}
 }

@@ -23,6 +23,7 @@
 
 namespace OCA\DAV\CalDAV\Principal;
 
+
 /**
  * Class Collection
  *

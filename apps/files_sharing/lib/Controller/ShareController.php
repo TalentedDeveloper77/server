@@ -5,7 +5,6 @@
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Daniel Calviño Sánchez <danxuliu@gmail.com>
  * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author Joas Schilling <coding@schilljs.com>
@@ -42,13 +41,11 @@
 
 namespace OCA\Files_Sharing\Controller;
 
+use OC\Security\CSP\ContentSecurityPolicy;
 use OC_Files;
 use OC_Util;
-use OC\Security\CSP\ContentSecurityPolicy;
 use OCA\FederatedFileSharing\FederatedShareProvider;
 use OCA\Files_Sharing\Activity\Providers\Downloads;
-use OCA\Viewer\Event\LoadViewer;
-use OCP\Accounts\IAccountManager;
 use OCP\AppFramework\AuthPublicShareController;
 use OCP\AppFramework\Http\NotFoundResponse;
 use OCP\AppFramework\Http\Template\ExternalShareMenuAction;
@@ -57,7 +54,6 @@ use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Http\Template\SimpleMenuAction;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Defaults;
-use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\IConfig;
@@ -67,7 +63,6 @@ use OCP\IPreview;
 use OCP\IRequest;
 use OCP\ISession;
 use OCP\IURLGenerator;
-use OCP\IUser;
 use OCP\IUserManager;
 use OCP\Share;
 use OCP\Share\Exceptions\ShareNotFound;
@@ -97,8 +92,6 @@ class ShareController extends AuthPublicShareController {
 	protected $rootFolder;
 	/** @var FederatedShareProvider */
 	protected $federatedShareProvider;
-	/** @var IAccountManager */
-	protected $accountManager;
 	/** @var EventDispatcherInterface */
 	protected $eventDispatcher;
 	/** @var IL10N */
@@ -124,7 +117,6 @@ class ShareController extends AuthPublicShareController {
 	 * @param IPreview $previewManager
 	 * @param IRootFolder $rootFolder
 	 * @param FederatedShareProvider $federatedShareProvider
-	 * @param IAccountManager $accountManager
 	 * @param EventDispatcherInterface $eventDispatcher
 	 * @param IL10N $l10n
 	 * @param Defaults $defaults
@@ -141,7 +133,6 @@ class ShareController extends AuthPublicShareController {
 								IPreview $previewManager,
 								IRootFolder $rootFolder,
 								FederatedShareProvider $federatedShareProvider,
-								IAccountManager $accountManager,
 								EventDispatcherInterface $eventDispatcher,
 								IL10N $l10n,
 								Defaults $defaults) {
@@ -154,7 +145,6 @@ class ShareController extends AuthPublicShareController {
 		$this->previewManager = $previewManager;
 		$this->rootFolder = $rootFolder;
 		$this->federatedShareProvider = $federatedShareProvider;
-		$this->accountManager = $accountManager;
 		$this->eventDispatcher = $eventDispatcher;
 		$this->l10n = $l10n;
 		$this->defaults = $defaults;
@@ -300,7 +290,7 @@ class ShareController extends AuthPublicShareController {
 	 * @PublicPage
 	 * @NoCSRFRequired
 	 *
-	 *
+
 	 * @param string $path
 	 * @return TemplateResponse
 	 * @throws NotFoundException
@@ -335,20 +325,8 @@ class ShareController extends AuthPublicShareController {
 		}
 
 		$shareTmpl = [];
-		$shareTmpl['owner'] = '';
-		$shareTmpl['shareOwner'] = '';
-
-		$owner = $this->userManager->get($share->getShareOwner());
-		if ($owner instanceof IUser) {
-			$ownerAccount = $this->accountManager->getAccount($owner);
-
-			$ownerName = $ownerAccount->getProperty(IAccountManager::PROPERTY_DISPLAYNAME);
-			if ($ownerName->getScope() === IAccountManager::VISIBILITY_PUBLIC) {
-				$shareTmpl['owner'] = $owner->getUID();
-				$shareTmpl['shareOwner'] = $owner->getDisplayName();
-			}
-		}
-
+		$shareTmpl['displayName'] = $this->userManager->get($share->getShareOwner())->getDisplayName();
+		$shareTmpl['owner'] = $share->getShareOwner();
 		$shareTmpl['filename'] = $shareNode->getName();
 		$shareTmpl['directory_path'] = $share->getTarget();
 		$shareTmpl['note'] = $share->getNote();
@@ -392,7 +370,6 @@ class ShareController extends AuthPublicShareController {
 			$maxUploadFilesize = $freeSpace;
 
 			$folder = new Template('files', 'list', '');
-
 			$folder->assign('dir', $shareNode->getRelativePath($folderNode->getPath()));
 			$folder->assign('dirToken', $this->getToken());
 			$folder->assign('permissions', \OCP\Constants::PERMISSION_READ);
@@ -415,6 +392,7 @@ class ShareController extends AuthPublicShareController {
 		$shareTmpl['showgridview'] = false;
 
 		$shareTmpl['hideFileList'] = $hideFileList;
+		$shareTmpl['shareOwner'] = $this->userManager->get($share->getShareOwner())->getDisplayName();
 		$shareTmpl['downloadURL'] = $this->urlGenerator->linkToRouteAbsolute('files_sharing.sharecontroller.downloadShare', ['token' => $this->getToken()]);
 		$shareTmpl['shareUrl'] = $this->urlGenerator->linkToRouteAbsolute('files_sharing.sharecontroller.showShare', ['token' => $this->getToken()]);
 		$shareTmpl['maxSizeAnimateGif'] = $this->config->getSystemValue('max_filesize_animated_gifs_public_sharing', 10);
@@ -474,11 +452,6 @@ class ShareController extends AuthPublicShareController {
 			\OCP\Util::addScript('files', 'filelist');
 			\OCP\Util::addScript('files', 'keyboardshortcuts');
 			\OCP\Util::addScript('files', 'operationprogressbar');
-
-			// Load Viewer scripts
-			if (class_exists(LoadViewer::class)) {
-				$this->eventDispatcher->dispatch(LoadViewer::class, new LoadViewer());
-			}
 		}
 
 		// OpenGraph Support: http://ogp.me/
@@ -497,9 +470,7 @@ class ShareController extends AuthPublicShareController {
 
 		$response = new PublicTemplateResponse($this->appName, 'public', $shareTmpl);
 		$response->setHeaderTitle($shareTmpl['filename']);
-		if ($shareTmpl['shareOwner'] !== '') {
-			$response->setHeaderDetails($this->l10n->t('shared by %s', [$shareTmpl['shareOwner']]));
-		}
+		$response->setHeaderDetails($this->l10n->t('shared by %s', [$shareTmpl['displayName']]));
 
 		$isNoneFileDropFolder = $shareIsFolder === false || $share->getPermissions() !== \OCP\Constants::PERMISSION_CREATE;
 
@@ -511,7 +482,7 @@ class ShareController extends AuthPublicShareController {
 			$download = new SimpleMenuAction('download', $this->l10n->t('Download'), 'icon-download', $shareTmpl['downloadURL'], 10, $shareTmpl['fileSize']);
 			$downloadAll = new SimpleMenuAction('download', $this->l10n->t('Download all files'), 'icon-download', $shareTmpl['downloadURL'], 10, $shareTmpl['fileSize']);
 			$directLink = new LinkMenuAction($this->l10n->t('Direct link'), 'icon-public', $shareTmpl['previewURL']);
-			$externalShare = new ExternalShareMenuAction($this->l10n->t('Add to your Nextcloud'), 'icon-external', $shareTmpl['owner'], $shareTmpl['shareOwner'], $shareTmpl['filename']);
+			$externalShare = new ExternalShareMenuAction($this->l10n->t('Add to your Nextcloud'), 'icon-external', $shareTmpl['owner'], $shareTmpl['displayName'], $shareTmpl['filename']);
 
 			$responseComposer = [];
 
@@ -604,15 +575,15 @@ class ShareController extends AuthPublicShareController {
 				// Single file download
 				$this->singleFileDownloaded($share, $share->getNode());
 			} else {
-				try {
-					if (!empty($files_list)) {
-						$this->fileListDownloaded($share, $files_list, $node);
-					} else {
-						// The folder is downloaded
-						$this->singleFileDownloaded($share, $share->getNode());
-					}
-				} catch (NotFoundException $e) {
+				if ($share->getHideDownload()) {
 					return new NotFoundResponse();
+				}
+
+				if (!empty($files_list)) {
+					$this->fileListDownloaded($share, $files_list, $node);
+				} else {
+					// The folder is downloaded
+					$this->singleFileDownloaded($share, $share->getNode());
 				}
 			}
 		}
@@ -636,7 +607,7 @@ class ShareController extends AuthPublicShareController {
 
 		$this->emitAccessShareHook($share);
 
-		$server_params = [ 'head' => $this->request->getMethod() === 'HEAD' ];
+		$server_params = array( 'head' => $this->request->getMethod() === 'HEAD' );
 
 		/**
 		 * Http range requests support
@@ -665,13 +636,8 @@ class ShareController extends AuthPublicShareController {
 	 * @param Share\IShare $share
 	 * @param array $files_list
 	 * @param \OCP\Files\Folder $node
-	 * @throws NotFoundException when trying to download a folder or multiple files of a "hide download" share
 	 */
 	protected function fileListDownloaded(Share\IShare $share, array $files_list, \OCP\Files\Folder $node) {
-		if ($share->getHideDownload() && count($files_list) > 1) {
-			throw new NotFoundException('Downloading more than 1 file');
-		}
-
 		foreach ($files_list as $file) {
 			$subNode = $node->get($file);
 			$this->singleFileDownloaded($share, $subNode);
@@ -683,12 +649,8 @@ class ShareController extends AuthPublicShareController {
 	 * create activity if a single file was downloaded from a link share
 	 *
 	 * @param Share\IShare $share
-	 * @throws NotFoundException when trying to download a folder of a "hide download" share
 	 */
 	protected function singleFileDownloaded(Share\IShare $share, \OCP\Files\Node $node) {
-		if ($share->getHideDownload() && $node instanceof Folder) {
-			throw new NotFoundException('Downloading a folder');
-		}
 
 		$fileId = $node->getId();
 

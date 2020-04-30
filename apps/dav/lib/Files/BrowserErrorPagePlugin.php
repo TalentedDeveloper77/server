@@ -2,8 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
  *
@@ -27,7 +25,6 @@ namespace OCA\DAV\Files;
 
 use OC\AppFramework\Http\Request;
 use OC_Template;
-use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\IRequest;
 use Sabre\DAV\Exception;
 use Sabre\DAV\Server;
@@ -50,7 +47,7 @@ class BrowserErrorPagePlugin extends ServerPlugin {
 	 */
 	function initialize(Server $server) {
 		$this->server = $server;
-		$server->on('exception', [$this, 'logException'], 1000);
+		$server->on('exception', array($this, 'logException'), 1000);
 	}
 
 	/**
@@ -83,10 +80,8 @@ class BrowserErrorPagePlugin extends ServerPlugin {
 		}
 		$this->server->httpResponse->addHeaders($headers);
 		$this->server->httpResponse->setStatus($httpCode);
-		$body = $this->generateBody($httpCode);
+		$body = $this->generateBody();
 		$this->server->httpResponse->setBody($body);
-		$csp = new ContentSecurityPolicy();
-		$this->server->httpResponse->addHeader('Content-Security-Policy', $csp->buildPolicy());
 		$this->sendResponse();
 	}
 
@@ -94,15 +89,9 @@ class BrowserErrorPagePlugin extends ServerPlugin {
 	 * @codeCoverageIgnore
 	 * @return bool|string
 	 */
-	public function generateBody(int $httpCode) {
+	public function generateBody() {
 		$request = \OC::$server->getRequest();
-
-		$templateName = 'exception';
-		if($httpCode === 403 || $httpCode === 404) {
-			$templateName = (string)$httpCode;
-		}
-
-		$content = new OC_Template('core', $templateName, 'guest');
+		$content = new OC_Template('dav', 'exception', 'guest');
 		$content->assign('title', $this->server->httpResponse->getStatusText());
 		$content->assign('remoteAddr', $request->getRemoteAddress());
 		$content->assign('requestID', $request->getId());

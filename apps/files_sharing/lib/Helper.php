@@ -29,6 +29,9 @@ namespace OCA\Files_Sharing;
 
 use OC\Files\Filesystem;
 use OC\Files\View;
+use OCP\Files\NotFoundException;
+use OCP\Share\Exceptions\ShareNotFound;
+use OCP\User;
 
 class Helper {
 

@@ -24,6 +24,7 @@
 namespace OCP\Share;
 
 use OC\Share20\Exception\ProviderException;
+use OCP\IServerContainer;
 
 /**
  * Interface IProviderFactory

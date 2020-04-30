@@ -23,6 +23,7 @@
 
 namespace OC\DB\QueryBuilder\ExpressionBuilder;
 
+
 class SqliteExpressionBuilder extends ExpressionBuilder {
 	/**
 	 * @inheritdoc

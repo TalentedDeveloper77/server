@@ -10,7 +10,7 @@
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
- * @author Thomas Citharel <nextcloud@tcit.fr>
+ * @author Thomas Citharel <tcit@tcit.fr>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -29,7 +29,7 @@
  *
  */
 
-namespace OCA\Settings\Settings\Personal;
+namespace OCA\Settings\Personal;
 
 use OC\Accounts\AccountManager;
 use OCA\FederatedFileSharing\AppInfo\Application;
@@ -220,7 +220,7 @@ class PersonalInfo implements ISettings {
 		}
 
 		return array_merge(
-			['activelanguage' => $userLang],
+			array('activelanguage' => $userLang),
 			$languages
 		);
 	}

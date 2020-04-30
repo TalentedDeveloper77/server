@@ -3,8 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  * @copyright Copyright (c) 2018 Georg Ehrke
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
- * @author dartcafe <github@dartcafe.de>
  * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
@@ -13,7 +11,7 @@
  * @author Robin Appelman <robin@icewind.nl>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  * @author Stefan Weil <sw@weilnetz.de>
- * @author Thomas Citharel <nextcloud@tcit.fr>
+ * @author Thomas Citharel <tcit@tcit.fr>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
  * @author Vinicius Cubas Brand <vinicius@eita.org.br>
  *
@@ -35,7 +33,6 @@
 
 namespace OCA\DAV\CalDAV;
 
-use DateTime;
 use OCA\DAV\Connector\Sabre\Principal;
 use OCA\DAV\DAV\Sharing\Backend;
 use OCA\DAV\DAV\Sharing\IShareable;
@@ -772,7 +769,7 @@ class CalDavBackend extends AbstractBackend implements SyncSupport, Subscription
 			[
 				'calendarId' => $calendarId,
 				'calendarData' => $this->getCalendarById($calendarId),
-			]));
+		]));
 
 		return $calendarId;
 	}
@@ -833,7 +830,7 @@ class CalDavBackend extends AbstractBackend implements SyncSupport, Subscription
 					'calendarData' => $this->getCalendarById($calendarId),
 					'shares' => $this->getShares($calendarId),
 					'propertyMutations' => $mutations,
-				]));
+			]));
 
 			return true;
 		});
@@ -852,7 +849,7 @@ class CalDavBackend extends AbstractBackend implements SyncSupport, Subscription
 				'calendarId' => $calendarId,
 				'calendarData' => $this->getCalendarById($calendarId),
 				'shares' => $this->getShares($calendarId),
-			]));
+		]));
 
 		$stmt = $this->db->prepare('DELETE FROM `*PREFIX*calendarobjects` WHERE `calendarid` = ? AND `calendartype` = ?');
 		$stmt->execute([$calendarId, self::CALENDAR_TYPE_CALENDAR]);
@@ -1554,14 +1551,14 @@ class CalDavBackend extends AbstractBackend implements SyncSupport, Subscription
 			->from('calendarobjects', 'c');
 
 		if (isset($options['timerange'])) {
-			if (isset($options['timerange']['start']) && $options['timerange']['start'] instanceof DateTime) {
+			if (isset($options['timerange']['start'])) {
 				$outerQuery->andWhere($outerQuery->expr()->gt('lastoccurence',
-					$outerQuery->createNamedParameter($options['timerange']['start']->getTimeStamp())));
+					$outerQuery->createNamedParameter($options['timerange']['start']->getTimeStamp)));
 
 			}
-			if (isset($options['timerange']['end']) && $options['timerange']['end'] instanceof DateTime) {
+			if (isset($options['timerange']['end'])) {
 				$outerQuery->andWhere($outerQuery->expr()->lt('firstoccurence',
-					$outerQuery->createNamedParameter($options['timerange']['end']->getTimeStamp())));
+					$outerQuery->createNamedParameter($options['timerange']['end']->getTimeStamp)));
 			}
 		}
 
@@ -1946,7 +1943,7 @@ class CalDavBackend extends AbstractBackend implements SyncSupport, Subscription
 			}
 		}
 
-		$valuesToInsert = [];
+		$valuesToInsert = array();
 
 		$query = $this->db->getQueryBuilder();
 
@@ -2095,11 +2092,11 @@ class CalDavBackend extends AbstractBackend implements SyncSupport, Subscription
 		}
 
 		return [
-			'uri'          => $row['uri'],
-			'calendardata' => $row['calendardata'],
-			'lastmodified' => $row['lastmodified'],
-			'etag'         => '"' . $row['etag'] . '"',
-			'size'         => (int)$row['size'],
+				'uri'          => $row['uri'],
+				'calendardata' => $row['calendardata'],
+				'lastmodified' => $row['lastmodified'],
+				'etag'         => '"' . $row['etag'] . '"',
+				'size'         => (int)$row['size'],
 		];
 	}
 
@@ -2124,11 +2121,11 @@ class CalDavBackend extends AbstractBackend implements SyncSupport, Subscription
 		$result = [];
 		foreach($stmt->fetchAll(\PDO::FETCH_ASSOC) as $row) {
 			$result[] = [
-				'calendardata' => $row['calendardata'],
-				'uri'          => $row['uri'],
-				'lastmodified' => $row['lastmodified'],
-				'etag'         => '"' . $row['etag'] . '"',
-				'size'         => (int)$row['size'],
+					'calendardata' => $row['calendardata'],
+					'uri'          => $row['uri'],
+					'lastmodified' => $row['lastmodified'],
+					'etag'         => '"' . $row['etag'] . '"',
+					'size'         => (int)$row['size'],
 			];
 		}
 
@@ -2261,7 +2258,7 @@ class CalDavBackend extends AbstractBackend implements SyncSupport, Subscription
 				}
 			} else {
 				$it = new EventIterator($vObject, (string)$component->UID);
-				$maxDate = new DateTime(self::MAX_DATE);
+				$maxDate = new \DateTime(self::MAX_DATE);
 				if ($it->isInfinite()) {
 					$lastOccurrence = $maxDate->getTimestamp();
 				} else {

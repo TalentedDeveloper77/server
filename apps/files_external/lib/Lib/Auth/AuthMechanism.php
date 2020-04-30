@@ -51,6 +51,7 @@ use OCA\Files_External\Lib\VisibilityTrait;
  *      Object can affect storage mounting
  */
 class AuthMechanism implements \JsonSerializable {
+
 	/** Standard authentication schemes */
 	const SCHEME_NULL = 'null';
 	const SCHEME_BUILTIN = 'builtin';

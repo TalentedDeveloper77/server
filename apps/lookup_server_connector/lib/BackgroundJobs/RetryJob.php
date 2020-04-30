@@ -32,6 +32,7 @@ declare(strict_types=1);
 
 namespace OCA\LookupServerConnector\BackgroundJobs;
 
+
 use OC\Security\IdentityProof\Signer;
 use OCP\Accounts\IAccountManager;
 use OCP\AppFramework\Utility\ITimeFactory;

@@ -5,7 +5,6 @@
  * @author Bart Visscher <bartv@thisnet.nl>
  * @author Björn Schießle <bjoern@schiessle.org>
  * @author Christopher Schäpers <kondou@ts.unde.re>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Julius Härtl <jus@bitgrid.net>
  * @author Lukas Reschke <lukas@statuscode.ch>
@@ -49,7 +48,7 @@ class Base {
 	 * @param Defaults $theme
 	 */
 	public function __construct($template, $requestToken, $l10n, $theme ) {
-		$this->vars = [];
+		$this->vars = array();
 		$this->vars['requesttoken'] = $requestToken;
 		$this->l10n = $l10n;
 		$this->template = $template;
@@ -119,7 +118,7 @@ class Base {
 			$this->vars[$key][] = $value;
 		}
 		else{
-			$this->vars[$key] = [ $value ];
+			$this->vars[$key] = array( $value );
 		}
 	}
 

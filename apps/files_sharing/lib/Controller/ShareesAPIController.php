@@ -34,6 +34,7 @@ declare(strict_types=1);
 
 namespace OCA\Files_Sharing\Controller;
 
+use function array_filter;
 use function array_slice;
 use function array_values;
 use Generator;
@@ -64,6 +65,12 @@ class ShareesAPIController extends OCSController {
 
 	/** @var IManager */
 	protected $shareManager;
+
+	/** @var bool */
+	protected $shareWithGroupOnly = false;
+
+	/** @var bool */
+	protected $shareeEnumeration = true;
 
 	/** @var int */
 	protected $offset = 0;
@@ -198,6 +205,8 @@ class ShareesAPIController extends OCSController {
 		}
 		sort($shareTypes);
 
+		$this->shareWithGroupOnly = $this->config->getAppValue('core', 'shareapi_only_share_with_group_members', 'no') === 'yes';
+		$this->shareeEnumeration = $this->config->getAppValue('core', 'shareapi_allow_share_dialog_user_enumeration', 'yes') === 'yes';
 		$this->limit = (int) $perPage;
 		$this->offset = $perPage * ($page - 1);
 

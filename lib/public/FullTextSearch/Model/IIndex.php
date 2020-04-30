@@ -5,7 +5,6 @@ declare(strict_types=1);
 /**
  * @copyright 2018
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Maxence Lange <maxence@artificial-owl.com>
  *
  * @license GNU AGPL version 3 or any later version
@@ -26,6 +25,7 @@ declare(strict_types=1);
  */
 
 namespace OCP\FullTextSearch\Model;
+
 
 /**
  * Interface IIndex
@@ -181,7 +181,7 @@ interface IIndex {
 	 * @since 15.0.0
 	 *
 	 * @param string $option
-	 * @param string $value
+	 * @param string|int $value
 	 *
 	 * @return IIndex
 	 */

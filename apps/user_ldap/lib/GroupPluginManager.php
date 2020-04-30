@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2017 EITA Cooperative (eita.org.br)
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Vinicius Cubas Brand <vinicius@eita.org.br>
  *
  * @license GNU AGPL version 3 or any later version
@@ -30,14 +29,14 @@ class GroupPluginManager {
 
 	private $respondToActions = 0;
 
-	private $which = [
+	private $which = array(
 		GroupInterface::CREATE_GROUP => null,
 		GroupInterface::DELETE_GROUP => null,
 		GroupInterface::ADD_TO_GROUP => null,
 		GroupInterface::REMOVE_FROM_GROUP => null,
 		GroupInterface::COUNT_USERS => null,
 		GroupInterface::GROUP_DETAILS => null
-	];
+	);
 
 	/**
 	 * @return int All implemented actions

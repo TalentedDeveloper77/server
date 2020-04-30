@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2017 Arthur Schiwon <blizzz@arthur-schiwon.de>
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -162,11 +161,11 @@ class Sync extends TimedJob {
 		$access = $this->accessFactory->get($connection);
 		$access->setUserMapper($this->mapper);
 
-		$filter = $access->combineFilterWithAnd([
+		$filter = $access->combineFilterWithAnd(array(
 			$access->connection->ldapUserFilter,
 			$access->connection->ldapUserDisplayName . '=*',
 			$access->getFilterPartForUserSearch('')
-		]);
+		));
 		$results = $access->fetchListOfUsers(
 			$filter,
 			$access->userManager->getAttributes(),

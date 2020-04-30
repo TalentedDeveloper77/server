@@ -4,7 +4,6 @@
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Christopher Schäpers <kondou@ts.unde.re>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -85,7 +84,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 				&& method_exists($this->getAccess($configPrefix), $method)) {
 				$instance = $this->getAccess($configPrefix);
 			}
-			if($result = call_user_func_array([$instance, $method], $parameters)) {
+			if($result = call_user_func_array(array($instance, $method), $parameters)) {
 				$this->writeToCache($cacheKey, $configPrefix);
 				return $result;
 			}
@@ -161,7 +160,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 */
 	public function getUsers($search = '', $limit = 10, $offset = 0) {
 		//we do it just as the /OC_User implementation: do not play around with limit and offset but ask all backends
-		$users = [];
+		$users = array();
 		foreach($this->backends as $backend) {
 			$backendUsers = $backend->getUsers($search, $limit, $offset);
 			if (is_array($backendUsers)) {
@@ -178,7 +177,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 */
 	public function userExists($uid) {
 		$existsOnLDAP = false;
-		$existsLocally = $this->handleRequest($uid, 'userExists', [$uid]);
+		$existsLocally = $this->handleRequest($uid, 'userExists', array($uid));
 		if($existsLocally) {
 			$existsOnLDAP = $this->userExistsOnLDAP($uid);
 		}
@@ -203,7 +202,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 */
 	public function userExistsOnLDAP($user) {
 		$id = ($user instanceof User) ? $user->getUsername() : $user;
-		return $this->handleRequest($id, 'userExistsOnLDAP', [$user]);
+		return $this->handleRequest($id, 'userExistsOnLDAP', array($user));
 	}
 
 	/**
@@ -215,7 +214,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 * Check if the password is correct without logging in the user
 	 */
 	public function checkPassword($uid, $password) {
-		return $this->handleRequest($uid, 'checkPassword', [$uid, $password]);
+		return $this->handleRequest($uid, 'checkPassword', array($uid, $password));
 	}
 
 	/**
@@ -226,7 +225,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 */
 	public function loginName2UserName($loginName) {
 		$id = 'LOGINNAME,' . $loginName;
-		return $this->handleRequest($id, 'loginName2UserName', [$loginName]);
+		return $this->handleRequest($id, 'loginName2UserName', array($loginName));
 	}
 	
 	/**
@@ -237,7 +236,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 */
 	public function dn2UserName($dn) {
 		$id = 'DN,' . $dn;
-		return $this->handleRequest($id, 'dn2UserName', [$dn]);
+		return $this->handleRequest($id, 'dn2UserName', array($dn));
 	}
 
 	/**
@@ -246,7 +245,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 * @return boolean
 	 */
 	public function getHome($uid) {
-		return $this->handleRequest($uid, 'getHome', [$uid]);
+		return $this->handleRequest($uid, 'getHome', array($uid));
 	}
 
 	/**
@@ -255,7 +254,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 * @return string display name
 	 */
 	public function getDisplayName($uid) {
-		return $this->handleRequest($uid, 'getDisplayName', [$uid]);
+		return $this->handleRequest($uid, 'getDisplayName', array($uid));
 	}
 
 	/**
@@ -266,7 +265,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 * @return string display name
 	 */
 	public function setDisplayName($uid, $displayName) {
-		return $this->handleRequest($uid, 'setDisplayName', [$uid, $displayName]);
+		return $this->handleRequest($uid, 'setDisplayName', array($uid, $displayName));
 	}
 
 	/**
@@ -287,7 +286,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 */
 	public function getDisplayNames($search = '', $limit = null, $offset = null) {
 		//we do it just as the /OC_User implementation: do not play around with limit and offset but ask all backends
-		$users = [];
+		$users = array();
 		foreach($this->backends as $backend) {
 			$backendUsers = $backend->getDisplayNames($search, $limit, $offset);
 			if (is_array($backendUsers)) {
@@ -305,7 +304,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 * Deletes a user
 	 */
 	public function deleteUser($uid) {
-		return $this->handleRequest($uid, 'deleteUser', [$uid]);
+		return $this->handleRequest($uid, 'deleteUser', array($uid));
 	}
 	
 	/**
@@ -316,7 +315,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 *
 	 */
 	public function setPassword($uid, $password) {
-		return $this->handleRequest($uid, 'setPassword', [$uid, $password]);
+		return $this->handleRequest($uid, 'setPassword', array($uid, $password));
 	}
 
 	/**
@@ -347,7 +346,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 * @return Access instance of Access for LDAP interaction
 	 */
 	public function getLDAPAccess($uid) {
-		return $this->handleRequest($uid, 'getLDAPAccess', [$uid]);
+		return $this->handleRequest($uid, 'getLDAPAccess', array($uid));
 	}
 	
 	/**
@@ -357,7 +356,7 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 * @return resource of the LDAP connection
 	 */
 	public function getNewLDAPConnection($uid) {
-		return $this->handleRequest($uid, 'getNewLDAPConnection', [$uid]);
+		return $this->handleRequest($uid, 'getNewLDAPConnection', array($uid));
 	}
 
 	/**
@@ -367,6 +366,6 @@ class User_Proxy extends Proxy implements \OCP\IUserBackend, \OCP\UserInterface,
 	 * @return bool
 	 */
 	public function createUser($username, $password) {
-		return $this->handleRequest($username, 'createUser', [$username,$password]);
+		return $this->handleRequest($username, 'createUser', array($username,$password));
 	}
 }

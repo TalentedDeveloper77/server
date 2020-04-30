@@ -6,7 +6,6 @@ declare(strict_types=1);
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Andreas Fischer <bantu@owncloud.com>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Daniel Kesselberg <mail@danielkesselberg.de>
  * @author Hendrik Leppelsack <hendrik@leppelsack.de>
  * @author Jens-Christian Fischer <jens-christian.fischer@switch.ch>
@@ -104,7 +103,7 @@ class Detection implements IMimeTypeDetector {
 	public function registerType(string $extension,
 								 string $mimetype,
 								 ?string $secureMimeType = null): void {
-		$this->mimetypes[$extension] = [$mimetype, $secureMimeType];
+		$this->mimetypes[$extension] = array($mimetype, $secureMimeType);
 		$this->secureMimeTypes[$mimetype] = $secureMimeType ?: $mimetype;
 	}
 

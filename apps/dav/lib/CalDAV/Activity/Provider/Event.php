@@ -24,6 +24,7 @@
 
 namespace OCA\DAV\CalDAV\Activity\Provider;
 
+use OCA\DAV\CalDAV\CalDavBackend;
 use OCP\Activity\IEvent;
 use OCP\Activity\IEventMerger;
 use OCP\Activity\IManager;

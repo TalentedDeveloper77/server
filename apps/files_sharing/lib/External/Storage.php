@@ -4,7 +4,6 @@
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -86,13 +85,13 @@ class Storage extends DAV implements ISharedStorage, IDisableEncryptionStorage {
 		$this->mountPoint = $options['mountpoint'];
 		$this->token = $options['token'];
 
-		parent::__construct([
+		parent::__construct(array(
 			'secure' => $secure,
 			'host' => $host,
 			'root' => $root,
 			'user' => $options['token'],
 			'password' => (string)$options['password']
-		]);
+		));
 	}
 
 	public function getWatcher($path = '', $storage = null) {

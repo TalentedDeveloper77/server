@@ -69,10 +69,10 @@ $principalCollection->disableListing = !$debugging; // Disable listing
 $addressBookRoot = new CalendarRoot($principalBackend, $calDavBackend);
 $addressBookRoot->disableListing = !$debugging; // Disable listing
 
-$nodes = [
+$nodes = array(
 	$principalCollection,
 	$addressBookRoot,
-];
+);
 
 // Fire up server
 $server = new \Sabre\DAV\Server($nodes);

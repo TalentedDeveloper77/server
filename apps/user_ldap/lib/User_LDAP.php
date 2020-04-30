@@ -4,7 +4,6 @@
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Daniel Kesselberg <mail@danielkesselberg.de>
  * @author Dominik Schmidt <dev@dominik-schmidt.de>
  * @author felixboehm <felix@webhippie.de>
@@ -261,11 +260,11 @@ class User_LDAP extends BackendUtility implements \OCP\IUserBackend, \OCP\UserIn
 		if($limit <= 0) {
 			$limit = null;
 		}
-		$filter = $this->access->combineFilterWithAnd([
+		$filter = $this->access->combineFilterWithAnd(array(
 			$this->access->connection->ldapUserFilter,
 			$this->access->connection->ldapUserDisplayName . '=*',
 			$this->access->getFilterPartForUserSearch($search)
-		]);
+		));
 
 		Util::writeLog('user_ldap',
 			'getUsers: Options: search '.$search.' limit '.$limit.' offset '.$offset.' Filter: '.$filter,
@@ -365,11 +364,11 @@ class User_LDAP extends BackendUtility implements \OCP\IUserBackend, \OCP\UserIn
 	}
 
 	/**
-	 * returns whether a user was deleted in LDAP
-	 *
-	 * @param string $uid The username of the user to delete
-	 * @return bool
-	 */
+	* returns whether a user was deleted in LDAP
+	*
+	* @param string $uid The username of the user to delete
+	* @return bool
+	*/
 	public function deleteUser($uid) {
 		if ($this->userPluginManager->canDeleteUser()) {
 			$status = $this->userPluginManager->deleteUser($uid);
@@ -512,7 +511,7 @@ class User_LDAP extends BackendUtility implements \OCP\IUserBackend, \OCP\UserIn
 			return $displayNames;
 		}
 
-		$displayNames = [];
+		$displayNames = array();
 		$users = $this->getUsers($search, $limit, $offset);
 		foreach ($users as $user) {
 			$displayNames[$user] = $this->getDisplayName($user);
@@ -522,13 +521,13 @@ class User_LDAP extends BackendUtility implements \OCP\IUserBackend, \OCP\UserIn
 	}
 
 	/**
-	 * Check if backend implements actions
-	 * @param int $actions bitwise-or'ed actions
-	 * @return boolean
-	 *
-	 * Returns the supported actions as int to be
-	 * compared with \OC\User\Backend::CREATE_USER etc.
-	 */
+	* Check if backend implements actions
+	* @param int $actions bitwise-or'ed actions
+	* @return boolean
+	*
+	* Returns the supported actions as int to be
+	* compared with \OC\User\Backend::CREATE_USER etc.
+	*/
 	public function implementsActions($actions) {
 		return (bool)((Backend::CHECK_PASSWORD
 			| Backend::GET_HOME

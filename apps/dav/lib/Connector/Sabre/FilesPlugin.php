@@ -4,7 +4,6 @@
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Michael Jobst <mjobst+github@tecratech.de>
@@ -174,12 +173,12 @@ class FilesPlugin extends ServerPlugin {
 		$server->protectedProperties = array_diff($server->protectedProperties, $allowedProperties);
 
 		$this->server = $server;
-		$this->server->on('propFind', [$this, 'handleGetProperties']);
-		$this->server->on('propPatch', [$this, 'handleUpdateProperties']);
-		$this->server->on('afterBind', [$this, 'sendFileIdHeader']);
-		$this->server->on('afterWriteContent', [$this, 'sendFileIdHeader']);
+		$this->server->on('propFind', array($this, 'handleGetProperties'));
+		$this->server->on('propPatch', array($this, 'handleUpdateProperties'));
+		$this->server->on('afterBind', array($this, 'sendFileIdHeader'));
+		$this->server->on('afterWriteContent', array($this, 'sendFileIdHeader'));
 		$this->server->on('afterMethod:GET', [$this,'httpGet']);
-		$this->server->on('afterMethod:GET', [$this, 'handleDownloadToken']);
+		$this->server->on('afterMethod:GET', array($this, 'handleDownloadToken'));
 		$this->server->on('afterResponse', function($request, ResponseInterface $response) {
 			$body = $response->getBody();
 			if (is_resource($body)) {
@@ -209,7 +208,7 @@ class FilesPlugin extends ServerPlugin {
 			$sourceNodeFileInfo = $sourceNode->getFileInfo();
 			if ($sourceNodeFileInfo === null) {
 				throw new NotFound($source . ' does not exist');
-			}
+ 			}
 
 			if (!$sourceNodeFileInfo->isDeletable()) {
 				throw new Forbidden($source . " cannot be deleted");
@@ -299,10 +298,10 @@ class FilesPlugin extends ServerPlugin {
 			 * so users were unable to navigate into folders where one subitem
 			 * is blocked by the files_accesscontrol app, see:
 			 * https://github.com/nextcloud/files_accesscontrol/issues/65
-			 * if (!$node->getFileInfo()->isReadable()) {
-			 *     // avoid detecting files through this means
-			 *     throw new NotFound();
-			 * }
+			if (!$node->getFileInfo()->isReadable()) {
+				// avoid detecting files through this means
+				throw new NotFound();
+			}
 			 */
 
 			$propFind->handle(self::FILEID_PROPERTYNAME, function() use ($node) {
@@ -398,7 +397,7 @@ class FilesPlugin extends ServerPlugin {
 
 			$propFind->handle(self::CHECKSUMS_PROPERTYNAME, function() use ($node) {
 				$checksum = $node->getChecksum();
-				if ($checksum === null || $checksum === '') {
+				if ($checksum === NULL || $checksum === '') {
 					return null;
 				}
 

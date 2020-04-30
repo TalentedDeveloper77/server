@@ -19,7 +19,6 @@ OC.L10N.register(
     "Restore" : "Restaura",
     "Restore share" : "Restaura una compartició",
     "Something happened. Unable to restore the share." : "Alguna cosa ha passat. No es pot restaurar la compartició.",
-    "error" : "error",
     "This will stop your current uploads." : "Això aturarà les càrregues actuals.",
     "Move or copy" : "Mou o copia",
     "Download" : "Baixa",
@@ -171,9 +170,9 @@ OC.L10N.register(
     "Upload files to %s" : "Carrega fitxers a %s",
     "Note" : "Nota",
     "Select or drop files" : "Selecciona o deixa anar els fitxers",
+    "Uploading files…" : "S'està carregant fitxers...",
     "Uploaded files:" : "Fitxers carregats:",
     "By uploading files, you agree to the %1$sterms of service%2$s." : "Si carregueu els fitxers accepteu les %1$scondicions del servei%2$s.",
-    "could not delete share" : "no s'ha pogut suprimir la compartició",
-    "Uploading files…" : "S'està carregant fitxers..."
+    "could not delete share" : "no s'ha pogut suprimir la compartició"
 },
 "nplurals=2; plural=(n != 1);");

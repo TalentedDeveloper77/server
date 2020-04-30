@@ -43,12 +43,12 @@ class Tag extends Entity {
 	protected $name;
 
 	/**
-	 * Constructor.
-	 *
-	 * @param string $owner The tag's owner
-	 * @param string $type The type of item this tag is used for
-	 * @param string $name The tag's name
-	 */
+	* Constructor.
+	*
+	* @param string $owner The tag's owner
+	* @param string $type The type of item this tag is used for
+	* @param string $name The tag's name
+	*/
 	public function __construct($owner = null, $type = null, $name = null) {
 		$this->setOwner($owner);
 		$this->setType($type);
@@ -65,11 +65,11 @@ class Tag extends Entity {
 	 */
 	public function columnToProperty($columnName){
 		if ($columnName === 'category') {
-			return 'name';
+		    return 'name';
 		} elseif ($columnName === 'uid') {
-			return 'owner';
+		    return 'owner';
 		} else {
-			return parent::columnToProperty($columnName);
+		    return parent::columnToProperty($columnName);
 		}
 	}
 
@@ -81,11 +81,11 @@ class Tag extends Entity {
 	 */
 	public function propertyToColumn($property){
 		if ($property === 'name') {
-			return 'category';
+		    return 'category';
 		} elseif ($property === 'owner') {
-			return 'uid';
+		    return 'uid';
 		} else {
-			return parent::propertyToColumn($property);
+		    return parent::propertyToColumn($property);
 		}
 	}
 }

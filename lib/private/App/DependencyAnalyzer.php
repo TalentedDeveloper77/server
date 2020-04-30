@@ -4,7 +4,6 @@
  * @copyright Copyright (c) 2016, Lukas Reschke <lukas@statuscode.ch>
  *
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -30,6 +29,7 @@
 
 namespace OC\App;
 
+use OCP\IConfig;
 use OCP\IL10N;
 
 class DependencyAnalyzer {
@@ -188,7 +188,7 @@ class DependencyAnalyzer {
 			return $missing;
 		}
 		if (!is_array($supportedDatabases)) {
-			$supportedDatabases = [$supportedDatabases];
+			$supportedDatabases = array($supportedDatabases);
 		}
 		$supportedDatabases = array_map(function ($db) {
 			return $this->getValue($db);
@@ -212,7 +212,7 @@ class DependencyAnalyzer {
 
 		$commands = $dependencies['command'];
 		if (!is_array($commands)) {
-			$commands = [$commands];
+			$commands = array($commands);
 		}
 		if (isset($commands['@value'])) {
 			$commands = [$commands];
@@ -242,7 +242,7 @@ class DependencyAnalyzer {
 
 		$libs = $dependencies['lib'];
 		if (!is_array($libs)) {
-			$libs = [$libs];
+			$libs = array($libs);
 		}
 		if (isset($libs['@value'])) {
 			$libs = [$libs];
@@ -294,7 +294,7 @@ class DependencyAnalyzer {
 				return $this->getValue($os);
 			}, $oss);
 		} else {
-			$oss = [$oss];
+			$oss = array($oss);
 		}
 		$currentOS = $this->platform->getOS();
 		if (!in_array($currentOS, $oss)) {

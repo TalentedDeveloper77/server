@@ -49,16 +49,16 @@ class Response {
 	 * Headers - defaults to ['Cache-Control' => 'no-cache, no-store, must-revalidate']
 	 * @var array
 	 */
-	private $headers = [
+	private $headers = array(
 		'Cache-Control' => 'no-cache, no-store, must-revalidate'
-	];
+	);
 
 
 	/**
 	 * Cookies that will be need to be constructed as header
 	 * @var array
 	 */
-	private $cookies = [];
+	private $cookies = array();
 
 
 	/**
@@ -138,7 +138,7 @@ class Response {
 	 * @since 8.0.0
 	 */
 	public function addCookie($name, $value, \DateTime $expireDate = null) {
-		$this->cookies[$name] = ['value' => $value, 'expireDate' => $expireDate];
+		$this->cookies[$name] = array('value' => $value, 'expireDate' => $expireDate);
 		return $this;
 	}
 
@@ -198,8 +198,8 @@ class Response {
 	 */
 	public function addHeader($name, $value) {
 		$name = trim($name);  // always remove leading and trailing whitespace
-							  // to be able to reliably check for security
-							  // headers
+		                      // to be able to reliably check for security
+		                      // headers
 
 		if(is_null($value)) {
 			unset($this->headers[$name]);

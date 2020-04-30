@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Donquixote <marjunebatac@gmail.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -73,12 +72,12 @@ abstract class Controller {
 	 * @since 6.0.0 - parameter $appName was added in 7.0.0 - parameter $app was removed in 7.0.0
 	 */
 	public function __construct($appName,
-								IRequest $request) {
+	                            IRequest $request) {
 		$this->appName = $appName;
 		$this->request = $request;
 
 		// default responders
-		$this->responders = [
+		$this->responders = array(
 			'json' => function ($data) {
 				if ($data instanceof DataResponse) {
 					$response = new JSONResponse(
@@ -96,7 +95,7 @@ abstract class Controller {
 				}
 				return new JSONResponse($data);
 			}
-		];
+		);
 	}
 
 

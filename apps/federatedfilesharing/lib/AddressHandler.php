@@ -4,7 +4,6 @@
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
  *
@@ -25,7 +24,6 @@
  */
 
 namespace OCA\FederatedFileSharing;
-
 use OC\HintException;
 use OCP\Federation\ICloudIdManager;
 use OCP\IL10N;
@@ -108,12 +106,12 @@ class AddressHandler {
 			\OCP\Util::emitHook(
 				'\OCA\Files_Sharing\API\Server2Server',
 				'preLoginNameUsedAsUserName',
-				['uid' => &$user1]
+				array('uid' => &$user1)
 			);
 			\OCP\Util::emitHook(
 				'\OCA\Files_Sharing\API\Server2Server',
 				'preLoginNameUsedAsUserName',
-				['uid' => &$user2]
+				array('uid' => &$user2)
 			);
 
 			if ($user1 === $user2) {

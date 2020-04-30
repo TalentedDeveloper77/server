@@ -2,9 +2,7 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  * @copyright Copyright (c) 2017, Georg Ehrke
- * @copyright Copyright (c) 2020, Gary Kim <gary@garykim.dev>
  *
- * @author Gary Kim <gary@garykim.dev>
  * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
  *
@@ -26,34 +24,27 @@
 
 namespace OCA\DAV\CalDAV;
 
-use OCP\IL10N;
+
 use Sabre\VObject\Component;
 use Sabre\VObject\Property;
 use Sabre\VObject\Reader;
 
 class CalendarObject extends \Sabre\CalDAV\CalendarObject {
 
-	/** @var IL10N */
-	protected $l10n;
-
 	/**
 	 * CalendarObject constructor.
 	 *
 	 * @param CalDavBackend $caldavBackend
-	 * @param IL10N $l10n
 	 * @param array $calendarInfo
 	 * @param array $objectData
 	 */
-	public function __construct(CalDavBackend $caldavBackend, IL10N $l10n,
-								array $calendarInfo,
+	public function __construct(CalDavBackend $caldavBackend, array $calendarInfo,
 								array $objectData) {
 		parent::__construct($caldavBackend, $calendarInfo, $objectData);
 
 		if ($this->isShared()) {
 			unset($this->objectData['size']);
 		}
-
-		$this->l10n = $l10n;
 	}
 
 	/**
@@ -93,7 +84,7 @@ class CalendarObject extends \Sabre\CalDAV\CalendarObject {
 	 * @param Component\VCalendar $vObject
 	 * @return void
 	 */
-	private function createConfidentialObject(Component\VCalendar $vObject) {
+	private static function createConfidentialObject(Component\VCalendar $vObject) {
 		/** @var Component $vElement */
 		$vElement = null;
 		if(isset($vObject->VEVENT)) {
@@ -118,7 +109,7 @@ class CalendarObject extends \Sabre\CalDAV\CalendarObject {
 					case 'UID':
 						break;
 					case 'SUMMARY':
-						$property->setValue($this->l10n->t('Busy'));
+						$property->setValue('Busy');
 						break;
 					default:
 						$vElement->__unset($property->name);

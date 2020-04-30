@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2018 Bjoern Schiessle <bjoern@schiessle.org>
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  *
  * @license GNU AGPL version 3 or any later version
@@ -291,7 +290,7 @@ class RequestHandlerController extends Controller {
 		\OCP\Util::emitHook(
 			'\OCA\Files_Sharing\API\Server2Server',
 			'preLoginNameUsedAsUserName',
-			['uid' => &$uid]
+			array('uid' => &$uid)
 		);
 		$this->logger->debug('shareWith after, ' . $uid, ['app' => $this->appName]);
 

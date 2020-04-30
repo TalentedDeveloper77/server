@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arne Hamann <kontakt+github@arne.email>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -99,7 +98,7 @@ interface IManager {
 	 * @return array an array of contacts which are arrays of key-value-pairs
 	 * @since 6.0.0
 	 */
-	public function search($pattern, $searchProperties = [], $options = []);
+	public function search($pattern, $searchProperties = array(), $options = array());
 
 	/**
 	 * This function can be used to delete the contact identified by the given id

@@ -3,10 +3,9 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Lukas Reschke <lukas@statuscode.ch>
- * @author Pavel Krasikov <klonishe@gmail.com>
  * @author Pierre Rudloff <contact@rudloff.pro>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
- * @author Thomas Citharel <nextcloud@tcit.fr>
+ * @author Thomas Citharel <tcit@tcit.fr>
  *
  * @license AGPL-3.0
  *
@@ -96,7 +95,6 @@ class EmptyContentSecurityPolicy {
 
 	/**
 	 * Use the according JS nonce
-	 * This method is only for CSPMiddleware, custom values are ignored in mergePolicies of ContentSecurityPolicyManager
 	 *
 	 * @param string $nonce
 	 * @return $this

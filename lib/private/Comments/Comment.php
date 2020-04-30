@@ -42,7 +42,6 @@ class Comment implements IComment {
 		'actorId'         => '',
 		'objectType'      => '',
 		'objectId'        => '',
-		'referenceId'     => null,
 		'creationDT'      => null,
 		'latestChildDT'   => null,
 	];
@@ -300,8 +299,8 @@ class Comment implements IComment {
 	 */
 	public function setActor($actorType, $actorId) {
 		if(
-			   !is_string($actorType) || !trim($actorType)
-			|| !is_string($actorId)   || $actorId === ''
+		       !is_string($actorType) || !trim($actorType)
+		    || !is_string($actorId)   || $actorId === ''
 		) {
 			throw new \InvalidArgumentException('String expected.');
 		}
@@ -386,43 +385,13 @@ class Comment implements IComment {
 	 */
 	public function setObject($objectType, $objectId) {
 		if(
-			   !is_string($objectType) || !trim($objectType)
-			|| !is_string($objectId)   || trim($objectId) === ''
+		       !is_string($objectType) || !trim($objectType)
+		    || !is_string($objectId)   || trim($objectId) === ''
 		) {
 			throw new \InvalidArgumentException('String expected.');
 		}
 		$this->data['objectType'] = trim($objectType);
 		$this->data['objectId']   = trim($objectId);
-		return $this;
-	}
-
-	/**
-	 * returns the reference id of the comment
-	 *
-	 * @return string|null
-	 * @since 19.0.0
-	 */
-	public function getReferenceId(): ?string {
-		return $this->data['referenceId'];
-	}
-
-	/**
-	 * sets (overwrites) the reference id of the comment
-	 *
-	 * @param string $referenceId e.g. sha256 hash sum
-	 * @return IComment
-	 * @since 19.0.0
-	 */
-	public function setReferenceId(?string $referenceId): IComment {
-		if ($referenceId === null) {
-			$this->data['referenceId'] = $referenceId;
-		} else {
-			$referenceId = trim($referenceId);
-			if ($referenceId === '') {
-				throw new \InvalidArgumentException('Non empty string expected.');
-			}
-			$this->data['referenceId'] = $referenceId;
-		}
 		return $this;
 	}
 

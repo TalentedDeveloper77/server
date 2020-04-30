@@ -45,6 +45,7 @@ use OCP\Files\StorageNotAvailableException;
 use OCP\Share;
 use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IManager;
+use OCP\Share\IShare;
 
 abstract class Node implements \Sabre\DAV\INode {
 
@@ -199,15 +200,15 @@ abstract class Node implements \Sabre\DAV\INode {
 	 * @return int file id of updated file or -1 on failure
 	 */
 	public function setETag($etag) {
-		return $this->fileView->putFileInfo($this->path, ['etag' => $etag]);
+		return $this->fileView->putFileInfo($this->path, array('etag' => $etag));
 	}
 
 	public function setCreationTime(int $time) {
-		return $this->fileView->putFileInfo($this->path, ['creation_time' => $time]);
+		return $this->fileView->putFileInfo($this->path, array('creation_time' => $time));
 	}
 
 	public function setUploadTime(int $time) {
-		return $this->fileView->putFileInfo($this->path, ['upload_time' => $time]);
+		return $this->fileView->putFileInfo($this->path, array('upload_time' => $time));
 	}
 
 	/**

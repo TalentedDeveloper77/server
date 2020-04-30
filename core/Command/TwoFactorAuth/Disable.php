@@ -23,6 +23,7 @@
 
 namespace OC\Core\Command\TwoFactorAuth;
 
+use OC\Authentication\TwoFactorAuth\Manager;
 use OC\Authentication\TwoFactorAuth\ProviderManager;
 use OCP\IUserManager;
 use Symfony\Component\Console\Input\InputArgument;

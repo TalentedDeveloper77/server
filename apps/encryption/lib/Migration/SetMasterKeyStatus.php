@@ -23,6 +23,7 @@
 
 namespace OCA\Encryption\Migration;
 
+
 use OCP\IConfig;
 use OCP\Migration\IOutput;
 use OCP\Migration\IRepairStep;

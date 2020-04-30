@@ -4,7 +4,6 @@
  *
  * @author Arne Hamann <kontakt+github@arne.email>
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -42,12 +41,12 @@ namespace OC {
 		 * 	- 'escape_like_param' - If set to false wildcards _ and % are not escaped
 		 * @return array an array of contacts which are arrays of key-value-pairs
 		 */
-		public function search($pattern, $searchProperties = [], $options = []) {
+		public function search($pattern, $searchProperties = array(), $options = array()) {
 			$this->loadAddressBooks();
-			$result = [];
+			$result = array();
 			foreach($this->addressBooks as $addressBook) {
 				$r = $addressBook->search($pattern, $searchProperties, $options);
-				$contacts = [];
+				$contacts = array();
 				foreach($r as $c){
 					$c['addressbook-key'] = $addressBook->getKey();
 					$contacts[] = $c;
@@ -132,7 +131,7 @@ namespace OC {
 		 */
 		public function getAddressBooks() {
 			$this->loadAddressBooks();
-			$result = [];
+			$result = array();
 			foreach($this->addressBooks as $addressBook) {
 				$result[$addressBook->getKey()] = $addressBook->getDisplayName();
 			}
@@ -155,19 +154,19 @@ namespace OC {
 		 * removes all registered address book instances
 		 */
 		public function clear() {
-			$this->addressBooks = [];
-			$this->addressBookLoaders = [];
+			$this->addressBooks = array();
+			$this->addressBookLoaders = array();
 		}
 
 		/**
 		 * @var \OCP\IAddressBook[] which holds all registered address books
 		 */
-		private $addressBooks = [];
+		private $addressBooks = array();
 
 		/**
 		 * @var \Closure[] to call to load/register address books
 		 */
-		private $addressBookLoaders = [];
+		private $addressBookLoaders = array();
 
 		/**
 		 * In order to improve lazy loading a closure can be registered which will be called in case
@@ -204,7 +203,7 @@ namespace OC {
 			foreach($this->addressBookLoaders as $callable) {
 				$callable($this);
 			}
-			$this->addressBookLoaders = [];
+			$this->addressBookLoaders = array();
 		}
 	}
 }

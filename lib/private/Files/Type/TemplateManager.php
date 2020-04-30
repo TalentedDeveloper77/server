@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Julius Härtl <jus@bitgrid.net>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
@@ -30,7 +29,7 @@ namespace OC\Files\Type;
  * @deprecated 18.0.0
  */
 class TemplateManager {
-	protected $templates = [];
+	protected $templates = array();
 
 	public function registerTemplate($mimetype, $path) {
 		$this->templates[$mimetype] = $path;

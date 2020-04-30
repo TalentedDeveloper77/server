@@ -28,6 +28,7 @@
 
 namespace OCA\User_LDAP;
 
+
 use OCA\User_LDAP\User\DeletedUsersIndex;
 use OCP\IServerContainer;
 use OCP\LDAP\IDeletionFlagSupport;
@@ -64,7 +65,7 @@ class LDAPProvider implements ILDAPProvider, IDeletionFlagSupport {
 				$userBackendFound = true;
 				break;
 			}
-		}
+        }
 		foreach ($serverContainer->getGroupManager()->getBackends() as $backend){
 			$this->logger->debug('instance '.get_class($backend).' group backend.', ['app' => 'user_ldap']);
 			if ($backend instanceof IGroupLDAP) {
@@ -74,7 +75,7 @@ class LDAPProvider implements ILDAPProvider, IDeletionFlagSupport {
 			}
 		}
 
-		if (!$userBackendFound or !$groupBackendFound) {
+        if (!$userBackendFound or !$groupBackendFound) {
 			throw new \Exception('To use the LDAPProvider, user_ldap app must be enabled');
 		}
 	}

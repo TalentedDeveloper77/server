@@ -6,7 +6,6 @@
  * @author Alex Weirig <alex.weirig@technolink.lu>
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author blizzz <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Lennart Rosam <hello@takuto.de>
@@ -54,7 +53,7 @@ class Configuration {
 	protected $unsavedChanges = ['ldapConfigurationActive' => 'ldapConfigurationActive'];
 
 	//settings
-	protected $config = [
+	protected $config = array(
 		'ldapHost' => null,
 		'ldapPort' => null,
 		'ldapBackupHost' => null,
@@ -110,7 +109,7 @@ class Configuration {
 		'ldapDynamicGroupMemberURL' => null,
 		'ldapDefaultPPolicyDN' => null,
 		'ldapExtStorageHomeAttribute' => null,
-	];
+	);
 
 	/**
 	 * @param string $configPrefix
@@ -139,7 +138,7 @@ class Configuration {
 	 * @param mixed $value
 	 */
 	public function __set($name, $value) {
-		$this->setConfiguration([$name => $value]);
+		$this->setConfiguration(array($name => $value));
 	}
 
 	/**
@@ -427,7 +426,7 @@ class Configuration {
 	 * to config-value entries in the database table
 	 */
 	public function getDefaults() {
-		return [
+		return array(
 			'ldap_host'                         => '',
 			'ldap_port'                         => '',
 			'ldap_backup_host'                  => '',
@@ -482,7 +481,7 @@ class Configuration {
 			'ldap_default_ppolicy_dn'           => '',
 			'ldap_user_avatar_rule'             => 'default',
 			'ldap_ext_storage_home_attribute'   => '',
-		];
+		);
 	}
 
 	/**
@@ -490,7 +489,7 @@ class Configuration {
 	 */
 	public function getConfigTranslationArray() {
 		//TODO: merge them into one representation
-		static $array = [
+		static $array = array(
 			'ldap_host'                         => 'ldapHost',
 			'ldap_port'                         => 'ldapPort',
 			'ldap_backup_host'                  => 'ldapBackupHost',
@@ -544,7 +543,7 @@ class Configuration {
 			'ldap_default_ppolicy_dn'           => 'ldapDefaultPPolicyDN',
 			'ldap_ext_storage_home_attribute'   => 'ldapExtStorageHomeAttribute',
 			'ldapIgnoreNamingRules'             => 'ldapIgnoreNamingRules',	// sysconfig
-		];
+		);
 		return $array;
 	}
 

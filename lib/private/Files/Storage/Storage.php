@@ -23,7 +23,6 @@
  */
 
 namespace OC\Files\Storage;
-
 use OCP\Lock\ILockingProvider;
 
 /**

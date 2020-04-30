@@ -4,7 +4,6 @@
  *
  * @author Aaron Wood <aaronjwood@gmail.com>
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Morris Jobke <hey@morrisjobke.de>
  *
@@ -27,9 +26,9 @@
 namespace OCA\User_LDAP\Mapping;
 
 /**
- * Class AbstractMapping
- * @package OCA\User_LDAP\Mapping
- */
+* Class AbstractMapping
+* @package OCA\User_LDAP\Mapping
+*/
 abstract class AbstractMapping {
 	/**
 	 * @var \OCP\IDBConnection $dbc
@@ -85,7 +84,7 @@ abstract class AbstractMapping {
 			WHERE `' . $compareCol . '` = ?
 		');
 
-		$res = $query->execute([$search]);
+		$res = $query->execute(array($search));
 		if($res !== false) {
 			return $query->fetchColumn();
 		}
@@ -127,7 +126,7 @@ abstract class AbstractMapping {
 			WHERE `directory_uuid` = ?
 		');
 
-		return $this->modify($query, [$fdn, $uuid]);
+		return $this->modify($query, array($fdn, $uuid));
 	}
 
 	/**
@@ -172,8 +171,8 @@ abstract class AbstractMapping {
 			WHERE `owncloud_name` LIKE ?
 		');
 
-		$res = $query->execute([$prefixMatch.$this->dbc->escapeLikeParameter($search).$postfixMatch]);
-		$names = [];
+		$res = $query->execute(array($prefixMatch.$this->dbc->escapeLikeParameter($search).$postfixMatch));
+		$names = array();
 		if($res !== false) {
 			while($row = $query->fetch()) {
 				$names[] = $row['owncloud_name'];
@@ -241,11 +240,11 @@ abstract class AbstractMapping {
 			return false;
 		}
 
-		$row = [
+		$row = array(
 			'ldap_dn'        => $fdn,
 			'owncloud_name'  => $name,
 			'directory_uuid' => $uuid
-		];
+		);
 
 		try {
 			$result = $this->dbc->insertIfNotExist($this->getTableName(), $row);
@@ -266,7 +265,7 @@ abstract class AbstractMapping {
 			DELETE FROM `'. $this->getTableName() .'`
 			WHERE `owncloud_name` = ?');
 
-		return $this->modify($query, [$name]);
+		return $this->modify($query, array($name));
 	}
 
 	/**

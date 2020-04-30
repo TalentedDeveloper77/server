@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Daniel Kesselberg <mail@danielkesselberg.de>
  * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
@@ -145,8 +144,8 @@ class AvatarController extends Controller {
 			$avatarFile = $avatar->getFile($size);
 			$response = new FileDisplayResponse(
 				$avatarFile,
-				Http::STATUS_OK,
-				['Content-Type' => $avatarFile->getMimeType(), 'X-NC-IsCustomAvatar' => (int)$avatar->isCustomAvatar()]
+				$avatar->isCustomAvatar() ? Http::STATUS_OK : Http::STATUS_CREATED,
+				['Content-Type' => $avatarFile->getMimeType()]
 			);
 		} catch (\Exception $e) {
 			return new JSONResponse([], Http::STATUS_NOT_FOUND);
@@ -259,7 +258,7 @@ class AvatarController extends Controller {
 
 	/**
 	 * @NoAdminRequired
-	 *
+     *
 	 * @return JSONResponse
 	 */
 	public function deleteAvatar() {
@@ -282,8 +281,8 @@ class AvatarController extends Controller {
 		$tmpAvatar = $this->cache->get('tmpAvatar');
 		if (is_null($tmpAvatar)) {
 			return new JSONResponse(['data' => [
-				'message' => $this->l->t("No temporary profile picture available, try again")
-			]],
+										'message' => $this->l->t("No temporary profile picture available, try again")
+									]],
 									Http::STATUS_NOT_FOUND);
 		}
 
@@ -320,8 +319,8 @@ class AvatarController extends Controller {
 		$tmpAvatar = $this->cache->get('tmpAvatar');
 		if (is_null($tmpAvatar)) {
 			return new JSONResponse(['data' => [
-				'message' => $this->l->t("No temporary profile picture available, try again")
-			]],
+										'message' => $this->l->t("No temporary profile picture available, try again")
+									]],
 									Http::STATUS_BAD_REQUEST);
 		}
 

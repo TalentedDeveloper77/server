@@ -24,6 +24,7 @@
 
 namespace OC\Encryption;
 
+
 use OC\Files\Filesystem;
 use OC\Files\Storage\Wrapper\Encryption;
 use OC\Files\View;

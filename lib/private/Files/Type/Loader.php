@@ -6,6 +6,7 @@
  * @author Rello <Rello@users.noreply.github.com>
  * @author Robin Appelman <robin@icewind.nl>
  * @author Robin McCorkell <robin@mccorkell.me.uk>
+ * @author Roeland Jago Douma <roeland@famdouma.nl>
  *
  * @license AGPL-3.0
  *
@@ -25,6 +26,7 @@
 
 namespace OC\Files\Type;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use OCP\Files\IMimeTypeLoader;
 use OCP\IDBConnection;
 

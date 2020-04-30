@@ -4,7 +4,6 @@
  *
  * @author Bart Visscher <bartv@thisnet.nl>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Michael Gapczynski <GapczynskiM@gmail.com>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -286,11 +285,11 @@ class SharedStorage extends \OC\Files\Storage\Wrapper\Jail implements ISharedSto
 						}
 					}
 			}
-			$info = [
+			$info = array(
 				'target' => $this->getMountPoint() . $path,
 				'source' => $source,
 				'mode' => $mode,
-			];
+			);
 			\OCP\Util::emitHook('\OC\Files\Storage\Shared', 'fopen', $info);
 			return $this->nonMaskedStorage->fopen($this->getUnjailedPath($path), $mode);
 		}

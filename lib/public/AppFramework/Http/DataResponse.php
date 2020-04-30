@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  *
@@ -52,8 +51,8 @@ class DataResponse extends Response {
 	 * @param array $headers additional key value based headers
 	 * @since 8.0.0
 	 */
-	public function __construct($data=[], $statusCode=Http::STATUS_OK,
-								array $headers=[]) {
+	public function __construct($data=array(), $statusCode=Http::STATUS_OK,
+	                            array $headers=array()) {
 		parent::__construct();
 
 		$this->data = $data;

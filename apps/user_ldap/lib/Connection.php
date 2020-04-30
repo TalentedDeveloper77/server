@@ -4,7 +4,6 @@
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Jarkko Lehtoranta <devel@jlranta.com>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
@@ -299,7 +298,7 @@ class Connection extends LDAPUtility {
 	 */
 	public function setConfiguration($config, &$setParameters = null) {
 		if(is_null($setParameters)) {
-			$setParameters = [];
+			$setParameters = array();
 		}
 		$this->doNotValidate = false;
 		$this->configuration->setConfiguration($config, $setParameters);
@@ -329,7 +328,7 @@ class Connection extends LDAPUtility {
 		$this->readConfiguration();
 		$config = $this->configuration->getConfiguration();
 		$cta = $this->configuration->getConfigTranslationArray();
-		$result = [];
+		$result = array();
 		foreach($cta as $dbkey => $configkey) {
 			switch($configkey) {
 				case 'homeFolderNamingRule':
@@ -357,15 +356,15 @@ class Connection extends LDAPUtility {
 
 	private function doSoftValidation() {
 		//if User or Group Base are not set, take over Base DN setting
-		foreach(['ldapBaseUsers', 'ldapBaseGroups'] as $keyBase) {
+		foreach(array('ldapBaseUsers', 'ldapBaseGroups') as $keyBase) {
 			$val = $this->configuration->$keyBase;
 			if(empty($val)) {
 				$this->configuration->$keyBase = $this->configuration->ldapBase;
 			}
 		}
 
-		foreach(['ldapExpertUUIDUserAttr'  => 'ldapUuidUserAttribute',
-			'ldapExpertUUIDGroupAttr' => 'ldapUuidGroupAttribute']
+		foreach(array('ldapExpertUUIDUserAttr'  => 'ldapUuidUserAttribute',
+					  'ldapExpertUUIDGroupAttr' => 'ldapUuidGroupAttribute')
 				as $expertSetting => $effectiveSetting) {
 			$uuidOverride = $this->configuration->$expertSetting;
 			if(!empty($uuidOverride)) {
@@ -393,12 +392,12 @@ class Connection extends LDAPUtility {
 		}
 
 		//make sure empty search attributes are saved as simple, empty array
-		$saKeys = ['ldapAttributesForUserSearch',
-			'ldapAttributesForGroupSearch'];
+		$saKeys = array('ldapAttributesForUserSearch',
+						'ldapAttributesForGroupSearch');
 		foreach($saKeys as $key) {
 			$val = $this->configuration->$key;
 			if(is_array($val) && count($val) === 1 && empty($val[0])) {
-				$this->configuration->$key = [];
+				$this->configuration->$key = array();
 			}
 		}
 
@@ -422,8 +421,8 @@ class Connection extends LDAPUtility {
 			(string)$this->configPrefix .'): ';
 
 		//options that shall not be empty
-		$options = ['ldapHost', 'ldapPort', 'ldapUserDisplayName',
-			'ldapGroupDisplayName', 'ldapLoginFilter'];
+		$options = array('ldapHost', 'ldapPort', 'ldapUserDisplayName',
+						 'ldapGroupDisplayName', 'ldapLoginFilter');
 		foreach($options as $key) {
 			$val = $this->configuration->$key;
 			if(empty($val)) {

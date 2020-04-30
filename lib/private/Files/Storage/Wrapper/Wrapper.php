@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -504,7 +503,7 @@ class Wrapper implements \OC\Files\Storage\Storage, ILockingStorage, IWriteStrea
 	 * @return mixed
 	 */
 	public function __call($method, $args) {
-		return call_user_func_array([$this->getWrapperStorage(), $method], $args);
+		return call_user_func_array(array($this->getWrapperStorage(), $method), $args);
 	}
 
 	/**

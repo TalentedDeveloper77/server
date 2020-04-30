@@ -55,7 +55,7 @@ class EnforcementState implements JsonSerializable {
 	}
 
 	/**
-	 * @return bool
+	 * @return string[]
 	 */
 	public function isEnforced(): bool {
 		return $this->enforced;

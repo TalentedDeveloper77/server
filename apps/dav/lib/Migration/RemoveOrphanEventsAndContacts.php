@@ -5,9 +5,8 @@ declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2019 Joas Schilling <coding@schilljs.com>
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
- * @author Thomas Citharel <nextcloud@tcit.fr>
+ * @author Thomas Citharel <tcit@tcit.fr>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -89,7 +88,7 @@ class RemoveOrphanEventsAndContacts implements IRepairStep {
 
 		$result = $qb->execute();
 
-		$orphanItems = [];
+		$orphanItems = array();
 		while ($row = $result->fetch()) {
 			$orphanItems[] = (int) $row['id'];
 		}

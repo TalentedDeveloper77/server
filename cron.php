@@ -5,14 +5,12 @@
  * @author Artem Sidorenko <artem@posteo.de>
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @author Christopher Schäpers <kondou@ts.unde.re>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Damjan Georgievski <gdamjan@gmail.com>
  * @author Daniel Kesselberg <mail@danielkesselberg.de>
  * @author Jakob Sack <mail@jakobsack.de>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Ko- <k.stoffelen@cs.ru.nl>
- * @author Michael Kuhn <michael@ikkoku.de>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Oliver Kohl D.Sc. <oliver@kohl.bz>
  * @author Robin Appelman <robin@icewind.nl>
@@ -79,7 +77,7 @@ try {
 		if (OC::$CLI) {
 			echo 'Background Jobs are disabled!' . PHP_EOL;
 		} else {
-			OC_JSON::error(['data' => ['message' => 'Background jobs disabled!']]);
+			OC_JSON::error(array('data' => array('message' => 'Background jobs disabled!')));
 		}
 		exit(1);
 	}
@@ -113,9 +111,8 @@ try {
 		// Work
 		$jobList = \OC::$server->getJobList();
 
-		// We only ask for jobs for 14 minutes, because after 5 minutes the next
-		// system cron task should spawn and we want to have at most three
-		// cron jobs running in parallel.
+		// We only ask for jobs for 14 minutes, because after 15 minutes the next
+		// system cron task should spawn.
 		$endTime = time() + 14 * 60;
 
 		$executedJobs = [];
@@ -142,7 +139,7 @@ try {
 		// We call cron.php from some website
 		if ($appMode === 'cron') {
 			// Cron is cron :-P
-			OC_JSON::error(['data' => ['message' => 'Backgroundjobs are using system cron!']]);
+			OC_JSON::error(array('data' => array('message' => 'Backgroundjobs are using system cron!')));
 		} else {
 			// Work and success :-)
 			$jobList = \OC::$server->getJobList();

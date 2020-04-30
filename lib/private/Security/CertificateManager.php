@@ -4,7 +4,6 @@
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -89,17 +88,17 @@ class CertificateManager implements ICertificateManager {
 	public function listCertificates() {
 
 		if (!$this->config->getSystemValue('installed', false)) {
-			return [];
+			return array();
 		}
 
 		$path = $this->getPathToCertificates() . 'uploads/';
 		if (!$this->view->is_dir($path)) {
-			return [];
+			return array();
 		}
-		$result = [];
+		$result = array();
 		$handle = $this->view->opendir($path);
 		if (!is_resource($handle)) {
-			return [];
+			return array();
 		}
 		while (false !== ($file = readdir($handle))) {
 			if ($file != '.' && $file != '..') {

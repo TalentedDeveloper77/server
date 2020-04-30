@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, Roeland Jago Douma <roeland@famdouma.nl>
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -26,6 +25,7 @@
 
 namespace OC\Preview;
 
+use OC\Files\View;
 use OCP\Files\File;
 use OCP\Files\IRootFolder;
 use OCP\Files\SimpleFS\ISimpleFile;
@@ -52,11 +52,10 @@ class GeneratorHelper {
 	}
 
 	/**
-	 * @param IProviderV2 $provider
+	 * @param IProvider $provider
 	 * @param File $file
 	 * @param int $maxWidth
 	 * @param int $maxHeight
-	 *
 	 * @return bool|IImage
 	 */
 	public function getThumbnail(IProviderV2 $provider, File $file, $maxWidth, $maxHeight) {

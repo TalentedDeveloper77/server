@@ -23,6 +23,7 @@
 
 namespace OCA\Encryption;
 
+
 use OCA\Encryption\Hooks\Contracts\IHook;
 
 class HookManager {

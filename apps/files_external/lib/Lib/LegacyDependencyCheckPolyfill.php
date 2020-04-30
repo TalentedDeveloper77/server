@@ -22,6 +22,7 @@
 
 namespace OCA\Files_External\Lib;
 
+
 /**
  * Polyfill for checking dependencies using legacy Storage::checkDependencies()
  */

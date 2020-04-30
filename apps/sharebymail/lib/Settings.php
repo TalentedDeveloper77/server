@@ -23,6 +23,7 @@
 
 namespace OCA\ShareByMail;
 
+
 use OCA\ShareByMail\Settings\SettingsManager;
 
 class Settings {

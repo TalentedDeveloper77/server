@@ -27,6 +27,7 @@ declare(strict_types=1);
 
 namespace OC\Collaboration\Resources;
 
+
 use OCP\Collaboration\Resources\IManager;
 use OCP\IGroup;
 use OCP\IUser;

@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Olivier Paroz <github@oparoz.com>
@@ -91,46 +90,46 @@ class RepairMimeTypes implements IRepairStep {
 
 	private function updateMimetypes($updatedMimetypes) {
 		if (empty($this->folderMimeTypeId)) {
-			$result = \OC_DB::executeAudited(self::getIdStmt(), ['httpd/unix-directory']);
+			$result = \OC_DB::executeAudited(self::getIdStmt(), array('httpd/unix-directory'));
 			$this->folderMimeTypeId = (int)$result->fetchOne();
 		}
 
 		$count = 0;
 		foreach ($updatedMimetypes as $extension => $mimetype) {
-			$result = \OC_DB::executeAudited(self::existsStmt(), [$mimetype]);
+			$result = \OC_DB::executeAudited(self::existsStmt(), array($mimetype));
 			$exists = $result->fetchOne();
 
 			if (!$exists) {
 				// insert mimetype
-				\OC_DB::executeAudited(self::insertStmt(), [$mimetype]);
+				\OC_DB::executeAudited(self::insertStmt(), array($mimetype));
 			}
 
 			// get target mimetype id
-			$result = \OC_DB::executeAudited(self::getIdStmt(), [$mimetype]);
+			$result = \OC_DB::executeAudited(self::getIdStmt(), array($mimetype));
 			$mimetypeId = $result->fetchOne();
 
 			// change mimetype for files with x extension
-			$count += \OC_DB::executeAudited(self::updateByNameStmt(), [$mimetypeId, $this->folderMimeTypeId, $mimetypeId, '%.' . $extension]);
+			$count += \OC_DB::executeAudited(self::updateByNameStmt(), array($mimetypeId, $this->folderMimeTypeId, $mimetypeId, '%.' . $extension));
 		}
 
 		return $count;
 	}
 
 	private function introduceImageTypes() {
-		$updatedMimetypes = [
+		$updatedMimetypes = array(
 			'jp2' => 'image/jp2',
 			'webp' => 'image/webp',
-		];
+		);
 
 		return $this->updateMimetypes($updatedMimetypes);
 	}
 
 	private function introduceWindowsProgramTypes() {
-		$updatedMimetypes = [
+		$updatedMimetypes = array(
 			'htaccess' => 'text/plain',
 			'bat' => 'application/x-msdos-program',
 			'cmd' => 'application/cmd',
-		];
+		);
 
 		return $this->updateMimetypes($updatedMimetypes);
 	}

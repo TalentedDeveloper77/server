@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2018, michag86 (michag86@arcor.de)
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author michag86 <micha_g@arcor.de>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -84,7 +83,7 @@ class Update extends Command {
 		$singleAppId = $input->getArgument('app-id');
 
 		if ($singleAppId) {
-			$apps = [$singleAppId];
+			$apps = array($singleAppId);
 			try {
 				$this->manager->getAppPath($singleAppId);
 			} catch (\OCP\App\AppPathNotFoundException $e) {

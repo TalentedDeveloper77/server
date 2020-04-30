@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -47,7 +46,7 @@ class OracleConnection extends Connection {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function insert($tableName, array $data, array $types = []) {
+	public function insert($tableName, array $data, array $types = array()) {
 		if ($tableName[0] !== $this->getDatabasePlatform()->getIdentifierQuoteCharacter()) {
 			$tableName = $this->quoteIdentifier($tableName);
 		}
@@ -58,7 +57,7 @@ class OracleConnection extends Connection {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function update($tableName, array $data, array $identifier, array $types = []) {
+	public function update($tableName, array $data, array $identifier, array $types = array()) {
 		if ($tableName[0] !== $this->getDatabasePlatform()->getIdentifierQuoteCharacter()) {
 			$tableName = $this->quoteIdentifier($tableName);
 		}
@@ -70,7 +69,7 @@ class OracleConnection extends Connection {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function delete($tableExpression, array $identifier, array $types = []) {
+	public function delete($tableExpression, array $identifier, array $types = array()) {
 		if ($tableExpression[0] !== $this->getDatabasePlatform()->getIdentifierQuoteCharacter()) {
 			$tableExpression = $this->quoteIdentifier($tableExpression);
 		}
@@ -87,7 +86,7 @@ class OracleConnection extends Connection {
 		$table = $this->tablePrefix . trim($table);
 		$table = $this->quoteIdentifier($table);
 		$schema = $this->getSchemaManager();
-		if($schema->tablesExist([$table])) {
+		if($schema->tablesExist(array($table))) {
 			$schema->dropTable($table);
 		}
 	}
@@ -102,6 +101,6 @@ class OracleConnection extends Connection {
 		$table = $this->tablePrefix . trim($table);
 		$table = $this->quoteIdentifier($table);
 		$schema = $this->getSchemaManager();
-		return $schema->tablesExist([$table]);
+		return $schema->tablesExist(array($table));
 	}
 }

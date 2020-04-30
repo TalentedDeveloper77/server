@@ -28,6 +28,7 @@
 
 namespace OCA\FederatedFileSharing\AppInfo;
 
+
 use OC\AppFramework\Utility\SimpleContainer;
 use OCA\FederatedFileSharing\AddressHandler;
 use OCA\FederatedFileSharing\Controller\RequestHandlerController;

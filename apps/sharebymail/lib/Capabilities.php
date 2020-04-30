@@ -23,6 +23,7 @@
 
 namespace OCA\ShareByMail;
 
+
 use OCP\Capabilities\ICapability;
 
 class Capabilities implements ICapability {

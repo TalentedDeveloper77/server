@@ -5,7 +5,6 @@
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Christoph Schaefer "christophł@wolkesicher.de"
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Daniel Kesselberg <mail@danielkesselberg.de>
  * @author Daniel Rudolf <github.com@daniel-rudolf.de>
  * @author Greta Doci <gretadoci@gmail.com>
@@ -541,7 +540,7 @@ class AppManager implements IAppManager {
 	 */
 	public function getIncompatibleApps(string $version): array {
 		$apps = $this->getInstalledApps();
-		$incompatibleApps = [];
+		$incompatibleApps = array();
 		foreach ($apps as $appId) {
 			$info = $this->getAppInfo($appId);
 			if ($info === null) {

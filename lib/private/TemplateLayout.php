@@ -5,7 +5,6 @@
  * @author Bart Visscher <bartv@thisnet.nl>
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Christopher Schäpers <kondou@ts.unde.re>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Clark Tomlinson <fallen013@gmail.com>
  * @author Daniel Calviño Sánchez <danxuliu@gmail.com>
  * @author Guillaume COMPAGNON <gcompagnon@outlook.com>
@@ -23,7 +22,7 @@
  * @author Robin Appelman <robin@icewind.nl>
  * @author Robin McCorkell <robin@mccorkell.me.uk>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
- * @author Thomas Citharel <nextcloud@tcit.fr>
+ * @author Thomas Citharel <tcit@tcit.fr>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
  *
  * @license AGPL-3.0
@@ -173,7 +172,7 @@ class TemplateLayout extends \OC_Template {
 
 		// Add the js files
 		$jsFiles = self::findJavascriptFiles(\OC_Util::$scripts);
-		$this->assign('jsfiles', []);
+		$this->assign('jsfiles', array());
 		if ($this->config->getSystemValue('installed', false) && $renderAs != 'error') {
 			if (\OC::$server->getContentSecurityPolicyNonceManager()->browserSupportsCspV3()) {
 				$jsConfigHelper = new JSConfigHelper(
@@ -221,7 +220,7 @@ class TemplateLayout extends \OC_Template {
 			$cssFiles = self::findStylesheetFiles(\OC_Util::$styles, false);
 		}
 
-		$this->assign('cssfiles', []);
+		$this->assign('cssfiles', array());
 		$this->assign('printcssfiles', []);
 		$this->assign('versionHash', self::$versionHash);
 		foreach($cssFiles as $info) {
@@ -249,7 +248,7 @@ class TemplateLayout extends \OC_Template {
 
 	/**
 	 * @param string $path
-	 * @param string $file
+ 	 * @param string $file
 	 * @return string
 	 */
 	protected function getVersionHashSuffix($path = false, $file = false) {
@@ -304,8 +303,8 @@ class TemplateLayout extends \OC_Template {
 		$locator = new \OC\Template\CSSResourceLocator(
 			\OC::$server->getLogger(),
 			$theme,
-			[ \OC::$SERVERROOT => \OC::$WEBROOT ],
-			[ \OC::$SERVERROOT => \OC::$WEBROOT ],
+			array( \OC::$SERVERROOT => \OC::$WEBROOT ),
+			array( \OC::$SERVERROOT => \OC::$WEBROOT ),
 			$SCSSCacher
 		);
 		$locator->find($styles);
@@ -340,8 +339,8 @@ class TemplateLayout extends \OC_Template {
 		$locator = new \OC\Template\JSResourceLocator(
 			\OC::$server->getLogger(),
 			$theme,
-			[ \OC::$SERVERROOT => \OC::$WEBROOT ],
-			[ \OC::$SERVERROOT => \OC::$WEBROOT ],
+			array( \OC::$SERVERROOT => \OC::$WEBROOT ),
+			array( \OC::$SERVERROOT => \OC::$WEBROOT ),
 			\OC::$server->query(JSCombiner::class)
 			);
 		$locator->find($scripts);

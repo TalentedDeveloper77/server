@@ -23,6 +23,7 @@
 
 namespace OC\Console;
 
+
 use OCP\IConfig;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Formatter\OutputFormatterStyleInterface;

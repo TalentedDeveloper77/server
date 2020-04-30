@@ -10,7 +10,6 @@ declare(strict_types=1);
  * @author Benjamin Liles <benliles@arch.tamu.edu>
  * @author Christian Berendt <berendt@b1-systems.de>
  * @author Christopher Bartz <bartz@dkrz.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Felix Moeller <mail@felixmoeller.de>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
@@ -352,7 +351,7 @@ class Swift extends \OC\Files\Storage\Common {
 			$mtime = floor($mtime);
 		}
 
-		$stat = [];
+		$stat = array();
 		$stat['size'] = (int)$object->contentLength;
 		$stat['mtime'] = $mtime;
 		$stat['atime'] = time();
@@ -603,7 +602,7 @@ class Swift extends \OC\Files\Storage\Common {
 		}
 		$path = $this->normalizePath($path);
 		$dh = $this->opendir($path);
-		$content = [];
+		$content = array();
 		while (($file = readdir($dh)) !== false) {
 			$content[] = $file;
 		}

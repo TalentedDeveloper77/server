@@ -4,7 +4,6 @@
  *
  * @author Andrew Brown <andrew@casabrown.com>
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
@@ -27,7 +26,6 @@
  */
 
 namespace OC;
-
 use OCP\ISearch;
 use OCP\Search\PagedProvider;
 use OCP\Search\Provider;
@@ -37,8 +35,8 @@ use OCP\Search\Provider;
  */
 class Search implements ISearch {
 
-	private $providers = [];
-	private $registeredProviders = [];
+	private $providers = array();
+	private $registeredProviders = array();
 
 	/**
 	 * Search all providers for $query
@@ -48,9 +46,9 @@ class Search implements ISearch {
 	 * @param int $size, 0 = all
 	 * @return array An array of OC\Search\Result's
 	 */
-	public function searchPaged($query, array $inApps = [], $page = 1, $size = 30) {
+	public function searchPaged($query, array $inApps = array(), $page = 1, $size = 30) {
 		$this->initProviders();
-		$results = [];
+		$results = array();
 		foreach($this->providers as $provider) {
 			/** @var $provider Provider */
 			if ( ! $provider->providesResultsFor($inApps) ) {
@@ -67,7 +65,7 @@ class Search implements ISearch {
 					$results = array_merge($results, $providerResults);
 				}
 			} else {
-				\OC::$server->getLogger()->warning('Ignoring Unknown search provider', ['provider' => $provider]);
+				\OC::$server->getLogger()->warning('Ignoring Unknown search provider', array('provider' => $provider));
 			}
 		}
 		return $results;
@@ -77,8 +75,8 @@ class Search implements ISearch {
 	 * Remove all registered search providers
 	 */
 	public function clearProviders() {
-		$this->providers = [];
-		$this->registeredProviders = [];
+		$this->providers = array();
+		$this->registeredProviders = array();
 	}
 
 	/**
@@ -93,7 +91,7 @@ class Search implements ISearch {
 			}
 		);
 		// force regeneration of providers on next search
-		$this->providers = [];
+		$this->providers = array();
 	}
 
 	/**
@@ -101,8 +99,8 @@ class Search implements ISearch {
 	 * @param string $class class name of a OC\Search\Provider
 	 * @param array $options optional
 	 */
-	public function registerProvider($class, array $options = []) {
-		$this->registeredProviders[] = ['class' => $class, 'options' => $options];
+	public function registerProvider($class, array $options = array()) {
+		$this->registeredProviders[] = array('class' => $class, 'options' => $options);
 	}
 
 	/**

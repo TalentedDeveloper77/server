@@ -26,7 +26,6 @@ namespace OCA\Files_Sharing\Activity\Providers;
 
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager;
-use OCP\Contacts\IManager as IContactsManager;
 use OCP\Federation\ICloudIdManager;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
@@ -34,19 +33,28 @@ use OCP\L10N\IFactory;
 
 class RemoteShares extends Base {
 
+	protected $cloudIdManager;
+
 	const SUBJECT_REMOTE_SHARE_ACCEPTED = 'remote_share_accepted';
 	const SUBJECT_REMOTE_SHARE_DECLINED = 'remote_share_declined';
 	const SUBJECT_REMOTE_SHARE_RECEIVED = 'remote_share_received';
 	const SUBJECT_REMOTE_SHARE_UNSHARED = 'remote_share_unshared';
 
+	/**
+	 * @param IFactory $languageFactory
+	 * @param IURLGenerator $url
+	 * @param IManager $activityManager
+	 * @param IUserManager $userManager
+	 * @param ICloudIdManager $cloudIdManager
+	 */
 	public function __construct(IFactory $languageFactory,
 								IURLGenerator $url,
 								IManager $activityManager,
 								IUserManager $userManager,
-								IContactsManager $contactsManager,
 								ICloudIdManager $cloudIdManager
 	) {
-		parent::__construct($languageFactory, $url, $activityManager, $userManager, $cloudIdManager, $contactsManager);
+		parent::__construct($languageFactory, $url, $activityManager, $userManager);
+		$this->cloudIdManager = $cloudIdManager;
 	}
 
 	/**
@@ -120,7 +128,7 @@ class RemoteShares extends Base {
 						'id' => $parameters[1],
 						'name' => $parameters[1],
 					],
-					'user' => $this->getUser($parameters[0]),
+					'user' => $this->getFederatedUser($parameters[0]),
 				];
 			case self::SUBJECT_REMOTE_SHARE_ACCEPTED:
 			case self::SUBJECT_REMOTE_SHARE_DECLINED:
@@ -130,9 +138,23 @@ class RemoteShares extends Base {
 				}
 				return [
 					'file' => $this->getFile($fileParameter),
-					'user' => $this->getUser($parameters[0]),
+					'user' => $this->getFederatedUser($parameters[0]),
 				];
 		}
 		throw new \InvalidArgumentException();
+	}
+
+	/**
+	 * @param string $cloudId
+	 * @return array
+	 */
+	protected function getFederatedUser($cloudId) {
+		$remoteUser = $this->cloudIdManager->resolveCloudId($cloudId);
+		return [
+			'type' => 'user',
+			'id' => $remoteUser->getUser(),
+			'name' => $cloudId,// Todo display name from contacts
+			'server' => $remoteUser->getRemote(),
+		];
 	}
 }

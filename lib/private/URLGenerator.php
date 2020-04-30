@@ -7,7 +7,6 @@ declare(strict_types=1);
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Felix Epp <work@felixepp.de>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
@@ -78,7 +77,7 @@ class URLGenerator implements IURLGenerator {
 	 *
 	 * Returns a url to the given route.
 	 */
-	public function linkToRoute(string $route, array $parameters = []): string {
+	public function linkToRoute(string $route, array $parameters = array()): string {
 		// TODO: mock router
 		return \OC::$server->getRouter()->generate($route, $parameters);
 	}
@@ -91,7 +90,7 @@ class URLGenerator implements IURLGenerator {
 	 *
 	 * Returns an absolute url to the given route.
 	 */
-	public function linkToRouteAbsolute(string $routeName, array $arguments = []): string {
+	public function linkToRouteAbsolute(string $routeName, array $arguments = array()): string {
 		return $this->getAbsoluteURL($this->linkToRoute($routeName, $arguments));
 	}
 
@@ -119,7 +118,7 @@ class URLGenerator implements IURLGenerator {
 	 *
 	 * Returns a url to the given app and file.
 	 */
-	public function linkTo(string $app, string $file, array $args = []): string {
+	public function linkTo(string $app, string $file, array $args = array()): string {
 		$frontControllerActive = ($this->config->getSystemValue('htaccess.IgnoreFrontController', false) === true || getenv('front_controller_active') === 'true');
 
 		if( $app !== '' ) {

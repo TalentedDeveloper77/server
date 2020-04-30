@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Robin Appelman <robin@icewind.nl>
@@ -25,6 +24,7 @@
  */
 
 namespace OCP\DB\QueryBuilder;
+
 
 use Doctrine\DBAL\Connection;
 
@@ -206,7 +206,7 @@ interface IQueryBuilder {
 	 * @return $this This QueryBuilder instance.
 	 * @since 8.2.0
 	 */
-	public function setParameters(array $params, array $types = []);
+	public function setParameters(array $params, array $types = array());
 
 	/**
 	 * Gets all defined query parameters for the query being constructed indexed by parameter index or name.

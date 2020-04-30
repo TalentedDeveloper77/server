@@ -6,7 +6,6 @@ declare(strict_types=1);
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Julius Härtl <jus@bitgrid.net>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -37,7 +36,7 @@ use OCP\ILogger;
 class CapabilitiesManager {
 
 	/** @var \Closure[] */
-	private $capabilities = [];
+	private $capabilities = array();
 
 	/** @var ILogger */
 	private $logger;
@@ -48,7 +47,7 @@ class CapabilitiesManager {
 
 	/**
 	 * Get an array of al the capabilities that are registered at this manager
-	 *
+     *
 	 * @param bool $public get public capabilities only
 	 * @throws \InvalidArgumentException
 	 * @return array

@@ -4,7 +4,6 @@
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -47,7 +46,7 @@ class Helper {
 	 * @return \OCP\Files\FileInfo[]
 	 */
 	public static function getTrashFiles($dir, $user, $sortAttribute = '', $sortDescending = false) {
-		$result = [];
+		$result = array();
 		$timestamp = null;
 
 		$view = new \OC\Files\View('/' . $user . '/files_trashbin/files');
@@ -85,7 +84,7 @@ class Helper {
 				}
 			}
 			$type = $entry->getMimeType() === ICacheEntry::DIRECTORY_MIMETYPE ? 'dir' : 'file';
-			$i = [
+			$i = array(
 				'name' => $name,
 				'mtime' => $timestamp,
 				'mimetype' => $type === 'dir' ? 'httpd/unix-directory' : \OC::$server->getMimeTypeDetector()->detectPath($name),
@@ -95,7 +94,7 @@ class Helper {
 				'etag' => '',
 				'permissions' => Constants::PERMISSION_ALL - Constants::PERMISSION_SHARE,
 				'fileid' => $entry->getId(),
-			];
+			);
 			if ($originalPath) {
 				if ($originalPath !== '.') {
 					$i['extraData'] = $originalPath . '/' . $originalName;
@@ -118,7 +117,7 @@ class Helper {
 	 * @param \OCP\Files\FileInfo[] $fileInfos file infos
 	 */
 	public static function formatFileInfos($fileInfos) {
-		$files = [];
+		$files = array();
 		foreach ($fileInfos as $i) {
 			$entry = \OCA\Files\Helper::formatFileInfo($i);
 			$entry['id'] = $i->getId();

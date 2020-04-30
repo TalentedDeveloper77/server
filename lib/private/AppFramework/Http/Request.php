@@ -187,25 +187,25 @@ class Request implements \ArrayAccess, \Countable, IRequest {
 	}
 
 	/**
-	 * ArrayAccess methods
-	 *
-	 * Gives access to the combined GET, POST and urlParams arrays
-	 *
-	 * Examples:
-	 *
-	 * $var = $request['myvar'];
-	 *
-	 * or
-	 *
-	 * if(!isset($request['myvar']) {
-	 * 	// Do something
-	 * }
-	 *
-	 * $request['myvar'] = 'something'; // This throws an exception.
-	 *
-	 * @param string $offset The key to lookup
-	 * @return boolean
-	 */
+	* ArrayAccess methods
+	*
+	* Gives access to the combined GET, POST and urlParams arrays
+	*
+	* Examples:
+	*
+	* $var = $request['myvar'];
+	*
+	* or
+	*
+	* if(!isset($request['myvar']) {
+	* 	// Do something
+	* }
+	*
+	* $request['myvar'] = 'something'; // This throws an exception.
+	*
+	* @param string $offset The key to lookup
+	* @return boolean
+	*/
 	public function offsetExists($offset): bool {
 		return isset($this->items['parameters'][$offset]);
 	}
@@ -248,20 +248,20 @@ class Request implements \ArrayAccess, \Countable, IRequest {
 	}
 
 	/**
-	 * Access request variables by method and name.
-	 * Examples:
-	 *
-	 * $request->post['myvar']; // Only look for POST variables
-	 * $request->myvar; or $request->{'myvar'}; or $request->{$myvar}
-	 * Looks in the combined GET, POST and urlParams array.
-	 *
-	 * If you access e.g. ->post but the current HTTP request method
-	 * is GET a \LogicException will be thrown.
-	 *
-	 * @param string $name The key to look for.
-	 * @throws \LogicException
-	 * @return mixed|null
-	 */
+	* Access request variables by method and name.
+	* Examples:
+	*
+	* $request->post['myvar']; // Only look for POST variables
+	* $request->myvar; or $request->{'myvar'}; or $request->{$myvar}
+	* Looks in the combined GET, POST and urlParams array.
+	*
+	* If you access e.g. ->post but the current HTTP request method
+	* is GET a \LogicException will be thrown.
+	*
+	* @param string $name The key to look for.
+	* @throws \LogicException
+	* @return mixed|null
+	*/
 	public function __get($name) {
 		switch($name) {
 			case 'put':
@@ -904,14 +904,14 @@ class Request implements \ArrayAccess, \Countable, IRequest {
 		$trustedDomainHelper = new TrustedDomainHelper($this->config);
 		if ($trustedDomainHelper->isTrustedDomain($host)) {
 			return $host;
+		} else {
+			$trustedList = $this->config->getSystemValue('trusted_domains', []);
+			if(!empty($trustedList)) {
+				return $trustedList[0];
+			} else {
+				return '';
+			}
 		}
-
-		$trustedList = (array)$this->config->getSystemValue('trusted_domains', []);
-		if (count($trustedList) > 0) {
-			return reset($trustedList);
-		}
-
-		return '';
 	}
 
 	/**

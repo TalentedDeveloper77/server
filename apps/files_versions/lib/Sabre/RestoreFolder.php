@@ -27,6 +27,7 @@ declare(strict_types=1);
 
 namespace OCA\Files_Versions\Sabre;
 
+use OCP\IUser;
 use Sabre\DAV\Exception\Forbidden;
 use Sabre\DAV\ICollection;
 use Sabre\DAV\IMoveTarget;

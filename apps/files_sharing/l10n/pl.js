@@ -26,9 +26,6 @@ OC.L10N.register(
     "Something happened. Unable to accept the share." : "Coś się stało. Nie można zaakceptować udostępnienia.",
     "Reject share" : "Odrzuć udostępnienie",
     "Something happened. Unable to reject the share." : "Coś się stało. Nie można odrzucić udostępnienia.",
-    "Waiting…" : "Oczekiwanie...",
-    "error" : "błąd",
-    "finished" : "zakończone",
     "This will stop your current uploads." : "Spowoduje to zatrzymanie wysyłania plików.",
     "Move or copy" : "Przenieś lub kopiuj",
     "Download" : "Pobierz",
@@ -196,7 +193,7 @@ OC.L10N.register(
     "Toggle list of others with access to this directory" : "Przełącz listę innych z dostępem do tego katalogu",
     "Toggle list of others with access to this file" : "Przełącz listę innych z dostępem do tego pliku",
     "Unable to fetch inherited shares" : "Nie można pobrać odziedziczonych udostępnień",
-    "Unable to load the shares list" : "Nie można pobrać listy udostępnień",
+    "Unable to load the shares list" : "Nie można załadować listy udostępnień",
     "Expires {relativetime}" : "Wygasa {relativetime}",
     "this share just expired." : "te udostępnienie właśnie wygasło.",
     "Link to a file" : "Link do pliku",
@@ -225,10 +222,9 @@ OC.L10N.register(
     "Upload files to %s" : "Prześlij pliki do %s",
     "Note" : "Notatka",
     "Select or drop files" : "Wybierz lub upuść pliki",
-    "Uploading files" : "Wysyłanie plików",
+    "Uploading files…" : "Wysyłanie plików…",
     "Uploaded files:" : "Wysłane pliki:",
     "By uploading files, you agree to the %1$sterms of service%2$s." : "Przesyłając pliki, akceptujesz %1$swarunki usługi%2$s.",
-    "could not delete share" : "nie można usunąć udostępniania",
-    "Uploading files…" : "Wysyłanie plików…"
+    "could not delete share" : "nie można usunąć udostępniania"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

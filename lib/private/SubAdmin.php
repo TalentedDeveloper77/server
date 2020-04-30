@@ -4,7 +4,6 @@
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
@@ -54,7 +53,7 @@ class SubAdmin extends PublicEmitter implements ISubAdmin {
 	 * @param IDBConnection $dbConn
 	 */
 	public function __construct(IUserManager $userManager,
-								IGroupManager $groupManager,
+	                            IGroupManager $groupManager,
 								IDBConnection $dbConn) {
 		$this->userManager = $userManager;
 		$this->groupManager = $groupManager;
@@ -136,7 +135,7 @@ class SubAdmin extends PublicEmitter implements ISubAdmin {
 	 */
 	public function getSubAdminsGroupsName(IUser $user): array {
 		return array_map(function($group) {
-			return ['displayName' => $group->getDisplayName()];
+			return array('displayName' => $group->getDisplayName());
 		}, $this->getSubAdminsGroups($user));
 	}
 

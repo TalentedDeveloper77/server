@@ -25,7 +25,6 @@
  */
 
 namespace OCA\DAV\Connector\Sabre;
-
 use Sabre\HTTP\RequestInterface;
 use Sabre\HTTP\ResponseInterface;
 

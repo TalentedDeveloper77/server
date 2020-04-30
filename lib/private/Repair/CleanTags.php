@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -187,7 +186,7 @@ class CleanTags implements IRepairStep {
 			);
 		$result = $qb->execute();
 
-		$orphanItems = [];
+		$orphanItems = array();
 		while ($row = $result->fetch()) {
 			$orphanItems[] = (int) $row[$deleteId];
 		}

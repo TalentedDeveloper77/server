@@ -4,7 +4,6 @@
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Kenneth Newwood <kenneth@newwood.name>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -121,7 +120,7 @@ class EncryptAll {
 		$this->questionHelper = $questionHelper;
 		$this->secureRandom = $secureRandom;
 		// store one time passwords for the users
-		$this->userPasswords = [];
+		$this->userPasswords = array();
 	}
 
 	/**
@@ -266,7 +265,7 @@ class EncryptAll {
 	protected function encryptUsersFiles($uid, ProgressBar $progress, $userCount) {
 
 		$this->setupUserFS($uid);
-		$directories = [];
+		$directories = array();
 		$directories[] =  '/' . $uid . '/files';
 
 		while($root = array_pop($directories)) {
@@ -323,11 +322,11 @@ class EncryptAll {
 	 */
 	protected function outputPasswords() {
 		$table = new Table($this->output);
-		$table->setHeaders(['Username', 'Private key password']);
+		$table->setHeaders(array('Username', 'Private key password'));
 
 		//create rows
-		$newPasswords = [];
-		$unchangedPasswords = [];
+		$newPasswords = array();
+		$unchangedPasswords = array();
 		foreach ($this->userPasswords as $uid => $password) {
 			if (empty($password)) {
 				$unchangedPasswords[] = $uid;
@@ -452,7 +451,7 @@ class EncryptAll {
 			$this->output->writeln("\n\nPassword successfully send to all users");
 		} else {
 			$table = new Table($this->output);
-			$table->setHeaders(['Username', 'Private key password']);
+			$table->setHeaders(array('Username', 'Private key password'));
 			$this->output->writeln("\n\nCould not send password to following users:\n");
 			$rows = [];
 			foreach ($noMail as $uid) {

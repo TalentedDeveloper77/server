@@ -23,6 +23,7 @@
 
 namespace OCA\Comments;
 
+
 use OCP\IServerContainer;
 
 class JSSettingsHelper {

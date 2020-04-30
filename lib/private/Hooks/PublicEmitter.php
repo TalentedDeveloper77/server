@@ -36,7 +36,7 @@ class PublicEmitter extends BasicEmitter {
 	 *
 	 * @suppress PhanAccessMethodProtected
 	 */
-	public function emit($scope, $method, array $arguments = []) {
+	public function emit($scope, $method, array $arguments = array()) {
 		parent::emit($scope, $method, $arguments);
 	}
 }

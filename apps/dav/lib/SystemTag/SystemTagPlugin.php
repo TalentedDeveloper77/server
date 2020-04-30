@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
@@ -108,8 +107,8 @@ class SystemTagPlugin extends \Sabre\DAV\ServerPlugin {
 
 		$server->protectedProperties[] = self::ID_PROPERTYNAME;
 
-		$server->on('propFind', [$this, 'handleGetProperties']);
-		$server->on('propPatch', [$this, 'handleUpdateProperties']);
+		$server->on('propFind', array($this, 'handleGetProperties'));
+		$server->on('propPatch', array($this, 'handleUpdateProperties'));
 		$server->on('method:POST', [$this, 'httpPost']);
 
 		$this->server = $server;

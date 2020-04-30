@@ -4,7 +4,6 @@
  *
  * @author Bart Visscher <bartv@thisnet.nl>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Michael Gapczynski <GapczynskiM@gmail.com>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -40,7 +39,7 @@ class Folder extends File implements \OCP\Share_Backend_Collection {
 	 * @return array with shares
 	 */
 	public function getParents($itemSource, $shareWith = null, $owner = null) {
-		$result = [];
+		$result = array();
 		$parent = $this->getParentId($itemSource);
 
 		$userManager = \OC::$server->getUserManager();
@@ -90,8 +89,8 @@ class Folder extends File implements \OCP\Share_Backend_Collection {
 	}
 
 	public function getChildren($itemSource) {
-		$children = [];
-		$parents = [$itemSource];
+		$children = array();
+		$parents = array($itemSource);
 
 		$qb = \OC::$server->getDatabaseConnection()->getQueryBuilder();
 		$qb->select('id')
@@ -124,9 +123,9 @@ class Folder extends File implements \OCP\Share_Backend_Collection {
 
 			$result = $qb->execute();
 
-			$parents = [];
+			$parents = array();
 			while ($file = $result->fetch()) {
-				$children[] = ['source' => $file['fileid'], 'file_path' => $file['name']];
+				$children[] = array('source' => $file['fileid'], 'file_path' => $file['name']);
 				// If a child folder is found look inside it
 				if ((int) $file['mimetype'] === $mimetype) {
 					$parents[] = $file['fileid'];

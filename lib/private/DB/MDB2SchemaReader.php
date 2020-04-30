@@ -3,7 +3,7 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
+ * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Oliver Gasser <oliver.gasser@gmail.com>
  * @author Robin Appelman <robin@icewind.nl>
@@ -155,7 +155,7 @@ class MDB2SchemaReader {
 	 * @throws \DomainException
 	 */
 	private function loadField($table, $xml) {
-		$options = [ 'notnull' => false ];
+		$options = array( 'notnull' => false );
 		foreach ($xml->children() as $child) {
 			/**
 			 * @var \SimpleXMLElement $child
@@ -262,7 +262,7 @@ class MDB2SchemaReader {
 
 			$table->addColumn($name, $type, $options);
 			if (!empty($options['primary']) && $options['primary']) {
-				$table->setPrimaryKey([$name]);
+				$table->setPrimaryKey(array($name));
 			}
 		}
 	}
@@ -274,7 +274,7 @@ class MDB2SchemaReader {
 	 */
 	private function loadIndex($table, $xml) {
 		$name = null;
-		$fields = [];
+		$fields = array();
 		foreach ($xml->children() as $child) {
 			/**
 			 * @var \SimpleXMLElement $child

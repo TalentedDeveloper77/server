@@ -158,7 +158,6 @@ OC.L10N.register(
     "Transfer {path} to {userid}" : "Draag {path} over aan {userid}",
     "Invalid path selected" : "Ongeldig pad geselecteerd",
     "Ownership transfer request sent" : "Aanvraag eigenaarsoverdracht verstuurd",
-    "Cannot transfer ownership of a file or folder you don't own" : "Kan het eigenaarschap van een bestand of map waarvan u niet de eigenaar bent, niet overdragen",
     "Tags" : "Tags",
     "Error while loading the file data" : "Fout bij het lezen van de bestandsgegevens",
     "Unable to change the favourite state of the file" : "Niet mogelijk om voorkeurtoestand van het bestand te wijzigen",
@@ -168,7 +167,7 @@ OC.L10N.register(
     "Settings" : "Instellingen",
     "Show hidden files" : "Verborgen bestanden tonen",
     "WebDAV" : "WebDAV",
-    "Use this address to access your Files via WebDAV" : "Gebruik dit adres om je bestanden via WebDAV te benaderen",
+    "Use this address to <a href=\"%s\" target=\"_blank\" rel=\"noreferrer noopener\">access your Files via WebDAV</a>" : "Gebruik deze link <a href=\"%s\" target=\"_blank\" rel=\"noreferrer noopener\">om je bestanden te benaderen via WebDAV</a>",
     "Toggle grid view" : "Omschakelen roosterweergave",
     "No files in here" : "Hier geen bestanden",
     "Upload some content or sync with your devices!" : "Upload je inhoud of synchroniseer met je apparaten!",
@@ -188,8 +187,6 @@ OC.L10N.register(
     "Text file" : "Tekstbestand",
     "New text file.txt" : "Nieuw tekstbestand.txt",
     "%s of %s used" : "%s van %s gebruikt",
-    "%1$s%% of %2$s used" : "%1$s%% van %2$s gebruikt",
-    "Use this address to <a href=\"%s\" target=\"_blank\" rel=\"noreferrer noopener\">access your Files via WebDAV</a>" : "Gebruik deze link <a href=\"%s\" target=\"_blank\" rel=\"noreferrer noopener\">om je bestanden te benaderen via WebDAV</a>",
-    "Cannot transfter ownership of a file or folder you don't own" : "Kan het eigenaarschap van een bestand of map waarvan u niet de eigenaar bent, niet overdragen"
+    "%1$s%% of %2$s used" : "%1$s%% van %2$s gebruikt"
 },
 "nplurals=2; plural=(n != 1);");

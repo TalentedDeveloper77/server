@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author Robin Appelman <robin@icewind.nl>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  * @author Stefan Weil <sw@weilnetz.de>
@@ -46,7 +45,7 @@ class LockPlugin extends ServerPlugin {
 	 */
 	public function initialize(\Sabre\DAV\Server $server) {
 		$this->server = $server;
-		$this->server->on('beforeMethod:*', [$this, 'getLock'], 50);
+		$this->server->on('beforeMethod', [$this, 'getLock'], 50);
 		$this->server->on('afterMethod', [$this, 'releaseLock'], 50);
 	}
 

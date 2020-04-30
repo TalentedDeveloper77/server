@@ -2,7 +2,6 @@
 /**
  * @copyright 2016 Roeland Jago Douma <roeland@famdouma.nl>
  *
- * @author Robin Appelman <robin@icewind.nl>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  *
  * @license GNU AGPL version 3 or any later version
@@ -81,13 +80,9 @@ class SimpleFolder implements ISimpleFolder   {
 		return new SimpleFile($file);
 	}
 
-	public function newFile($name, $content = null) {
-		if ($content === null) {
-			// delay creating the file until it's written to
-			return new NewSimpleFile($this->folder, $name);
-		} else {
-			$file = $this->folder->newFile($name, $content);
-			return new SimpleFile($file);
-		}
+	public function newFile($name) {
+		$file = $this->folder->newFile($name);
+
+		return new SimpleFile($file);
 	}
 }

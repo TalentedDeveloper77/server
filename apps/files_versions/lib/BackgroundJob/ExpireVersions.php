@@ -25,6 +25,7 @@
 
 namespace OCA\Files_Versions\BackgroundJob;
 
+use OCA\Files_Versions\AppInfo\Application;
 use OCA\Files_Versions\Expiration;
 use OCA\Files_Versions\Storage;
 use OCP\IUser;

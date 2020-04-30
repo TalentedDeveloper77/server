@@ -3,8 +3,6 @@
  * @copyright Copyright (c) 2018 Robin Appelman <robin@icewind.nl>
  *
  * @author Bastien Durel <bastien@durel.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
- * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author Julius Härtl <jus@bitgrid.net>
  * @author Robin Appelman <robin@icewind.nl>
  *
@@ -48,14 +46,14 @@ class AnonymousOptionsPlugin extends ServerPlugin {
 	public function initialize(\Sabre\DAV\Server $server) {
 		$this->server = $server;
 		// before auth
-		$this->server->on('beforeMethod:*', [$this, 'handleAnonymousOptions'], 9);
+		$this->server->on('beforeMethod', [$this, 'handleAnonymousOptions'], 9);
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function isRequestInRoot($path) {
-		return $path === '' || (is_string($path) && strpos($path, '/') === false);
+		return $path === '' || (is_string($path) && strpos($path, '/') === FALSE);
 	}
 
 	/**
@@ -64,11 +62,8 @@ class AnonymousOptionsPlugin extends ServerPlugin {
 	 */
 	public function handleAnonymousOptions(RequestInterface $request, ResponseInterface $response) {
 		$isOffice = preg_match('/Microsoft Office/i', $request->getHeader('User-Agent'));
-		$emptyAuth = $request->getHeader('Authorization') === null
-			|| $request->getHeader('Authorization') === ''
-			|| trim($request->getHeader('Authorization')) === 'Bearer';
-		$isAnonymousOption = $request->getMethod() === 'OPTIONS' && $emptyAuth;
-		$isOfficeHead = $request->getMethod() === 'HEAD' && $isOffice && $emptyAuth;
+		$isAnonymousOption = ($request->getMethod() === 'OPTIONS' && ($request->getHeader('Authorization') === null || trim($request->getHeader('Authorization')) === 'Bearer') && $this->isRequestInRoot($request->getPath()));
+		$isOfficeHead = $request->getMethod() === 'HEAD' && $isOffice && $request->getHeader('Authorization') === 'Bearer';
 		if ($isAnonymousOption || $isOfficeHead) {
 			/** @var CorePlugin $corePlugin */
 			$corePlugin = $this->server->getPlugin('core');

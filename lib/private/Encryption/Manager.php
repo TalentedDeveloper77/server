@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
@@ -69,7 +68,7 @@ class Manager implements IManager {
 	 * @param ArrayCache $arrayCache
 	 */
 	public function __construct(IConfig $config, ILogger $logger, IL10N $l10n, View $rootView, Util $util, ArrayCache $arrayCache) {
-		$this->encryptionModules = [];
+		$this->encryptionModules = array();
 		$this->config = $config;
 		$this->logger = $logger;
 		$this->l = $l10n;
@@ -128,7 +127,7 @@ class Manager implements IManager {
 		return true;
 	}
 
-	/**
+		/**
 	 * Registers an callback function which must return an encryption module instance
 	 *
 	 * @param string $id
@@ -249,7 +248,7 @@ class Manager implements IManager {
 		// If encryption is disabled and there are no loaded modules it makes no sense to load the wrapper
 		if (!empty($this->encryptionModules) || $this->isEnabled()) {
 			$encryptionWrapper = new EncryptionWrapper($this->arrayCache, $this, $this->logger);
-			Filesystem::addStorageWrapper('oc_encryption', [$encryptionWrapper, 'wrapStorage'], 2);
+			Filesystem::addStorageWrapper('oc_encryption', array($encryptionWrapper, 'wrapStorage'), 2);
 		}
 	}
 

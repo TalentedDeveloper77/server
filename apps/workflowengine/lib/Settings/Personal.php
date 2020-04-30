@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2019 Arthur Schiwon <blizzz@arthur-schiwon.de>
@@ -31,9 +30,5 @@ class Personal extends ASettings {
 
 	function getScope(): int {
 		return IManager::SCOPE_USER;
-	}
-
-	public function getSection() {
-		return $this->manager->isUserScopeEnabled() ? 'workflow' : null;
 	}
 }

@@ -6,8 +6,8 @@ declare(strict_types=1);
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  * @copyright 2018 John Molakvoæ <skjnldsv@protonmail.com>
  *
+ * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Christopher Schäpers <kondou@ts.unde.re>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Jan-Christoph Borchardt <hey@jancborchardt.net>
  * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
@@ -17,7 +17,6 @@ declare(strict_types=1);
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
- * @author Sergey Shliakhov <husband.sergey@gmail.com>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
  *
  * @license AGPL-3.0
@@ -90,15 +89,13 @@ abstract class Avatar implements IAvatar {
 	 *
 	 * @return string
 	 */
-	private function getAvatarText(): string {
+	private function getAvatarLetter(): string {
 		$displayName = $this->getDisplayName();
 		if (empty($displayName) === true) {
 			return '?';
+		} else {
+			return mb_strtoupper(mb_substr($displayName, 0, 1), 'UTF-8');
 		}
-		$firstTwoLetters = array_map(function ($namePart) {
-			return mb_strtoupper(mb_substr($namePart, 0, 1), 'UTF-8');
-		}, explode(' ', $displayName, 2));
-		return implode('', $firstTwoLetters);
 	}
 
 	/**
@@ -133,9 +130,9 @@ abstract class Avatar implements IAvatar {
 		$userDisplayName = $this->getDisplayName();
 		$bgRGB = $this->avatarBackgroundColor($userDisplayName);
 		$bgHEX = sprintf("%02x%02x%02x", $bgRGB->r, $bgRGB->g, $bgRGB->b);
-		$text = $this->getAvatarText();
+		$letter = $this->getAvatarLetter();
 		$toReplace = ['{size}', '{fill}', '{letter}'];
-		return str_replace($toReplace, [$size, $bgHEX, $text], $this->svgTemplate);
+		return str_replace($toReplace, [$size, $bgHEX, $letter], $this->svgTemplate);
 	}
 
 	/**
@@ -171,7 +168,7 @@ abstract class Avatar implements IAvatar {
 	 * @return string
 	 */
 	protected function generateAvatar($userDisplayName, $size) {
-		$text = $this->getAvatarText();
+		$letter = $this->getAvatarLetter();
 		$backgroundColor = $this->avatarBackgroundColor($userDisplayName);
 
 		$im = imagecreatetruecolor($size, $size);
@@ -188,10 +185,10 @@ abstract class Avatar implements IAvatar {
 
 		$fontSize = $size * 0.4;
 		list($x, $y) = $this->imageTTFCenter(
-			$im, $text, $font, (int)$fontSize
+			$im, $letter, $font, (int)$fontSize
 		);
 
-		imagettftext($im, $fontSize, 0, $x, $y, $white, $font, $text);
+		imagettftext($im, $fontSize, 0, $x, $y, $white, $font, $letter);
 
 		ob_start();
 		imagepng($im);
@@ -233,7 +230,7 @@ abstract class Avatar implements IAvatar {
 		$x = intval(($xi - $xr) / 2);
 		$y = intval(($yi + $yr) / 2);
 
-		return [$x, $y];
+		return array($x, $y);
 	}
 
 	/**
@@ -243,7 +240,7 @@ abstract class Avatar implements IAvatar {
 	 * @return array [r,g,b] steps for each color to go from $steps to $ends
 	 */
 	private function stepCalc($steps, $ends) {
-		$step = [];
+		$step = array();
 		$step[0] = ($ends[1]->r - $ends[0]->r) / $steps;
 		$step[1] = ($ends[1]->g - $ends[0]->g) / $steps;
 		$step[2] = ($ends[1]->b - $ends[0]->b) / $steps;
@@ -257,7 +254,7 @@ abstract class Avatar implements IAvatar {
 	 * @return int[] between 0 and $maximum
 	 */
 	private function mixPalette($steps, $color1, $color2) {
-		$palette = [$color1];
+		$palette = array($color1);
 		$step = $this->stepCalc($steps, [$color1, $color2]);
 		for ($i = 1; $i < $steps; $i++) {
 			$r = intval($color1->r + ($step[0] * $i));
@@ -276,7 +273,7 @@ abstract class Avatar implements IAvatar {
 	 */
 	private function hashToInt($hash, $maximum) {
 		$final = 0;
-		$result = [];
+		$result = array();
 
 		// Splitting evenly the string
 		for ($i = 0; $i < strlen($hash); $i++) {

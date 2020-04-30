@@ -6,7 +6,7 @@
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bart Visscher <bartv@thisnet.nl>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
+ * @author Daniel Kesselberg <mail@danielkesselberg.de>
  * @author Frank Karlitschek <frank@karlitschek.de>
  * @author Jesús Macias <jmacias@solidgear.es>
  * @author Joas Schilling <coding@schilljs.com>
@@ -96,7 +96,7 @@ class OC_Mount_Config {
 	 * @deprecated 8.2.0 use UserGlobalStoragesService::getStorages() and UserStoragesService::getStorages()
 	 */
 	public static function getAbsoluteMountPoints($uid) {
-		$mountPoints = [];
+		$mountPoints = array();
 
 		$userGlobalStoragesService = self::$app->getContainer()->query(UserGlobalStoragesService::class);
 		$userStoragesService = self::$app->getContainer()->query(UserStoragesService::class);
@@ -252,6 +252,20 @@ class OC_Mount_Config {
 				continue;
 			}
 			$option = self::substitutePlaceholdersInConfig($option);
+			if(!self::arePlaceholdersSubstituted($option)) {
+				\OC::$server->getLogger()->error(
+					'A placeholder was not substituted: {option} for mount type {class}',
+					[
+						'app' => 'files_external',
+						'option' => $option,
+						'class' => $class,
+					]
+				);
+				throw new StorageNotAvailableException(
+					'Mount configuration incomplete',
+					StorageNotAvailableException::STATUS_INCOMPLETE_CONF
+				);
+			}
 		}
 		if (class_exists($class)) {
 			try {
@@ -276,6 +290,20 @@ class OC_Mount_Config {
 		return StorageNotAvailableException::STATUS_ERROR;
 	}
 
+	public static function arePlaceholdersSubstituted($option):bool {
+		$result = true;
+		if(is_array($option)) {
+			foreach ($option as $optionItem) {
+				$result = $result && self::arePlaceholdersSubstituted($optionItem);
+			}
+		} else if (is_string($option)) {
+			if (strpos(rtrim($option, '$'), '$') !== false) {
+				$result = false;
+			}
+		}
+		return $result;
+	}
+
 	/**
 	 * Read the mount points in the config file into an array
 	 *
@@ -296,7 +324,7 @@ class OC_Mount_Config {
 				return $mountPoints;
 			}
 		}
-		return [];
+		return array();
 	}
 
 	/**
@@ -430,14 +458,14 @@ class OC_Mount_Config {
 	 */
 	public static function makeConfigHash($config) {
 		$data = json_encode(
-			[
+			array(
 				'c' => $config['backend'],
 				'a' => $config['authMechanism'],
 				'm' => $config['mountpoint'],
 				'o' => $config['options'],
 				'p' => isset($config['priority']) ? $config['priority'] : -1,
 				'mo' => isset($config['mountOptions']) ? $config['mountOptions'] : [],
-			]
+			)
 		);
 		return hash('md5', $data);
 	}

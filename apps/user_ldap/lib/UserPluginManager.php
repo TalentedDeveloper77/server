@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2017 EITA Cooperative (eita.org.br)
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Filis Futsarov <filisko@users.noreply.github.com>
  * @author Vinicius Cubas Brand <vinicius@eita.org.br>
  *
@@ -33,7 +32,7 @@ class UserPluginManager {
 
 	private $respondToActions = 0;
 
-	private $which = [
+	private $which = array(
 		Backend::CREATE_USER => null,
 		Backend::SET_PASSWORD => null,
 		Backend::GET_HOME => null,
@@ -42,7 +41,7 @@ class UserPluginManager {
 		Backend::PROVIDE_AVATAR => null,
 		Backend::COUNT_USERS => null,
 		'deleteUser' => null
-	];
+	);
 
 	/**
 	 * @return int All implemented actions, except for 'deleteUser'

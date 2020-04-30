@@ -23,6 +23,7 @@
 
 namespace OC\Remote\Api;
 
+
 class NotFoundException extends \Exception {
 
 }

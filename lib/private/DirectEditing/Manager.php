@@ -2,9 +2,7 @@
 /**
  * @copyright Copyright (c) 2019 Julius Härtl <jus@bitgrid.net>
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Julius Härtl <jus@bitgrid.net>
- * @author Robin Appelman <robin@icewind.nl>
  * @author Tobias Kaminsky <tobias@kaminsky.me>
  *
  * @license GNU AGPL version 3 or any later version
@@ -35,6 +33,8 @@ use OCP\DirectEditing\ACreateFromTemplate;
 use OCP\DirectEditing\IEditor;
 use \OCP\DirectEditing\IManager;
 use OCP\DirectEditing\IToken;
+use OCP\DirectEditing\RegisterDirectEditorEvent;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Files\File;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
@@ -123,9 +123,10 @@ class Manager implements IManager {
 
 	public function create(string $path, string $editorId, string $creatorId, $templateId = null): string {
 		$userFolder = $this->rootFolder->getUserFolder($this->userId);
-		if ($userFolder->nodeExists($path)) {
+		try {
+			$file = $userFolder->get($path);
 			throw new \RuntimeException('File already exists');
-		} else {
+		} catch (\OCP\Files\NotFoundException $e) {
 			$file = $userFolder->newFile($path);
 			$editor = $this->getEditor($editorId);
 			$creators = $editor->getCreators();

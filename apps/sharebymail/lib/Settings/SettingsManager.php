@@ -23,6 +23,7 @@
 
 namespace OCA\ShareByMail\Settings;
 
+
 use OCP\IConfig;
 
 class SettingsManager {

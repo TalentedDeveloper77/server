@@ -24,6 +24,7 @@
 
 namespace OC\DB\QueryBuilder\ExpressionBuilder;
 
+
 use OC\DB\QueryBuilder\QueryFunction;
 use OCP\DB\QueryBuilder\ILiteral;
 use OCP\DB\QueryBuilder\IParameter;

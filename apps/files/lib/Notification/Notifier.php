@@ -30,10 +30,10 @@ namespace OCA\Files\Notification;
 
 use OCA\Files\Db\TransferOwnershipMapper;
 use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IURLGenerator;
-use OCP\IUser;
-use OCP\IUserManager;
 use OCP\L10N\IFactory;
 use OCP\Notification\IAction;
 use OCP\Notification\IDismissableNotifier;
@@ -52,22 +52,22 @@ class Notifier implements INotifier, IDismissableNotifier {
 	private $mapper;
 	/** @var IManager */
 	private $notificationManager;
-	/** @var IUserManager */
-	private $userManager;
 	/** @var ITimeFactory */
 	private $timeFactory;
 
+	/**
+	 * @param IFactory $l10nFactory
+	 * @param IURLGenerator $urlGenerator
+	 */
 	public function __construct(IFactory $l10nFactory,
 								IURLGenerator $urlGenerator,
 								TransferOwnershipMapper $mapper,
 								IManager $notificationManager,
-								IUserManager $userManager,
 								ITimeFactory $timeFactory) {
 		$this->l10nFactory = $l10nFactory;
 		$this->urlGenerator = $urlGenerator;
 		$this->mapper = $mapper;
 		$this->notificationManager = $notificationManager;
-		$this->userManager = $userManager;
 		$this->timeFactory = $timeFactory;
 	}
 
@@ -140,7 +140,6 @@ class Notifier implements INotifier, IDismissableNotifier {
 				IAction::TYPE_DELETE
 			);
 
-		$sourceUser = $this->getUser($param['sourceUser']);
 		$notification->addParsedAction($approveAction)
 			->addParsedAction($disapproveAction)
 			->setRichSubject(
@@ -148,11 +147,11 @@ class Notifier implements INotifier, IDismissableNotifier {
 				[
 					'user' => [
 						'type' => 'user',
-						'id' => $sourceUser->getUID(),
-						'name' => $sourceUser->getDisplayName(),
+						'id' => $param['sourceUser'],
+						'name' => $param['sourceUser'],
 					],
 				])
-			->setParsedSubject(str_replace('{user}', $sourceUser->getDisplayName(), $l->t('Incoming ownership transfer from {user}')))
+			->setParsedSubject(str_replace('{user}', $param['sourceUser'], $l->t('Incoming ownership transfer from {user}')))
 			->setRichMessage(
 				$l->t("Do you want to accept {path}?\n\nNote: The transfer process after accepting may take up to 1 hour."),
 				[
@@ -171,7 +170,6 @@ class Notifier implements INotifier, IDismissableNotifier {
 		$l = $this->l10nFactory->get('files', $languageCode);
 		$param = $notification->getSubjectParameters();
 
-		$targetUser = $this->getUser($param['targetUser']);
 		$notification->setRichSubject($l->t('Ownership transfer failed'))
 			->setParsedSubject($l->t('Ownership transfer failed'))
 
@@ -185,11 +183,11 @@ class Notifier implements INotifier, IDismissableNotifier {
 					],
 					'user' => [
 						'type' => 'user',
-						'id' => $targetUser->getUID(),
-						'name' => $targetUser->getDisplayName(),
+						'id' => $param['targetUser'],
+						'name' => $param['targetUser'],
 					],
 				])
-			->setParsedMessage(str_replace(['{path}', '{user}'], [$param['nodeName'], $targetUser->getDisplayName()], $l->t('Your ownership transfer of {path} to {user} failed.')));
+			->setParsedMessage(str_replace(['{path}', '{user}'], [$param['nodeName'], $param['targetUser']], $l->t('Your ownership transfer of {path} to {user} failed.')));
 		return $notification;
 	}
 
@@ -197,7 +195,6 @@ class Notifier implements INotifier, IDismissableNotifier {
 		$l = $this->l10nFactory->get('files', $languageCode);
 		$param = $notification->getSubjectParameters();
 
-		$sourceUser = $this->getUser($param['sourceUser']);
 		$notification->setRichSubject($l->t('Ownership transfer failed'))
 			->setParsedSubject($l->t('Ownership transfer failed'))
 
@@ -211,11 +208,11 @@ class Notifier implements INotifier, IDismissableNotifier {
 					],
 					'user' => [
 						'type' => 'user',
-						'id' => $sourceUser->getUID(),
-						'name' => $sourceUser->getDisplayName(),
+						'id' => $param['sourceUser'],
+						'name' => $param['sourceUser'],
 					],
 				])
-			->setParsedMessage(str_replace(['{path}', '{user}'], [$param['nodeName'], $sourceUser->getDisplayName()], $l->t('The ownership transfer of {path} from {user} failed.')));
+			->setParsedMessage(str_replace(['{path}', '{user}'], [$param['nodeName'], $param['sourceUser']], $l->t('The ownership transfer of {path} from {user} failed.')));
 
 		return $notification;
 	}
@@ -224,7 +221,6 @@ class Notifier implements INotifier, IDismissableNotifier {
 		$l = $this->l10nFactory->get('files', $languageCode);
 		$param = $notification->getSubjectParameters();
 
-		$targetUser = $this->getUser($param['targetUser']);
 		$notification->setRichSubject($l->t('Ownership transfer done'))
 			->setParsedSubject($l->t('Ownership transfer done'))
 
@@ -238,11 +234,11 @@ class Notifier implements INotifier, IDismissableNotifier {
 					],
 					'user' => [
 						'type' => 'user',
-						'id' => $targetUser->getUID(),
-						'name' => $targetUser->getDisplayName(),
+						'id' => $param['targetUser'],
+						'name' => $param['targetUser'],
 					],
 				])
-			->setParsedMessage(str_replace(['{path}', '{user}'], [$param['nodeName'], $targetUser->getDisplayName()], $l->t('Your ownership transfer of {path} to {user} has completed.')));
+			->setParsedMessage(str_replace(['{path}', '{user}'], [$param['nodeName'], $param['targetUser']], $l->t('Your ownership transfer of {path} to {user} has completed.')));
 
 		return $notification;
 	}
@@ -251,7 +247,6 @@ class Notifier implements INotifier, IDismissableNotifier {
 		$l = $this->l10nFactory->get('files', $languageCode);
 		$param = $notification->getSubjectParameters();
 
-		$sourceUser = $this->getUser($param['sourceUser']);
 		$notification->setRichSubject($l->t('Ownership transfer done'))
 			->setParsedSubject($l->t('Ownership transfer done'))
 
@@ -265,11 +260,11 @@ class Notifier implements INotifier, IDismissableNotifier {
 					],
 					'user' => [
 						'type' => 'user',
-						'id' => $sourceUser->getUID(),
-						'name' => $sourceUser->getDisplayName(),
+						'id' => $param['sourceUser'],
+						'name' => $param['sourceUser'],
 					],
 				])
-			->setParsedMessage(str_replace(['{path}', '{user}'], [$param['nodeName'], $sourceUser->getDisplayName()], $l->t('The ownership transfer of {path} from {user} has completed.')));
+			->setParsedMessage(str_replace(['{path}', '{user}'], [$param['nodeName'], $param['sourceUser']], $l->t('The ownership transfer of {path} from {user} has completed.')));
 
 		return $notification;
 	}
@@ -299,13 +294,5 @@ class Notifier implements INotifier, IDismissableNotifier {
 		$this->notificationManager->notify($notification);
 
 		$this->mapper->delete($transferOwnership);
-	}
-
-	protected function getUser(string $userId): IUser {
-		$user = $this->userManager->get($userId);
-		if ($user instanceof IUser) {
-			return $user;
-		}
-		throw new \InvalidArgumentException('User not found');
 	}
 }

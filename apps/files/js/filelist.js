@@ -131,14 +131,6 @@
 		dirInfo: null,
 
 		/**
-		 * Whether to prevent or to execute the default file actions when the
-		 * file name is clicked.
-		 *
-		 * @type boolean
-		 */
-		_defaultFileActionsDisabled: false,
-
-		/**
 		 * File actions handler, defaults to OCA.Files.FileActions
 		 * @type OCA.Files.FileActions
 		 */
@@ -298,10 +290,6 @@
 			if (_.isUndefined(options.detailsViewEnabled) || options.detailsViewEnabled) {
 				this._detailsView = new OCA.Files.DetailsView();
 				this._detailsView.$el.addClass('disappear');
-			}
-
-			if (options && options.defaultFileActionsDisabled) {
-				this._defaultFileActionsDisabled = options.defaultFileActionsDisabled
 			}
 
 			this._initFileActions(options.fileActions);
@@ -888,9 +876,7 @@
 				if (!this._detailsView || $(event.target).is('.nametext, .name, .thumbnail') || $(event.target).closest('.nametext').length) {
 					var filename = $tr.attr('data-file');
 					var renaming = $tr.data('renaming');
-					if (this._defaultFileActionsDisabled) {
-						event.preventDefault();
-					} else if (!renaming) {
+					if (!renaming) {
 						this.fileActions.currentFile = $tr.find('td');
 						var mime = this.fileActions.getCurrentMimeType();
 						var type = this.fileActions.getCurrentType();
@@ -1538,11 +1524,6 @@
 				"class": "name",
 				"href": linkUrl
 			});
-			if (this._defaultFileActionsDisabled) {
-				linkElem = $('<p></p>').attr({
-					"class": "name"
-				})
-			}
 
 			linkElem.append('<div class="thumbnail-wrapper"><div class="thumbnail" style="background-image:url(' + icon + ');"></div></div>');
 
@@ -1625,7 +1606,7 @@
 
 			// size column
 			if (typeof(fileData.size) !== 'undefined' && fileData.size >= 0) {
-				simpleSize = OC.Util.humanFileSize(parseInt(fileData.size, 10), true);
+				simpleSize = humanFileSize(parseInt(fileData.size, 10), true);
 				// rgb(118, 118, 118) / #767676
 				// min. color contrast for normal text on white background according to WCAG AA
 				sizeColor = Math.round(118-Math.pow((fileData.size/(1024*1024)), 2));
@@ -3815,6 +3796,9 @@ $(document).ready(function() {
 		if (OCA.Files.FileList.lastAction) {
 			OCA.Files.FileList.lastAction();
 		}
+	});
+	$(window).on('unload', function () {
+		$(window).trigger('beforeunload');
 	});
 
 });

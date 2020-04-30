@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
@@ -45,12 +44,12 @@ class Quota extends Wrapper {
 	 * @return resource
 	 */
 	static public function wrap($stream, $limit) {
-		$context = stream_context_create([
-			'quota' => [
+		$context = stream_context_create(array(
+			'quota' => array(
 				'source' => $stream,
 				'limit' => $limit
-			]
-		]);
+			)
+		));
 		return Wrapper::wrapSource($stream, $context, 'quota', self::class);
 	}
 

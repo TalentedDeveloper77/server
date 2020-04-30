@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  *
@@ -26,6 +25,7 @@
 
 namespace OCA\ShareByMail\AppInfo;
 
+
 use OCA\ShareByMail\Capabilities;
 use OCA\ShareByMail\Settings;
 use OCP\AppFramework\App;
@@ -33,7 +33,7 @@ use OCP\Util;
 
 class Application extends App {
 
-	public function __construct(array $urlParams = []) {
+	public function __construct(array $urlParams = array()) {
 		parent::__construct('sharebymail', $urlParams);
 
 		$settingsManager = \OC::$server->query(Settings\SettingsManager::class);

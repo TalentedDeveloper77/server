@@ -5,7 +5,6 @@
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bart Visscher <bartv@thisnet.nl>
  * @author Christopher Schäpers <kondou@ts.unde.re>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -114,7 +113,7 @@ class ZIP extends Archive{
 	 */
 	public function getFolder($path) {
 		$files=$this->getFiles();
-		$folderContent=[];
+		$folderContent=array();
 		$pathLength=strlen($path);
 		foreach($files as $file) {
 			if(substr($file, 0, $pathLength)==$path and $file!=$path) {
@@ -131,7 +130,7 @@ class ZIP extends Archive{
 	 */
 	public function getFiles() {
 		$fileCount=$this->zip->numFiles;
-		$files=[];
+		$files=array();
 		for($i=0;$i<$fileCount;$i++) {
 			$files[]=$this->zip->getNameIndex($i);
 		}

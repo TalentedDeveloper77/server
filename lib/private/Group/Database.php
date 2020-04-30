@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Loki3000 <github@labcms.ru>
@@ -62,14 +61,14 @@ use OCP\IDBConnection;
  */
 class Database extends ABackend
 	implements IAddToGroupBackend,
-			   ICountDisabledInGroup,
-			   ICountUsersBackend,
-			   ICreateGroupBackend,
-			   IDeleteGroupBackend,
-			   IGetDisplayNameBackend,
-			   IGroupDetailsBackend,
-			   IRemoveFromGroupBackend,
-			   ISetDisplayNameBackend {
+	           ICountDisabledInGroup,
+	           ICountUsersBackend,
+	           ICreateGroupBackend,
+	           IDeleteGroupBackend,
+	           IGetDisplayNameBackend,
+	           IGroupDetailsBackend,
+	           IRemoveFromGroupBackend,
+	           ISetDisplayNameBackend {
 
 	/** @var string[] */
 	private $groupCache = [];
@@ -401,8 +400,7 @@ class Database extends ABackend
 	 * get the number of disabled users in a group
 	 *
 	 * @param string $search
-	 *
-	 * @return int
+	 * @return int|bool
 	 */
 	public function countDisabledInGroup(string $gid): int {
 		$this->fixDI();

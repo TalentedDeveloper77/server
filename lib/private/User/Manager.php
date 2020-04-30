@@ -69,12 +69,12 @@ class Manager extends PublicEmitter implements IUserManager {
 	/**
 	 * @var \OCP\UserInterface[] $backends
 	 */
-	private $backends = [];
+	private $backends = array();
 
 	/**
 	 * @var \OC\User\User[] $cachedUsers
 	 */
-	private $cachedUsers = [];
+	private $cachedUsers = array();
 
 	/** @var IConfig */
 	private $config;
@@ -121,7 +121,7 @@ class Manager extends PublicEmitter implements IUserManager {
 	 * @param \OCP\UserInterface $backend
 	 */
 	public function removeBackend($backend) {
-		$this->cachedUsers = [];
+		$this->cachedUsers = array();
 		if (($i = array_search($backend, $this->backends)) !== false) {
 			unset($this->backends[$i]);
 		}
@@ -131,8 +131,8 @@ class Manager extends PublicEmitter implements IUserManager {
 	 * remove all user backends
 	 */
 	public function clearBackends() {
-		$this->cachedUsers = [];
-		$this->backends = [];
+		$this->cachedUsers = array();
+		$this->backends = array();
 	}
 
 	/**
@@ -241,7 +241,7 @@ class Manager extends PublicEmitter implements IUserManager {
 	 * @return \OC\User\User[]
 	 */
 	public function search($pattern, $limit = null, $offset = null) {
-		$users = [];
+		$users = array();
 		foreach ($this->backends as $backend) {
 			$backendUsers = $backend->getUsers($pattern, $limit, $offset);
 			if (is_array($backendUsers)) {
@@ -270,7 +270,7 @@ class Manager extends PublicEmitter implements IUserManager {
 	 * @return \OC\User\User[]
 	 */
 	public function searchDisplayName($pattern, $limit = null, $offset = null) {
-		$users = [];
+		$users = array();
 		foreach ($this->backends as $backend) {
 			$backendUsers = $backend->getDisplayNames($pattern, $limit, $offset);
 			if (is_array($backendUsers)) {
@@ -296,6 +296,7 @@ class Manager extends PublicEmitter implements IUserManager {
 	 * @throws \InvalidArgumentException
 	 * @return bool|IUser the created user or false
 	 */
+
 	public function createUser($uid, $password) {
 		$localBackends = [];
 		foreach ($this->backends as $backend) {
@@ -318,7 +319,6 @@ class Manager extends PublicEmitter implements IUserManager {
 
 		return false;
 	}
-
 	/**
 	 * @param string $uid
 	 * @param string $password

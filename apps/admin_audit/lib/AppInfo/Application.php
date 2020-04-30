@@ -7,11 +7,9 @@ declare(strict_types=1);
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bjoern Schiessle <bjoern@schiessle.org>
- * @author GrayFix <grayfix@gmail.com>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
- * @author Tiago Flores <tiago.flores@yahoo.com.br>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -136,7 +134,6 @@ class Application extends App {
 
 		Util::connectHook(Share::class, 'post_shared', $shareActions, 'shared');
 		Util::connectHook(Share::class, 'post_unshare', $shareActions, 'unshare');
-		Util::connectHook(Share::class, 'post_unshareFromSelf', $shareActions, 'unshare');
 		Util::connectHook(Share::class, 'post_update_permissions', $shareActions, 'updatePermissions');
 		Util::connectHook(Share::class, 'post_update_password', $shareActions, 'updatePassword');
 		Util::connectHook(Share::class, 'post_set_expiration_date', $shareActions, 'updateExpirationDate');
@@ -186,7 +183,7 @@ class Application extends App {
 				/** @var File $file */
 				$file = $event->getSubject();
 				$fileActions->preview([
-					'path' => mb_substr($file->getInternalPath(), 5),
+					'path' => substr($file->getInternalPath(), 5),
 					'width' => $event->getArguments()['width'],
 					'height' => $event->getArguments()['height'],
 					'crop' => $event->getArguments()['crop'],

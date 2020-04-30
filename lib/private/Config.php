@@ -6,7 +6,6 @@
  * @author Aldo "xoen" Giambelluca <xoen@xoen.org>
  * @author Bart Visscher <bartv@thisnet.nl>
  * @author Brice Maron <brice@bmaron.net>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Daniel Kesselberg <mail@danielkesselberg.de>
  * @author Frank Karlitschek <frank@karlitschek.de>
  * @author Jakob Sack <mail@jakobsack.de>
@@ -46,7 +45,7 @@ class Config {
 	const ENV_PREFIX = 'NC_';
 
 	/** @var array Associative array ($key => $value) */
-	protected $cache = [];
+	protected $cache = array();
 	/** @var string */
 	protected $configDir;
 	/** @var string */
@@ -187,7 +186,7 @@ class Config {
 	 */
 	private function readData() {
 		// Default config should always get loaded
-		$configFiles = [$this->configFilePath];
+		$configFiles = array($this->configFilePath);
 
 		// Add all files in the config dir ending with the same file name
 		$extra = glob($this->configDir.'*.'.$this->configFileName);
@@ -247,9 +246,12 @@ class Config {
 
 		// File does not exist, this can happen when doing a fresh install
 		if(!is_resource ($filePointer)) {
+			// TODO fix this via DI once it is very clear that this doesn't cause side effects due to initialization order
+			// currently this breaks app routes but also could have other side effects especially during setup and exception handling
+			$url = \OC::$server->getURLGenerator()->linkToDocs('admin-dir_permissions');
 			throw new HintException(
 				"Can't write into config directory!",
-				'This can usually be fixed by giving the webserver write access to the config directory.');
+				'This can usually be fixed by giving the webserver write access to the config directory. See ' . $url);
 		}
 
 		// Try to acquire a file lock

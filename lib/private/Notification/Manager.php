@@ -27,6 +27,7 @@ declare(strict_types=1);
 
 namespace OC\Notification;
 
+
 use OCP\AppFramework\QueryException;
 use OCP\ILogger;
 use OCP\Notification\AlreadyProcessedException;

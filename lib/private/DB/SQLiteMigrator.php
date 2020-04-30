@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
@@ -44,10 +43,10 @@ class SQLiteMigrator extends Migrator {
 		$tmpFile = $this->buildTempDatabase();
 		copy($dbFile, $tmpFile);
 
-		$connectionParams = [
+		$connectionParams = array(
 			'path' => $tmpFile,
 			'driver' => 'pdo_sqlite',
-		];
+		);
 		$conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
 		try {
 			$this->applySchema($targetSchema, $conn);

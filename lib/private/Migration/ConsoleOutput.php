@@ -22,6 +22,7 @@
 
 namespace OC\Migration;
 
+
 use OCP\Migration\IOutput;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;

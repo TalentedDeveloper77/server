@@ -4,7 +4,6 @@
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Lukas Reschke <lukas@statuscode.ch>
  *
  * @license AGPL-3.0
@@ -100,7 +99,7 @@ class Notifications {
 		if ($user && $remote) {
 			$local = $this->addressHandler->generateRemoteURL();
 
-			$fields = [
+			$fields = array(
 				'shareWith' => $user,
 				'token' => $token,
 				'name' => $name,
@@ -111,7 +110,7 @@ class Notifications {
 				'sharedByFederatedId' => $sharedByFederatedId,
 				'remote' => $local,
 				'shareType' => $shareType
-			];
+			);
 
 			$result = $this->tryHttpPostToShareEndpoint($remote, '', $fields);
 			$status = json_decode($result['result'], true);
@@ -145,12 +144,12 @@ class Notifications {
 	 */
 	public function requestReShare($token, $id, $shareId, $remote, $shareWith, $permission, $filename) {
 
-		$fields = [
+		$fields = array(
 			'shareWith' => $shareWith,
 			'token' => $token,
 			'permission' => $permission,
 			'remoteId' => $shareId,
-		];
+		);
 
 		$ocmFields = $fields;
 		$ocmFields['remoteId'] = $id;
@@ -255,7 +254,7 @@ class Notifications {
 		$fields = [
 			'token' => $token,
 			'remoteId' => $remoteId
-		];
+			];
 		foreach ($data as $key => $value) {
 			$fields[$key] = $value;
 		}

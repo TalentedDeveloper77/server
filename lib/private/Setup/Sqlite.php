@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Daniel Kesselberg <mail@danielkesselberg.de>
  *
  * @license AGPL-3.0
@@ -30,7 +29,7 @@ class Sqlite extends AbstractDatabase {
 	public $dbprettyname = 'Sqlite';
 
 	public function validate($config) {
-		return [];
+		return array();
 	}
 
 	public function initialize($config) {

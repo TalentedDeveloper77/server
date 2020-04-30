@@ -22,6 +22,7 @@
 
 namespace OCA\Encryption\Crypto;
 
+
 use OCA\Encryption\KeyManager;
 use OCA\Encryption\Session;
 use OCA\Encryption\Util;

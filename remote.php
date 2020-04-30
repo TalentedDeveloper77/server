@@ -4,8 +4,6 @@
  *
  * @author Brice Maron <brice@bmaron.net>
  * @author Christopher Schäpers <kondou@ts.unde.re>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
- * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Lukas Reschke <lukas@statuscode.ch>
@@ -60,7 +58,7 @@ function handleException($e) {
 			// we shall not log on RemoteException
 			$server->addPlugin(new ExceptionLoggerPlugin('webdav', \OC::$server->getLogger()));
 		}
-		$server->on('beforeMethod:*', function () use ($e) {
+		$server->on('beforeMethod', function () use ($e) {
 			if ($e instanceof RemoteException) {
 				switch ($e->getCode()) {
 					case 503:
@@ -148,8 +146,8 @@ try {
 
 	// Load all required applications
 	\OC::$REQUESTEDAPP = $app;
-	OC_App::loadApps(['authentication']);
-	OC_App::loadApps(['filesystem', 'logging']);
+	OC_App::loadApps(array('authentication'));
+	OC_App::loadApps(array('filesystem', 'logging'));
 
 	switch ($app) {
 		case 'core':

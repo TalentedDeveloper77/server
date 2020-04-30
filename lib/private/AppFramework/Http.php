@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Julius Härtl <jus@bitgrid.net>
  * @author Lukas Reschke <lukas@statuscode.ch>
@@ -46,7 +45,7 @@ class Http extends BaseHttp {
 		$this->server = $server;
 		$this->protocolVersion = $protocolVersion;
 
-		$this->headers = [
+		$this->headers = array(
 			self::STATUS_CONTINUE => 'Continue',
 			self::STATUS_SWITCHING_PROTOCOLS => 'Switching Protocols',
 			self::STATUS_PROCESSING => 'Processing',
@@ -106,7 +105,7 @@ class Http extends BaseHttp {
 			self::STATUS_BANDWIDTH_LIMIT_EXCEEDED => 'Bandwidth Limit Exceeded', // non-standard
 			self::STATUS_NOT_EXTENDED => 'Not extended',
 			self::STATUS_NETWORK_AUTHENTICATION_REQUIRED => 'Network Authentication Required', // draft-nottingham-http-new-status
-		];
+		);
 	}
 
 
@@ -118,7 +117,7 @@ class Http extends BaseHttp {
 	 * @return string
 	 */
 	public function getStatusHeader($status, \DateTime $lastModified=null, 
-									$ETag=null) {
+	                                $ETag=null) {
 
 		if(!is_null($lastModified)) {
 			$lastModified = $lastModified->format(\DateTime::RFC2822);

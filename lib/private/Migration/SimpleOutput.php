@@ -22,6 +22,7 @@
 
 namespace OC\Migration;
 
+
 use OCP\ILogger;
 use OCP\Migration\IOutput;
 

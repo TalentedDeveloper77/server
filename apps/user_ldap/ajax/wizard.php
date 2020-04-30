@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Juan Pablo Villafáñez <jvillafanez@solidgear.es>
  * @author Lukas Reschke <lukas@statuscode.ch>
@@ -37,13 +36,13 @@
 $l = \OC::$server->getL10N('user_ldap');
 
 if(!isset($_POST['action'])) {
-	\OC_JSON::error(['message' => $l->t('No action specified')]);
+	\OC_JSON::error(array('message' => $l->t('No action specified')));
 }
 $action = (string)$_POST['action'];
 
 
 if(!isset($_POST['ldap_serverconfig_chooser'])) {
-	\OC_JSON::error(['message' => $l->t('No configuration specified')]);
+	\OC_JSON::error(array('message' => $l->t('No configuration specified')));
 }
 $prefix = (string)$_POST['ldap_serverconfig_chooser'];
 
@@ -100,7 +99,7 @@ switch($action) {
 				exit;
 			}
 		} catch (\Exception $e) {
-			\OC_JSON::error(['message' => $e->getMessage(), 'code' => $e->getCode()]);
+			\OC_JSON::error(array('message' => $e->getMessage(), 'code' => $e->getCode()));
 			exit;
 		}
 		\OC_JSON::error();
@@ -116,7 +115,7 @@ switch($action) {
 				exit;
 			}
 		} catch (\Exception $e) {
-			\OC_JSON::error(['message' => $e->getMessage()]);
+			\OC_JSON::error(array('message' => $e->getMessage()));
 			exit;
 		}
 		\OC_JSON::error();
@@ -128,15 +127,15 @@ switch($action) {
 		$key = isset($_POST['cfgkey']) ? $_POST['cfgkey'] : false;
 		$val = isset($_POST['cfgval']) ? $_POST['cfgval'] : null;
 		if($key === false || is_null($val)) {
-			\OC_JSON::error(['message' => $l->t('No data specified')]);
+			\OC_JSON::error(array('message' => $l->t('No data specified')));
 			exit;
 		}
-		$cfg = [$key => $val];
-		$setParameters = [];
+		$cfg = array($key => $val);
+		$setParameters = array();
 		$configuration->setConfiguration($cfg, $setParameters);
 		if(!in_array($key, $setParameters)) {
-			\OC_JSON::error(['message' => $l->t($key.
-				' Could not set configuration %s', $setParameters[0])]);
+			\OC_JSON::error(array('message' => $l->t($key.
+				' Could not set configuration %s', $setParameters[0])));
 			exit;
 		}
 		$configuration->saveConfiguration();
@@ -146,6 +145,6 @@ switch($action) {
 		\OC_JSON::success();
 		break;
 	default:
-		\OC_JSON::error(['message' => $l->t('Action does not exist')]);
+		\OC_JSON::error(array('message' => $l->t('Action does not exist')));
 		break;
 }

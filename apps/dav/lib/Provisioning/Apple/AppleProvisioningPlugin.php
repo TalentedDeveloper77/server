@@ -4,7 +4,6 @@
  *
  * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author Morris Jobke <hey@morrisjobke.de>
- * @author Nils Wittenbrink <nilswittenbrink@web.de>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -126,7 +125,7 @@ class AppleProvisioningPlugin extends ServerPlugin {
 			return false;
 		}
 
-		$absoluteURL = $this->urlGenerator->getBaseUrl();
+		$absoluteURL = $request->getAbsoluteUrl();
 		$parsedUrl = parse_url($absoluteURL);
 		if (isset($parsedUrl['port'])) {
 			$serverPort = (int) $parsedUrl['port'];

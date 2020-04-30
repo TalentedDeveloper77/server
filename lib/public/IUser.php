@@ -28,6 +28,8 @@
 
 namespace OCP;
 
+use OCP\UserInterface;
+
 /**
  * Interface IUser
  *

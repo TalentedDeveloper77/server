@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -54,7 +53,7 @@ class JSONResponse extends Response {
 	 * @param int $statusCode the Http status code, defaults to 200
 	 * @since 6.0.0
 	 */
-	public function __construct($data=[], $statusCode=Http::STATUS_OK) {
+	public function __construct($data=array(), $statusCode=Http::STATUS_OK) {
 		parent::__construct();
 
 		$this->data = $data;

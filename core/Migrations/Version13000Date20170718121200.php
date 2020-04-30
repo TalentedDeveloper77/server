@@ -94,13 +94,11 @@ class Version13000Date20170718121200 extends SimpleMigrationStep {
 				'notnull' => true,
 				'length' => 4,
 			]);
-			$table->addColumn('storage_id', Type::BIGINT, [
+			$table->addColumn('storage_id', 'integer', [
 				'notnull' => true,
-				'length' => 20,
 			]);
-			$table->addColumn('root_id', Type::BIGINT, [
+			$table->addColumn('root_id', 'integer', [
 				'notnull' => true,
-				'length' => 20,
 			]);
 			$table->addColumn('user_id', 'string', [
 				'notnull' => true,
@@ -110,9 +108,8 @@ class Version13000Date20170718121200 extends SimpleMigrationStep {
 				'notnull' => true,
 				'length' => 4000,
 			]);
-			$table->addColumn('mount_id', Type::BIGINT, [
+			$table->addColumn('mount_id', 'integer', [
 				'notnull' => false,
-				'length' => 20,
 			]);
 			$table->setPrimaryKey(['id']);
 			$table->addIndex(['user_id'], 'mounts_user_index');
@@ -771,10 +768,6 @@ class Version13000Date20170718121200 extends SimpleMigrationStep {
 				'notnull' => true,
 				'length' => 64,
 				'default' => '',
-			]);
-			$table->addColumn('reference_id', 'string', [
-				'notnull' => false,
-				'length' => 64,
 			]);
 			$table->setPrimaryKey(['id']);
 			$table->addIndex(['parent_id'], 'comments_parent_id_index');

@@ -123,12 +123,6 @@ thead {
 	opacity: 1;
 }
 
-#public-upload #emptycontent #displayavatar .icon-folder {
-	height: 48px;
-	width: 48px;
-	background-size: 48px;
-}
-
 #public-upload #emptycontent .button {
 	display: inline-block;
 	height: auto;
@@ -144,8 +138,8 @@ thead {
 }
 
 #public-upload #emptycontent ul {
-	width: 230px;
-	margin: 5px auto 5vh;
+	width: 160px;
+	margin: 5px auto;
 	text-align: left;
 }
 
@@ -162,21 +156,9 @@ thead {
 	top: 2px;
 }
 
-#drop-upload-progress-indicator span.icon-loading-small {
+#public-upload li span.icon-loading-small {
 	padding-left: 18px;
 	margin-right: 7px;
-}
-
-#drop-uploaded-files li #drop-upload-name {
-	float: left;
-	max-width: 180px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-}
-
-#drop-uploaded-files li #drop-upload-status {
-	float: right;
 }
 
 .disclaimer,

@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author Robin Appelman <robin@icewind.nl>
  *
  * @license AGPL-3.0
@@ -53,7 +52,7 @@ class PublicLinkCheckPlugin extends ServerPlugin {
 	 * @return void
 	 */
 	public function initialize(\Sabre\DAV\Server $server) {
-		$server->on('beforeMethod:*', [$this, 'beforeMethod']);
+		$server->on('beforeMethod', [$this, 'beforeMethod']);
 	}
 
 	public function beforeMethod(RequestInterface $request, ResponseInterface $response){

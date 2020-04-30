@@ -130,8 +130,6 @@
 		 * @return true if the file name is valid.
 		 * Throws a string exception with an error message if
 		 * the file name is not valid
-		 *
-		 * NOTE: This function is duplicated in the filepicker inside core/src/OC/dialogs.js
 		 */
 		isFileNameValid: function (name) {
 			var trimmedName = name.trim();
@@ -291,7 +289,7 @@
 			setTimeout(Files.displayStorageWarnings, 100);
 
 			// only possible at the moment if user is logged in or the files app is loaded
-			if (OC.currentUser && OCA.Files.App && OC.config.session_keepalive) {
+			if (OC.currentUser && OCA.Files.App) {
 				// start on load - we ask the server every 5 minutes
 				var func = _.bind(OCA.Files.App.fileList.updateStorageStatistics, OCA.Files.App.fileList);
 				var updateStorageStatisticsInterval = 5*60*1000;

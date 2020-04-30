@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  *
@@ -48,7 +47,7 @@ abstract class Backend implements UserInterface {
 	const PROVIDE_AVATAR	= 16777216;		// 1 << 24
 	const COUNT_USERS		= 268435456;	// 1 << 28
 
-	protected $possibleActions = [
+	protected $possibleActions = array(
 		self::CREATE_USER => 'createUser',
 		self::SET_PASSWORD => 'setPassword',
 		self::CHECK_PASSWORD => 'checkPassword',
@@ -57,15 +56,15 @@ abstract class Backend implements UserInterface {
 		self::SET_DISPLAYNAME => 'setDisplayName',
 		self::PROVIDE_AVATAR => 'canChangeAvatar',
 		self::COUNT_USERS => 'countUsers',
-	];
+	);
 
 	/**
-	 * Get all supported actions
-	 * @return int bitwise-or'ed actions
-	 *
-	 * Returns the supported actions as int to be
-	 * compared with self::CREATE_USER etc.
-	 */
+	* Get all supported actions
+	* @return int bitwise-or'ed actions
+	*
+	* Returns the supported actions as int to be
+	* compared with self::CREATE_USER etc.
+	*/
 	public function getSupportedActions() {
 		$actions = 0;
 		foreach($this->possibleActions AS $action => $methodName) {
@@ -78,13 +77,13 @@ abstract class Backend implements UserInterface {
 	}
 
 	/**
-	 * Check if backend implements actions
-	 * @param int $actions bitwise-or'ed actions
-	 * @return boolean
-	 *
-	 * Returns the supported actions as int to be
-	 * compared with self::CREATE_USER etc.
-	 */
+	* Check if backend implements actions
+	* @param int $actions bitwise-or'ed actions
+	* @return boolean
+	*
+	* Returns the supported actions as int to be
+	* compared with self::CREATE_USER etc.
+	*/
 	public function implementsActions($actions) {
 		return (bool)($this->getSupportedActions() & $actions);
 	}
@@ -109,23 +108,23 @@ abstract class Backend implements UserInterface {
 	 * @return string[] an array of all uids
 	 */
 	public function getUsers($search = '', $limit = null, $offset = null) {
-		return [];
+		return array();
 	}
 
 	/**
-	 * check if a user exists
-	 * @param string $uid the username
-	 * @return boolean
-	 */
+	* check if a user exists
+	* @param string $uid the username
+	* @return boolean
+	*/
 	public function userExists($uid) {
 		return false;
 	}
 
 	/**
-	 * get the user's home directory
-	 * @param string $uid the username
-	 * @return boolean
-	 */
+	* get the user's home directory
+	* @param string $uid the username
+	* @return boolean
+	*/
 	public function getHome($uid) {
 		return false;
 	}
@@ -148,7 +147,7 @@ abstract class Backend implements UserInterface {
 	 * @return array an array of all displayNames (value) and the corresponding uids (key)
 	 */
 	public function getDisplayNames($search = '', $limit = null, $offset = null) {
-		$displayNames = [];
+		$displayNames = array();
 		$users = $this->getUsers($search, $limit, $offset);
 		foreach ( $users as $user) {
 			$displayNames[$user] = $user;

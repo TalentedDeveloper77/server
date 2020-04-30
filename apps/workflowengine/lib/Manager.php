@@ -23,7 +23,6 @@ namespace OCA\WorkflowEngine;
 
 use Doctrine\DBAL\DBALException;
 use OC\Cache\CappedMemoryCache;
-use OCA\WorkflowEngine\AppInfo\Application;
 use OCA\WorkflowEngine\Check\FileMimeType;
 use OCA\WorkflowEngine\Check\FileName;
 use OCA\WorkflowEngine\Check\FileSize;
@@ -41,7 +40,6 @@ use OCP\AppFramework\QueryException;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Files\Storage\IStorage;
-use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IL10N;
 use OCP\ILogger;
@@ -110,9 +108,6 @@ class Manager implements IManager {
 	/** @var IEventDispatcher */
 	private $dispatcher;
 
-	/** @var IConfig */
-	private $config;
-
 	public function __construct(
 		IDBConnection $connection,
 		IServerContainer $container,
@@ -120,8 +115,7 @@ class Manager implements IManager {
 		LegacyDispatcher $eventDispatcher,
 		ILogger $logger,
 		IUserSession $session,
-		IEventDispatcher $dispatcher,
-		IConfig $config
+		IEventDispatcher $dispatcher
 	) {
 		$this->connection = $connection;
 		$this->container = $container;
@@ -131,7 +125,6 @@ class Manager implements IManager {
 		$this->operationsByScope = new CappedMemoryCache(64);
 		$this->session = $session;
 		$this->dispatcher = $dispatcher;
-		$this->config = $config;
 	}
 
 	public function getRuleMatcher(): IRuleMatcher {
@@ -170,10 +163,6 @@ class Manager implements IManager {
 		return $operations;
 	}
 
-	/**
-	 * @param string $operationClass
-	 * @return ScopeContext[]
-	 */
 	public function getAllConfiguredScopesForOperation(string $operationClass): array {
 		static $scopesByOperation = [];
 		if (isset($scopesByOperation[$operationClass])) {
@@ -714,9 +703,5 @@ class Manager implements IManager {
 			$this->logger->logException($e);
 			return [];
 		}
-	}
-
-	public function isUserScopeEnabled(): bool {
-		return $this->config->getAppValue(Application::APP_ID, 'user_scope_disabled', 'no') === 'no';
 	}
 }

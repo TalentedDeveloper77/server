@@ -23,6 +23,7 @@
 
 namespace OCA\Encryption\Command;
 
+
 use OCA\Encryption\Util;
 use OCP\IConfig;
 use Symfony\Component\Console\Command\Command;

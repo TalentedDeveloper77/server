@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
  *
@@ -35,7 +34,7 @@ abstract class ForwardingEmitter extends BasicEmitter {
 	/**
 	 * @var \OC\Hooks\Emitter[] array
 	 */
-	private $forwardEmitters = [];
+	private $forwardEmitters = array();
 
 	/**
 	 * @param string $scope

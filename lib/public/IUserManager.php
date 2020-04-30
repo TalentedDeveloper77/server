@@ -30,6 +30,7 @@
 
 namespace OCP;
 
+
 /**
  * Class Manager
  *
@@ -49,11 +50,11 @@ namespace OCP;
  */
 interface IUserManager {
 		/**
-		 * register a user backend
-		 *
-		 * @param \OCP\UserInterface $backend
-		 * @since 8.0.0
-		 */
+	 * register a user backend
+	 *
+	 * @param \OCP\UserInterface $backend
+	 * @since 8.0.0
+	 */
 	public function registerBackend($backend);
 
 	/**
@@ -134,6 +135,8 @@ interface IUserManager {
 	 * @return bool|\OCP\IUser the created user or false
 	 * @since 8.0.0
 	 */
+	//mypart
+	// public function createUser($uid, $password);
 	public function createUser($uid, $password);
 
 	/**

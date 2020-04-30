@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
@@ -29,7 +28,7 @@ use OCP\IMemcache;
 
 class ArrayCache extends Cache implements IMemcache {
 	/** @var array Array with the cached data */
-	protected $cachedData = [];
+	protected $cachedData = array();
 
 	use CADTrait;
 

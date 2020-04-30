@@ -5,12 +5,10 @@ declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Arne Hamann <kontakt+github@arne.email>
  * @author Branko Kokanovic <branko@kokanovic.org>
  * @author Carsten Wiedmann <carsten_sttgt@gmx.de>
  * @author Jared Boone <jared.boone@gmail.com>
  * @author Joas Schilling <coding@schilljs.com>
- * @author Julius Härtl <jus@bitgrid.net>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -36,7 +34,6 @@ namespace OC\Mail;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
 use OCP\Defaults;
-use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\ILogger;
@@ -45,8 +42,6 @@ use OCP\Mail\IAttachment;
 use OCP\Mail\IEMailTemplate;
 use OCP\Mail\IMailer;
 use OCP\Mail\IMessage;
-use OCP\Mail\Events\BeforeMessageSent;
-
 
 /**
  * Class Mailer provides some basic functions to create a mail message that can be used in combination with
@@ -79,8 +74,6 @@ class Mailer implements IMailer {
 	private $urlGenerator;
 	/** @var IL10N */
 	private $l10n;
-	/** @var IEventDispatcher */
-	private $dispatcher;
 
 	/**
 	 * @param IConfig $config
@@ -88,20 +81,17 @@ class Mailer implements IMailer {
 	 * @param Defaults $defaults
 	 * @param IURLGenerator $urlGenerator
 	 * @param IL10N $l10n
-	 * @param IEventDispatcher $dispatcher
 	 */
 	public function __construct(IConfig $config,
 						 ILogger $logger,
 						 Defaults $defaults,
 						 IURLGenerator $urlGenerator,
-						 IL10N $l10n,
-						 IEventDispatcher $dispatcher) {
+						 IL10N $l10n) {
 		$this->config = $config;
 		$this->logger = $logger;
 		$this->defaults = $defaults;
 		$this->urlGenerator = $urlGenerator;
 		$this->l10n = $l10n;
-		$this->dispatcher = $dispatcher;
 	}
 
 	/**
@@ -179,7 +169,7 @@ class Mailer implements IMailer {
 		$debugMode = $this->config->getSystemValue('mail_smtpdebug', false);
 
 		if (empty($message->getFrom())) {
-			$message->setFrom([\OCP\Util::getDefaultEmailAddress('no-reply') => $this->defaults->getName()]);
+			$message->setFrom([\OCP\Util::getDefaultEmailAddress($this->defaults->getName()) => $this->defaults->getName()]);
 		}
 
 		$failedRecipients = [];
@@ -191,9 +181,6 @@ class Mailer implements IMailer {
 			$mailLogger = new \Swift_Plugins_Loggers_ArrayLogger();
 			$mailer->registerPlugin(new \Swift_Plugins_LoggerPlugin($mailLogger));
 		}
-
-
-		$this->dispatcher->dispatchTyped(new BeforeMessageSent($message));
 
 		$mailer->send($message->getSwiftMessage(), $failedRecipients);
 

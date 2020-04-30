@@ -4,7 +4,6 @@
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
  *
@@ -159,7 +158,7 @@ class Update {
 			throw new \InvalidArgumentException('No file found for ' . $info->getId());
 		}
 
-		return [$owner, $path];
+		return array($owner, $path);
 	}
 
 	/**
@@ -182,7 +181,7 @@ class Update {
 		if ($this->view->is_dir($path)) {
 			$allFiles = $this->util->getAllFiles($path);
 		} else {
-			$allFiles = [$path];
+			$allFiles = array($path);
 		}
 
 

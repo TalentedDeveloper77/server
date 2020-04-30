@@ -2,8 +2,6 @@
 /**
  * @copyright 2016 Roeland Jago Douma <roeland@famdouma.nl>
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
- * @author Daniel Kesselberg <mail@danielkesselberg.de>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  *
@@ -28,6 +26,7 @@ namespace OC\AppFramework\OCS;
 
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\EmptyContentSecurityPolicy;
 use OCP\AppFramework\Http\Response;
 
 abstract class BaseResponse extends Response   {
@@ -49,7 +48,7 @@ abstract class BaseResponse extends Response   {
 	/**
 	 * BaseResponse constructor.
 	 *
-	 * @param DataResponse $dataResponse
+	 * @param DataResponse|null $dataResponse
 	 * @param string $format
 	 * @param string|null $statusMessage
 	 * @param int|null $itemsCount

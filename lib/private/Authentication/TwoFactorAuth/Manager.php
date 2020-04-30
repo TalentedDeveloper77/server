@@ -31,11 +31,13 @@ use function array_diff;
 use function array_filter;
 use BadMethodCallException;
 use Exception;
+use OC\Authentication\Exceptions\ExpiredTokenException;
 use OC\Authentication\Exceptions\InvalidTokenException;
 use OC\Authentication\Token\IProvider as TokenProvider;
 use OCP\Activity\IManager;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Authentication\TwoFactorAuth\IActivatableAtLogin;
+use OCP\Authentication\TwoFactorAuth\ILoginSetupProvider;
 use OCP\Authentication\TwoFactorAuth\IProvider;
 use OCP\Authentication\TwoFactorAuth\IRegistry;
 use OCP\IConfig;
@@ -179,7 +181,7 @@ class Manager {
 
 	/**
 	 * @param array $states
-	 * @param IProvider[] $providers
+	 * @param IProvider $providers
 	 */
 	private function isProviderMissing(array $states, array $providers): bool {
 		$indexed = [];
@@ -198,8 +200,8 @@ class Manager {
 				$missing[] = $providerId;
 				$this->logger->alert("two-factor auth provider '$providerId' failed to load",
 					[
-						'app' => 'core',
-					]);
+					'app' => 'core',
+				]);
 			}
 		}
 

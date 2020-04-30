@@ -114,8 +114,6 @@ OC.L10N.register(
     "Storage location" : "مسار التخزين",
     "Last login" : "آخِر تسجيل للدخول",
     "All languages" : "كافة اللغات",
-    "Name your device" : "اسم جهازك",
-    "Add" : "إضافة",
     "Your apps" : "تطبيقاتك",
     "Active apps" : "التطبيقات النشطة",
     "Disabled apps" : "التطبيقات المعطلة",

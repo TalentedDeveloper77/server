@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, Arthur Schiwon <blizzz@arthur-schiwon.de>
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -45,7 +44,7 @@ class Application extends App {
 
 	const APP_ID = 'comments';
 
-	public function __construct (array $urlParams = []) {
+	public function __construct (array $urlParams = array()) {
 		parent::__construct(self::APP_ID, $urlParams);
 		$container = $this->getContainer();
 

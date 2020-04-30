@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -36,7 +35,7 @@ $lk = array_pop($serverConnections);
 $ln = (int)str_replace('s', '', $lk);
 $nk = 's'.str_pad($ln+1, 2, '0', STR_PAD_LEFT);
 
-$resultData = ['configPrefix' => $nk];
+$resultData = array('configPrefix' => $nk);
 
 $newConfig = new \OCA\User_LDAP\Configuration($nk, false);
 if(isset($_POST['copyConfig'])) {

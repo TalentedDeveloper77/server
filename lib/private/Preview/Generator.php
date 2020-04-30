@@ -26,6 +26,7 @@
 
 namespace OC\Preview;
 
+use OC\Preview\GeneratorHelper;
 use OCP\Files\File;
 use OCP\Files\IAppData;
 use OCP\Files\NotFoundException;
@@ -35,6 +36,7 @@ use OCP\Files\SimpleFS\ISimpleFolder;
 use OCP\IConfig;
 use OCP\IImage;
 use OCP\IPreview;
+use OCP\Preview\IProvider;
 use OCP\Preview\IProviderV2;
 use OCP\Preview\IVersionedPreviewFile;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -330,9 +332,9 @@ class Generator {
 		}
 
 		/*
-		 * Make sure the requested height and width fall within the max
-		 * of the preview.
-		 */
+ 		 * Make sure the requested height and width fall within the max
+ 		 * of the preview.
+ 		 */
 		if ($height > $maxHeight) {
 			$ratio = $height / $maxHeight;
 			$height = $maxHeight;

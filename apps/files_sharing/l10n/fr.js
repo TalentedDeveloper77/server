@@ -26,9 +26,6 @@ OC.L10N.register(
     "Something happened. Unable to accept the share." : "Quelque chose s'est passé. Impossible d'accepter le partage.",
     "Reject share" : "Refuser le partage",
     "Something happened. Unable to reject the share." : "Quelque chose s'est passé. Impossible de refuser le partage.",
-    "Waiting…" : "En attente ...",
-    "error" : "erreur",
-    "finished" : "terminé",
     "This will stop your current uploads." : "Cela va arrêter vos envois en cours.",
     "Move or copy" : "Déplacer ou copier",
     "Download" : "Télécharger",
@@ -55,7 +52,7 @@ OC.L10N.register(
     "{actor} shared {file} with group {group}" : "{actor} a partagé {file} avec le groupe {group}",
     "{actor} removed group {group} from {file}" : "{actor} a supprimé le groupe {group} de {file}",
     "Share for file {file} with group {group} expired" : "Partage du fichier {file} avec le groupe {group} expiré",
-    "Shared as public link" : "Partagé par lien public",
+    "Shared as public link" : "Partagé avec un lien public",
     "Removed public link" : "Lien public supprimé",
     "Public link expired" : "Lien public expiré",
     "{actor} shared as public link" : "{actor} a partagé avec un lien public",
@@ -225,10 +222,9 @@ OC.L10N.register(
     "Upload files to %s" : "Envoi des fichiers vers %s",
     "Note" : "Note",
     "Select or drop files" : "Sélectionner ou glisser-déposer vos fichiers",
-    "Uploading files" : "Envoi des fichiers en cours ...",
+    "Uploading files…" : "Envoi des fichiers...",
     "Uploaded files:" : "Fichiers envoyés :",
     "By uploading files, you agree to the %1$sterms of service%2$s." : "En envoyant des fichiers, vous acceptez les %1$sconditions d'utilisation%2$s.",
-    "could not delete share" : "impossible de supprimer le partage",
-    "Uploading files…" : "Envoi des fichiers..."
+    "could not delete share" : "impossible de supprimer le partage"
 },
 "nplurals=2; plural=(n > 1);");

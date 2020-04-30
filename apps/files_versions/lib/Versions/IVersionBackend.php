@@ -5,7 +5,6 @@ declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2018 Robin Appelman <robin@icewind.nl>
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Robin Appelman <robin@icewind.nl>
  *
  * @license GNU AGPL version 3 or any later version
@@ -30,6 +29,7 @@ namespace OCA\Files_Versions\Versions;
 use OCP\Files\File;
 use OCP\Files\FileInfo;
 use OCP\Files\NotFoundException;
+use OCP\Files\SimpleFS\ISimpleFile;
 use OCP\Files\Storage\IStorage;
 use OCP\IUser;
 
@@ -91,9 +91,7 @@ interface IVersionBackend {
 	 * @param IUser $user
 	 * @param FileInfo $sourceFile
 	 * @param int|string $revision
-	 *
-	 * @return File
-	 *
+	 * @return ISimpleFile
 	 * @since 15.0.0
 	 */
 	public function getVersionFile(IUser $user, FileInfo $sourceFile, $revision): File;

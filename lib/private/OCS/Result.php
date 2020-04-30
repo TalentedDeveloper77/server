@@ -5,7 +5,6 @@
  * @author Bart Visscher <bartv@thisnet.nl>
  * @author Björn Schießle <bjoern@schiessle.org>
  * @author Christopher Schäpers <kondou@ts.unde.re>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin McCorkell <robin@mccorkell.me.uk>
@@ -60,9 +59,9 @@ class Result {
 	 */
 	public function __construct($data = null, $code = 100, $message = null, $headers = []) {
 		if ($data === null) {
-			$this->data = [];
+			$this->data = array();
 		} elseif (!is_array($data)) {
-			$this->data = [$this->data];
+			$this->data = array($this->data);
 		} else {
 			$this->data = $data;
 		}
@@ -100,7 +99,7 @@ class Result {
 	 * @return array
 	 */
 	public function getMeta() {
-		$meta = [];
+		$meta = array();
 		$meta['status'] = $this->succeeded() ? 'ok' : 'failure';
 		$meta['statuscode'] = $this->statusCode;
 		$meta['message'] = $this->message;

@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace OC\Dashboard;
 
+
 use OCP\Dashboard\Exceptions\DashboardAppNotAvailableException;
 use OCP\Dashboard\IDashboardManager;
 use OCP\Dashboard\Model\IWidgetConfig;

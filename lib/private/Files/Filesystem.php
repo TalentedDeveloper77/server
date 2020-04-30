@@ -62,6 +62,7 @@ namespace OC\Files;
 use OC\Cache\CappedMemoryCache;
 use OC\Files\Config\MountProviderCollection;
 use OC\Files\Mount\MountPoint;
+use OC\Files\Storage\StorageFactory;
 use OC\Lockdown\Filesystem\NullStorage;
 use OCP\Files\Config\IMountProvider;
 use OCP\Files\NotFoundException;
@@ -82,7 +83,7 @@ class Filesystem {
 	 */
 	static private $defaultInstance;
 
-	static private $usersSetup = [];
+	static private $usersSetup = array();
 
 	static private $normalizedPathCache = null;
 
@@ -299,7 +300,7 @@ class Filesystem {
 		if (!self::$mounts) {
 			\OC_Util::setupFS();
 		}
-		$result = [];
+		$result = array();
 		$mounts = self::$mounts->findIn($path);
 		foreach ($mounts as $mount) {
 			$result[] = $mount->getMountPoint();
@@ -355,9 +356,9 @@ class Filesystem {
 		}
 		$mount = self::$mounts->find($path);
 		if ($mount) {
-			return [$mount->getStorage(), rtrim($mount->getInternalPath($path), '/')];
+			return array($mount->getStorage(), rtrim($mount->getInternalPath($path), '/'));
 		} else {
-			return [null, null];
+			return array(null, null);
 		}
 	}
 
@@ -460,7 +461,7 @@ class Filesystem {
 				'/' . $user . '/files'
 			));
 		}
-		\OC_Hook::emit('OC_Filesystem', 'post_initMountPoints', ['user' => $user]);
+		\OC_Hook::emit('OC_Filesystem', 'post_initMountPoints', array('user' => $user));
 	}
 
 	/**
@@ -477,7 +478,7 @@ class Filesystem {
 					$userObject = $userManager->get($user);
 					if ($userObject) {
 						$mounts = $provider->getMountsForUser($userObject, Filesystem::getLoader());
-						array_walk($mounts, [self::$mounts, 'addMount']);
+						array_walk($mounts, array(self::$mounts, 'addMount'));
 					}
 				}
 			});
@@ -520,7 +521,7 @@ class Filesystem {
 	 */
 	public static function clearMounts() {
 		if (self::$mounts) {
-			self::$usersSetup = [];
+			self::$usersSetup = array();
 			self::$mounts->clear();
 		}
 	}
@@ -618,7 +619,7 @@ class Filesystem {
 	static public function isFileBlacklisted($filename) {
 		$filename = self::normalizePath($filename);
 
-		$blacklist = \OC::$server->getConfig()->getSystemValue('blacklisted_files', ['.htaccess']);
+		$blacklist = \OC::$server->getConfig()->getSystemValue('blacklisted_files', array('.htaccess'));
 		$filename = strtolower(basename($filename));
 		return in_array($filename, $blacklist);
 	}
@@ -828,7 +829,7 @@ class Filesystem {
 		$patterns = [
 			'/\\\\/s',          // no windows style slashes
 			'/\/\.(\/\.)?\//s', // remove '/./'
-			'/\/{2,}/s',        // remove sequence of slashes
+			'/\/{2,}/s',        // remove squence of slashes
 			'/\/\.$/s',         // remove trailing /.
 		];
 

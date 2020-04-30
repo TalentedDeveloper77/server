@@ -5,7 +5,6 @@
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bart Visscher <bartv@thisnet.nl>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Greta Doci <gretadoci@gmail.com>
  * @author hkjolhede <hkjolhede@gmail.com>
  * @author Joas Schilling <coding@schilljs.com>
@@ -297,7 +296,7 @@ abstract class Common implements Storage, ILockingStorage, IWriteStreamStorage {
 	 * @return array
 	 */
 	protected function searchInDir($query, $dir = '') {
-		$files = [];
+		$files = array();
 		$dh = $this->opendir($dir);
 		if (is_resource($dh)) {
 			while (($item = readdir($dh)) !== false) {
@@ -435,7 +434,7 @@ abstract class Common implements Storage, ILockingStorage, IWriteStreamStorage {
 			$path = '/' . $path;
 		}
 
-		$output = [];
+		$output = array();
 		foreach (explode('/', $path) as $chunk) {
 			if ($chunk == '..') {
 				array_pop($output);

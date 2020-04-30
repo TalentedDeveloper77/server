@@ -22,6 +22,7 @@
 
 namespace OCA\FederatedFileSharing;
 
+
 use OCP\Security\ISecureRandom;
 
 /**

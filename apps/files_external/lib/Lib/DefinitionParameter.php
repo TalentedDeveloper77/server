@@ -27,9 +27,6 @@ namespace OCA\Files_External\Lib;
  * Parameter for an external storage definition
  */
 class DefinitionParameter implements \JsonSerializable {
-	// placeholder value for password fields, when the client updates a storage configuration
-	// placeholder values are ignored and the field is left unmodified
-	const UNMODIFIED_PLACEHOLDER = '__unmodified__';
 
 	/** Value constants */
 	const VALUE_TEXT = 0;
@@ -47,9 +44,6 @@ class DefinitionParameter implements \JsonSerializable {
 
 	/** @var string human-readable parameter text */
 	private $text;
-
-	/** @var string human-readable parameter tooltip */
-	private $tooltip = '';
 
 	/** @var int value type, see self::VALUE_* constants */
 	private $type = self::VALUE_TEXT;
@@ -150,22 +144,6 @@ class DefinitionParameter implements \JsonSerializable {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getTooltip(): string {
-		return $this->tooltip;
-	}
-
-	/**
-	 * @param string $tooltip
-	 * @return self
-	 */
-	public function setTooltip(string $tooltip) {
-		$this->tooltip = $tooltip;
-		return $this;
-	}
-
-	/**
 	 * Serialize into JSON for client-side JS
 	 *
 	 * @return string
@@ -174,8 +152,7 @@ class DefinitionParameter implements \JsonSerializable {
 		return [
 			'value' => $this->getText(),
 			'flags' => $this->getFlags(),
-			'type' => $this->getType(),
-			'tooltip' => $this->getTooltip(),
+			'type' => $this->getType()
 		];
 	}
 

@@ -4,7 +4,6 @@
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Brice Maron <brice@bmaron.net>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Lukas Reschke <lukas@statuscode.ch>
@@ -84,7 +83,6 @@ class Helper {
 			$len = strlen($key) - strlen($referenceConfigkey);
 			$prefixes[] = substr($key, 0, $len);
 		}
-		asort($prefixes);
 
 		return $prefixes;
 	}
@@ -100,7 +98,7 @@ class Helper {
 
 		$keys = $this->getServersConfig($referenceConfigkey);
 
-		$result = [];
+		$result = array();
 		foreach($keys as $key) {
 			$len = strlen($key) - strlen($referenceConfigkey);
 			$prefix = substr($key, 0, $len);
@@ -165,7 +163,7 @@ class Helper {
 				AND `appid` = \'user_ldap\'
 				AND `configkey` NOT IN (\'enabled\', \'installed_version\', \'types\', \'bgjUpdateGroupsLastRun\')
 		');
-		$delRows = $query->execute([$prefix.'%']);
+		$delRows = $query->execute(array($prefix.'%'));
 
 		if($delRows === null) {
 			return false;
@@ -214,7 +212,7 @@ class Helper {
 
 		return $domain;
 	}
-
+	
 	/**
 	 *
 	 * Set the LDAPProvider in the config
@@ -226,7 +224,7 @@ class Helper {
 			\OC::$server->getConfig()->setSystemValue('ldapProviderFactory', LDAPProviderFactory::class);
 		}
 	}
-
+	
 	/**
 	 * sanitizes a DN received from the LDAP server
 	 * @param array $dn the DN in question
@@ -235,7 +233,7 @@ class Helper {
 	public function sanitizeDN($dn) {
 		//treating multiple base DNs
 		if(is_array($dn)) {
-			$result = [];
+			$result = array();
 			foreach($dn as $singleDN) {
 				$result[] = $this->sanitizeDN($singleDN);
 			}
@@ -252,7 +250,7 @@ class Helper {
 		//escape DN values according to RFC 2253 – this is already done by ldap_explode_dn
 		//to use the DN in search filters, \ needs to be escaped to \5c additionally
 		//to use them in bases, we convert them back to simple backslashes in readAttribute()
-		$replacements = [
+		$replacements = array(
 			'\,' => '\5c2C',
 			'\=' => '\5c3D',
 			'\+' => '\5c2B',
@@ -264,12 +262,12 @@ class Helper {
 			'('  => '\28',
 			')'  => '\29',
 			'*'  => '\2A',
-		];
+		);
 		$dn = str_replace(array_keys($replacements), array_values($replacements), $dn);
 
 		return $dn;
 	}
-
+	
 	/**
 	 * converts a stored DN so it can be used as base parameter for LDAP queries, internally we store them for usage in LDAP filters
 	 * @param string $dn the DN

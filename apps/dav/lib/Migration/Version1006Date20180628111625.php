@@ -92,7 +92,6 @@ class Version1006Date20180628111625 extends SimpleMigrationStep {
 			$calendarObjectsPropsTable->addIndex(['objectid', 'calendartype'], 'calendarobject_index');
 			$calendarObjectsPropsTable->addIndex(['name', 'calendartype'], 'calendarobject_name_index');
 			$calendarObjectsPropsTable->addIndex(['value', 'calendartype'], 'calendarobject_value_index');
-			$calendarObjectsPropsTable->addIndex(['calendarid', 'calendartype'], 'calendarobject_calid_index');
 		}
 
 		if ($schema->hasTable('calendarsubscriptions')) {

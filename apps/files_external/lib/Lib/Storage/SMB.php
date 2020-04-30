@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Jesús Macias <jmacias@solidgear.es>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Juan Pablo Villafañez <jvillafanez@solidgear.es>
@@ -208,7 +207,7 @@ class SMB extends Common implements INotifyStorage {
 	 */
 	protected function getFolderContents($path) {
 		try {
-			$path = ltrim($this->buildPath($path), '/');
+			$path = $this->buildPath($path);
 			$files = $this->share->dir($path);
 			foreach ($files as $file) {
 				$this->statCache[$path . '/' . $file->getName()] = $file;
@@ -473,7 +472,7 @@ class SMB extends Common implements INotifyStorage {
 		}
 
 		try {
-			$this->statCache = [];
+			$this->statCache = array();
 			$content = $this->share->dir($this->buildPath($path));
 			foreach ($content as $file) {
 				if ($file->isDirectory()) {

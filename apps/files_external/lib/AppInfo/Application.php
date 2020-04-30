@@ -62,6 +62,8 @@ use OCA\Files_External\Lib\Config\IAuthMechanismProvider;
 use OCA\Files_External\Lib\Config\IBackendProvider;
 use OCA\Files_External\Service\BackendService;
 use OCP\AppFramework\App;
+use OCP\AppFramework\IAppContainer;
+use OCP\Files\Config\IUserMountCache;
 use OCP\IGroup;
 use OCP\IUser;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -80,6 +82,10 @@ class Application extends App implements IBackendProvider, IAuthMechanismProvide
 		parent::__construct('files_external', $urlParams);
 
 		$container = $this->getContainer();
+
+		$container->registerService(IUserMountCache::class, function (IAppContainer $c) {
+			return $c->getServer()->query('UserMountCache');
+		});
 
 		/** @var BackendService $backendService */
 		$backendService = $container->query(BackendService::class);

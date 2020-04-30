@@ -240,7 +240,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -250,8 +249,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -294,7 +292,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -304,8 +301,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -349,7 +345,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -359,8 +354,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -402,7 +396,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -412,8 +405,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -453,7 +445,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -463,8 +454,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -504,7 +494,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -516,8 +505,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -557,7 +545,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -567,8 +554,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -608,7 +594,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: false,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -618,8 +603,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -659,7 +643,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -669,8 +652,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -731,7 +713,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -741,8 +722,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -783,7 +763,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -793,8 +772,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -835,7 +813,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -845,8 +822,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -887,7 +863,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: false,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -897,8 +872,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
@@ -938,7 +912,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -948,66 +921,13 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: true,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true
 				})
 			);
 
 			async.done(function( data, s, x ){
 				expect(data).toEqual([{
 					msg: 'MySQL is used as database but does not support 4-byte characters. To be able to handle 4-byte characters (like emojis) without issues in filenames or comments for example it is recommended to enable the 4-byte support in MySQL. For further details read <a href="https://docs.example.org/admin-mysql-utf8mb4" rel="noreferrer noopener">the documentation page about this</a>.',
-					type: OC.SetupChecks.MESSAGE_TYPE_WARNING
-				}]);
-				done();
-			});
-		});
-
-		it('should return an error if the protocol is https but the server generates http links', function(done) {
-			var async = OC.SetupChecks.checkSetup();
-
-			suite.server.requests[0].respond(
-				200,
-				{
-					'Content-Type': 'application/json',
-				},
-				JSON.stringify({
-					hasFileinfoInstalled: true,
-					isGetenvServerWorking: true,
-					isReadOnlyConfig: false,
-					hasWorkingFileLocking: true,
-					hasValidTransactionIsolationLevel: true,
-					suggestedOverwriteCliURL: '',
-					isRandomnessSecure: true,
-					securityDocs: 'https://docs.owncloud.org/myDocs.html',
-					serverHasInternetConnectionProblems: false,
-					isMemcacheConfigured: true,
-					forwardedForHeadersWorking: true,
-					isCorrectMemcachedPHPModuleInstalled: true,
-					hasPassedCodeIntegrityCheck: true,
-					isOpcacheProperlySetup: true,
-					hasOpcacheLoaded: true,
-					isSettimelimitAvailable: true,
-					hasFreeTypeSupport: true,
-					missingIndexes: [],
-					missingColumns: [],
-					cronErrors: [],
-					cronInfo: {
-						diffInSeconds: 0
-					},
-					isMemoryLimitSufficient: true,
-					appDirsWithDifferentOwner: [],
-					recommendedPHPModules: [],
-					pendingBigIntConversionColumns: [],
-					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: true,
-					reverseProxyDocs: 'https://docs.nextcloud.com/foo/bar.html',
-					reverseProxyGeneratedURL: 'http://server',
-				})
-			);
-
-			async.done(function( data, s, x ){
-				expect(data).toEqual([{
-					msg: 'You are accessing your instance over a secure connection, however your instance is generating insecure URLs. This most likely means that you are behind a reverse proxy and the overwrite config variables are not set correctly. Please read <a href="https://docs.nextcloud.com/foo/bar.html" rel="noreferrer noopener">the documentation page about this</a>.',
 					type: OC.SetupChecks.MESSAGE_TYPE_WARNING
 				}]);
 				done();
@@ -1041,7 +961,6 @@ describe('OC.SetupChecks tests', function() {
 					isSettimelimitAvailable: true,
 					hasFreeTypeSupport: true,
 					missingIndexes: [],
-					missingColumns: [],
 					cronErrors: [],
 					cronInfo: {
 						diffInSeconds: 0
@@ -1051,8 +970,7 @@ describe('OC.SetupChecks tests', function() {
 					recommendedPHPModules: [],
 					pendingBigIntConversionColumns: [],
 					isMysqlUsedWithoutUTF8MB4: false,
-					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: false,
-					reverseProxyGeneratedURL: 'https://server',
+					isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed: false
 				})
 			);
 

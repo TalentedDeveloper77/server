@@ -4,7 +4,6 @@
  *
  * @author Andreas Fischer <bantu@owncloud.com>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jürgen Haas <juergen@paragon-es.de>
  * @author Lukas Reschke <lukas@statuscode.ch>
@@ -286,7 +285,7 @@ class Upgrade extends Command {
 	 * @param OutputInterface $output output interface
 	 */
 	protected function postUpgradeCheck(InputInterface $input, OutputInterface $output) {
-		$trustedDomains = $this->config->getSystemValue('trusted_domains', []);
+		$trustedDomains = $this->config->getSystemValue('trusted_domains', array());
 		if (empty($trustedDomains)) {
 			$output->write(
 				'<warning>The setting "trusted_domains" could not be ' .

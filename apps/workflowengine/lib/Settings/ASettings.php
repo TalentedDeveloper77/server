@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2019 Arthur Schiwon <blizzz@arthur-schiwon.de>
@@ -28,7 +27,6 @@ namespace OCA\WorkflowEngine\Settings;
 use OCA\WorkflowEngine\AppInfo\Application;
 use OCA\WorkflowEngine\Manager;
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\IConfig;
 use OCP\IInitialStateService;
 use OCP\IL10N;
 use OCP\Settings\ISettings;
@@ -51,36 +49,28 @@ abstract class ASettings implements ISettings {
 	private $eventDispatcher;
 
 	/** @var Manager */
-	protected $manager;
+	private $manager;
 
 	/** @var IInitialStateService */
 	private $initialStateService;
-
-	/** @var IConfig */
-	private $config;
 
 	/**
 	 * @param string $appName
 	 * @param IL10N $l
 	 * @param EventDispatcherInterface $eventDispatcher
-	 * @param Manager $manager
-	 * @param IInitialStateService $initialStateService
-	 * @param IConfig $config
 	 */
 	public function __construct(
 		$appName,
 		IL10N $l,
 		EventDispatcherInterface $eventDispatcher,
 		Manager $manager,
-		IInitialStateService $initialStateService,
-		IConfig $config
+		IInitialStateService $initialStateService
 	) {
 		$this->appName = $appName;
 		$this->l10n = $l;
 		$this->eventDispatcher = $eventDispatcher;
 		$this->manager = $manager;
 		$this->initialStateService = $initialStateService;
-		$this->config = $config;
 	}
 
 	abstract function getScope(): int;
@@ -116,12 +106,6 @@ abstract class ASettings implements ISettings {
 			Application::APP_ID,
 			'scope',
 			$this->getScope()
-		);
-
-		$this->initialStateService->provideInitialState(
-			Application::APP_ID,
-			'appstoreenabled',
-			$this->config->getSystemValueBool('appstoreenabled', true)
 		);
 
 		return new TemplateResponse(Application::APP_ID, 'settings', [], 'blank');

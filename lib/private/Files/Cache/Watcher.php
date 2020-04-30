@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Daniel Jagszent <daniel@jagszent.de>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
@@ -26,7 +25,6 @@
  */
 
 namespace OC\Files\Cache;
-
 use OCP\Files\Cache\ICacheEntry;
 use OCP\Files\Cache\IWatcher;
 
@@ -37,7 +35,7 @@ class Watcher implements IWatcher {
 
 	protected $watchPolicy = self::CHECK_ONCE;
 
-	protected $checkedPaths = [];
+	protected $checkedPaths = array();
 
 	/**
 	 * @var \OC\Files\Storage\Storage $storage

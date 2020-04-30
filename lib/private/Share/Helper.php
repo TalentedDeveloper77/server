@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Miguel Prokop <miguel.prokop@vtu.com>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -83,15 +82,15 @@ class Helper extends \OC\Share\Constants {
 	 * @param bool $excludeGroupChildren exclude group children elements
 	 */
 	public static function delete($parent, $excludeParent = false, $uidOwner = null, $newParent = null, $excludeGroupChildren = false) {
-		$ids = [$parent];
-		$deletedItems = [];
-		$changeParent = [];
-		$parents = [$parent];
+		$ids = array($parent);
+		$deletedItems = array();
+		$changeParent = array();
+		$parents = array($parent);
 		while (!empty($parents)) {
 			$parents = "'".implode("','", $parents)."'";
 			// Check the owner on the first search of reshares, useful for
 			// finding and deleting the reshares by a single user of a group share
-			$params = [];
+			$params = array();
 			if (count($ids) == 1 && isset($uidOwner)) {
 				// FIXME: don't concat $parents, use Docrine's PARAM_INT_ARRAY approach
 				$queryString = 'SELECT `id`, `share_with`, `item_type`, `share_type`, ' .
@@ -111,15 +110,15 @@ class Helper extends \OC\Share\Constants {
 			$query = \OC_DB::prepare($queryString);
 			$result = $query->execute($params);
 			// Reset parents array, only go through loop again if items are found
-			$parents = [];
+			$parents = array();
 			while ($item = $result->fetchRow()) {
-				$tmpItem = [
+				$tmpItem = array(
 					'id' => $item['id'],
 					'shareWith' => $item['share_with'],
 					'itemTarget' => $item['item_target'],
 					'itemType' => $item['item_type'],
 					'shareType' => (int)$item['share_type'],
-				];
+				);
 				if (isset($item['file_target'])) {
 					$tmpItem['fileTarget'] = $item['file_target'];
 				}
@@ -142,7 +141,7 @@ class Helper extends \OC\Share\Constants {
 		if (!empty($changeParent)) {
 			$idList = "'".implode("','", $changeParent)."'";
 			$query = \OC_DB::prepare('UPDATE `*PREFIX*share` SET `parent` = ? WHERE `id` IN ('.$idList.')');
-			$query->execute([$newParent]);
+			$query->execute(array($newParent));
 		}
 
 		if (!empty($ids)) {
@@ -162,7 +161,7 @@ class Helper extends \OC\Share\Constants {
 
 		$config = \OC::$server->getConfig();
 
-		$defaultExpireSettings = ['defaultExpireDateSet' => false];
+		$defaultExpireSettings = array('defaultExpireDateSet' => false);
 
 		// get default expire settings
 		$defaultExpireDate = $config->getAppValue('core', 'shareapi_default_expire_date', 'no');
@@ -278,12 +277,12 @@ class Helper extends \OC\Share\Constants {
 			\OCP\Util::emitHook(
 					'\OCA\Files_Sharing\API\Server2Server',
 					'preLoginNameUsedAsUserName',
-					['uid' => &$user1]
+					array('uid' => &$user1)
 			);
 			\OCP\Util::emitHook(
 					'\OCA\Files_Sharing\API\Server2Server',
 					'preLoginNameUsedAsUserName',
-					['uid' => &$user2]
+					array('uid' => &$user2)
 			);
 
 			if ($user1 === $user2) {

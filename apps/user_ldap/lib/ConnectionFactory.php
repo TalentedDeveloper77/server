@@ -23,6 +23,7 @@
 
 namespace OCA\User_LDAP;
 
+
 class ConnectionFactory {
 	/** @var ILDAPWrapper */
 	private $ldap;

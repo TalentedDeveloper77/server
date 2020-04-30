@@ -142,10 +142,6 @@ $(document).ready(function(){
 		savePublicShareDisclaimerText(this.value);
 	});
 
-	$('#shareapi_allow_share_dialog_user_enumeration').on('change', function() {
-		$('#shareapi_restrict_user_enumeration_to_group_setting').toggleClass('hidden', !this.checked);
-	})
-
 	$('#allowLinks').change(function() {
 		$("#publicLinkSettings").toggleClass('hidden', !this.checked);
 		$('#setDefaultExpireDate').toggleClass('hidden', !(this.checked && $('#shareapiDefaultExpireDate')[0].checked));

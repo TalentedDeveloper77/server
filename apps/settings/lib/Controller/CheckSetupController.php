@@ -46,7 +46,6 @@ use GuzzleHttp\Exception\ClientException;
 use OC;
 use OC\AppFramework\Http;
 use OC\DB\Connection;
-use OC\DB\MissingColumnInformation;
 use OC\DB\MissingIndexInformation;
 use OC\DB\SchemaWrapper;
 use OC\IntegrityCheck\Checker;
@@ -146,9 +145,9 @@ class CheckSetupController extends Controller {
 	}
 
 	/**
-	 * Checks if the Nextcloud server can connect to a specific URL using both HTTPS and HTTP
-	 * @return bool
-	 */
+	* Checks if the Nextcloud server can connect to a specific URL using both HTTPS and HTTP
+	* @return bool
+	*/
 	private function isSiteReachable($sitename) {
 		$httpSiteName = 'http://' . $sitename . '/';
 		$httpsSiteName = 'https://' . $sitename . '/';
@@ -263,8 +262,12 @@ class CheckSetupController extends Controller {
 	 *
 	 * @return bool
 	 */
-	protected function isPhpOutdated(): bool {
-		return PHP_VERSION_ID < 70300;
+	protected function isPhpOutdated() {
+		if (version_compare(PHP_VERSION, '7.1.0', '<')) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -273,7 +276,7 @@ class CheckSetupController extends Controller {
 	 *
 	 * @return array
 	 */
-	private function isPhpSupported(): array {
+	private function isPhpSupported() {
 		return ['eol' => $this->isPhpOutdated(), 'version' => PHP_VERSION];
 	}
 
@@ -444,15 +447,6 @@ Raw output
 		$this->dispatcher->dispatch(IDBConnection::CHECK_MISSING_INDEXES_EVENT, $event);
 
 		return $indexInfo->getListOfMissingIndexes();
-	}
-
-	protected function hasMissingColumns(): array {
-		$indexInfo = new MissingColumnInformation();
-		// Dispatch event so apps can also hint for pending index updates if needed
-		$event = new GenericEvent($indexInfo);
-		$this->dispatcher->dispatch(IDBConnection::CHECK_MISSING_COLUMNS_EVENT, $event);
-
-		return $indexInfo->getListOfMissingColumns();
 	}
 
 	protected function isSqliteUsed() {
@@ -703,7 +697,6 @@ Raw output
 				'isSettimelimitAvailable' => $this->isSettimelimitAvailable(),
 				'hasFreeTypeSupport' => $this->hasFreeTypeSupport(),
 				'missingIndexes' => $this->hasMissingIndexes(),
-				'missingColumns' => $this->hasMissingColumns(),
 				'isSqliteUsed' => $this->isSqliteUsed(),
 				'databaseConversionDocumentation' => $this->urlGenerator->linkToDocs('admin-db-conversion'),
 				'isPHPMailerUsed' => $this->isPHPMailerUsed(),
@@ -714,7 +707,6 @@ Raw output
 				'pendingBigIntConversionColumns' => $this->hasBigIntConversionPendingColumns(),
 				'isMysqlUsedWithoutUTF8MB4' => $this->isMysqlUsedWithoutUTF8MB4(),
 				'isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed' => $this->isEnoughTempSpaceAvailableIfS3PrimaryStorageIsUsed(),
-				'reverseProxyGeneratedURL' => $this->urlGenerator->getAbsoluteURL('index.php'),
 			]
 		);
 	}

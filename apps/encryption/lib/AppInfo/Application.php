@@ -4,7 +4,6 @@
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Clark Tomlinson <fallen013@gmail.com>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -27,6 +26,7 @@
  */
 
 namespace OCA\Encryption\AppInfo;
+
 
 use OC\Files\View;
 use OCA\Encryption\Controller\RecoveryController;
@@ -58,7 +58,7 @@ class Application extends \OCP\AppFramework\App {
 	/**
 	 * @param array $urlParams
 	 */
-	public function __construct($urlParams = []) {
+	public function __construct($urlParams = array()) {
 		parent::__construct('encryption', $urlParams);
 		$this->encryptionManager = \OC::$server->getEncryptionManager();
 		$this->config = \OC::$server->getConfig();

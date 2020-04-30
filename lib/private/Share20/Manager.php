@@ -784,11 +784,6 @@ class Manager implements IManager {
 		//reuse the node we already have
 		$share->setNode($oldShare->getNode());
 
-		// Reset the target if it is null for the new share
-		if ($share->getTarget() === '') {
-			$share->setTarget($target);
-		}
-
 		// Post share event
 		$event = new GenericEvent($share);
 		$this->legacyDispatcher->dispatch('OCP\Share::postShare', $event);
@@ -858,7 +853,7 @@ class Manager implements IManager {
 			'shareWith' => $shareWith,
 		]);
 
-		$emailTemplate->setSubject($l->t('%1$s shared »%2$s« with you', [$initiatorDisplayName, $filename]));
+		$emailTemplate->setSubject($l->t('%1$s shared »%2$s« with you', array($initiatorDisplayName, $filename)));
 		$emailTemplate->addHeader();
 		$emailTemplate->addHeading($l->t('%1$s shared »%2$s« with you', [$initiatorDisplayName, $filename]), false);
 		$text = $l->t('%1$s shared »%2$s« with you.', [$initiatorDisplayName, $filename]);
@@ -932,7 +927,7 @@ class Manager implements IManager {
 
 		// We can only change the recipient on user shares
 		if ($share->getSharedWith() !== $originalShare->getSharedWith() &&
-			$share->getShareType() !== \OCP\Share::SHARE_TYPE_USER) {
+		    $share->getShareType() !== \OCP\Share::SHARE_TYPE_USER) {
 			throw new \InvalidArgumentException('Can only update recipient on user shares');
 		}
 
@@ -1022,7 +1017,7 @@ class Manager implements IManager {
 			} else {
 				$userFolder = $this->rootFolder->getUserFolder($share->getSharedBy());
 			}
-			\OC_Hook::emit(Share::class, 'post_update_permissions', [
+			\OC_Hook::emit(Share::class, 'post_update_permissions', array(
 				'itemType' => $share->getNode() instanceof \OCP\Files\File ? 'file' : 'folder',
 				'itemSource' => $share->getNode()->getId(),
 				'shareType' => $share->getShareType(),
@@ -1030,7 +1025,7 @@ class Manager implements IManager {
 				'uidOwner' => $share->getSharedBy(),
 				'permissions' => $share->getPermissions(),
 				'path' => $userFolder->getRelativePath($share->getNode()->getPath()),
-			]);
+			));
 		}
 
 		return $share;
@@ -1762,15 +1757,6 @@ class Manager implements IManager {
 	 */
 	public function allowGroupSharing() {
 		return $this->config->getAppValue('core', 'shareapi_allow_group_sharing', 'yes') === 'yes';
-	}
-
-	public function allowEnumeration(): bool {
-		return $this->config->getAppValue('core', 'shareapi_allow_share_dialog_user_enumeration', 'yes') === 'yes';
-	}
-
-	public function limitEnumerationToGroups(): bool {
-		return $this->allowEnumeration() &&
-			$this->config->getAppValue('core', 'shareapi_restrict_user_enumeration_to_group', 'no') === 'yes';
 	}
 
 	/**

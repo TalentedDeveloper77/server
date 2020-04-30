@@ -13,7 +13,6 @@ OC.L10N.register(
     "Deleted shares" : "Fshi shpërndarjet",
     "Shares" : "Shpërndarje",
     "Restore" : "Rikthe",
-    "error" : "gabim",
     "Download" : "Shkarko",
     "Delete" : "Delete",
     "You can upload into this folder" : "Mund të ngarkoni te kjo dosje",
@@ -136,8 +135,8 @@ OC.L10N.register(
     "Upload files to %s" : "Ngrako skedarët tek %s",
     "Note" : "Shënim",
     "Select or drop files" : "Përzgjidh ose hiq skedarët",
+    "Uploading files…" : "Skedarët po ngarkohen...",
     "Uploaded files:" : "Skedarët e ngarkuar:",
-    "could not delete share" : "ndarja s’u fshi dot",
-    "Uploading files…" : "Skedarët po ngarkohen..."
+    "could not delete share" : "ndarja s’u fshi dot"
 },
 "nplurals=2; plural=(n != 1);");

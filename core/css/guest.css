@@ -23,12 +23,12 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 	color: #000;
 	text-align: center;
-	background-color: #0082c9;
+	/*background-color: #0082c9;*/
 	background-image: url('../img/background.png?v=2');
 	background-image: url('../img/background.png?v=2'), linear-gradient(40deg, #0082c9 0%, rgba(28,175,255,1) 100%);
-	background-position: 50% 50%;
-	background-repeat: repeat;
-	background-size: 275px, contain;
+	/*background-position: 50% 50%;*/
+	/*background-repeat: repeat;*/
+	background-size: 100%, contain;
 	background-attachment: fixed; /* fix background gradient */
 	min-height: 100%; /* fix sticky footer */
 	height: auto;
@@ -36,7 +36,7 @@ body {
 
 /* Various fonts settings */
 #body-login a {
-	color: #fff;
+	color: black;
 	font-weight: 600;
 }
 #body-login a:not(.button):hover,
@@ -79,12 +79,15 @@ body {
 	align-items: center;
 }
 
+#body-login #header .logo {
+    margin-bottom: 0px;
+}
 #header .logo {
-	background-image: url('../img/logo/logo.svg?v=1');
 	background-repeat: no-repeat;
-	background-size: 175px;
+	background-size: 328px;
 	background-position: center;
-	width: 256px;
+	width: 328px;
+	height: 144px;
 	min-height: 128px;
 	max-height: 200px;
 	margin: 0 auto;
@@ -224,6 +227,11 @@ form #datadirField legend {
 	padding: 10px;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	border-radius: 7px;
+	/*width: 125px;*/
+	margin-top: 20px;
+	background: #352525;
+	border: #352525;
 }
 
 #submit-wrapper .icon-loading-small {
@@ -542,9 +550,9 @@ form .warning input[type='checkbox']+label {
 	display: inline-block;
 	font-weight: normal !important;
 	padding: 12px;
-	color: #fff;
+	color: black;
 	cursor: pointer;
-	text-shadow: 0 0 2px rgba(0, 0, 0, .4); /* better readability on bright background */
+	/*text-shadow: 0 0 2px rgba(0, 0, 0, .4);  better readability on bright background */
 }
 #lost-password {
 	margin-top: -6px;
@@ -919,4 +927,46 @@ label.infield,
 
 a.legal {
 	font-size: smaller;
+}
+/*customising*/
+.loginlabel{
+	font-size: 20px;
+	padding: 3px;
+	padding-top: 8px;
+}
+.grouptop{
+	margin-bottom: 5px;
+}
+.grouptop #user{
+	background: white url(../custom/img/Selection_002.png) left no-repeat;
+	padding-left: 40px;
+	width:217px;
+}
+.groupbottom #password{
+	background: white url(../custom/img/Selection_003.png) left no-repeat;
+	padding-left: 40px;
+	width:187px;
+}
+.keep-me-login-text{
+	margin-top: 5px;
+	float:left;
+	margin-left: 10px;
+}
+#keep-me-login-check{
+	background: white;
+}
+#submit-wrapper{
+	display: block;
+	width: 136px;
+}
+#submit-wrapper #submit-form{
+	border-radius: 7px;
+	width: 125px;
+	margin-top: 20px;
+	background: #352525;
+	border: #352525;
+}
+.login-with-google-link{
+	margin-right: 55px;
+    margin-left: 12px;	
 }

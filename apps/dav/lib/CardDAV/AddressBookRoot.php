@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
@@ -25,24 +24,21 @@
 
 namespace OCA\DAV\CardDAV;
 
-use OCA\DAV\AppInfo\PluginManager;
+use OCP\IL10N;
 
 class AddressBookRoot extends \Sabre\CardDAV\AddressBookRoot {
 
-	/** @var PluginManager */
-	private $pluginManager;
+	/** @var IL10N */
+	protected $l10n;
 
 	/**
 	 * @param \Sabre\DAVACL\PrincipalBackend\BackendInterface $principalBackend
 	 * @param \Sabre\CardDAV\Backend\BackendInterface $carddavBackend
 	 * @param string $principalPrefix
 	 */
-	public function __construct(\Sabre\DAVACL\PrincipalBackend\BackendInterface $principalBackend,
-								\Sabre\CardDAV\Backend\BackendInterface $carddavBackend,
-								PluginManager $pluginManager,
-								$principalPrefix = 'principals') {
+	public function __construct(\Sabre\DAVACL\PrincipalBackend\BackendInterface $principalBackend, \Sabre\CardDAV\Backend\BackendInterface $carddavBackend, $principalPrefix = 'principals') {
 		parent::__construct($principalBackend, $carddavBackend, $principalPrefix);
-		$this->pluginManager = $pluginManager;
+		$this->l10n = \OC::$server->getL10N('dav');
 	}
 
 	/**
@@ -53,11 +49,12 @@ class AddressBookRoot extends \Sabre\CardDAV\AddressBookRoot {
 	 * supplied by the authentication backend.
 	 *
 	 * @param array $principal
-	 *
 	 * @return \Sabre\DAV\INode
 	 */
 	function getChildForPrincipal(array $principal) {
-		return new UserAddressBooks($this->carddavBackend, $principal['uri'], $this->pluginManager);
+
+		return new UserAddressBooks($this->carddavBackend, $principal['uri'], $this->l10n);
+
 	}
 
 	function getName() {

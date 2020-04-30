@@ -158,7 +158,6 @@ OC.L10N.register(
     "Transfer {path} to {userid}" : "{path} yolunun sahipliğini {userid} kullanıcısına aktar",
     "Invalid path selected" : "Seçilen yol geçersiz",
     "Ownership transfer request sent" : "Sahiplik aktarımı isteği gönderildi",
-    "Cannot transfer ownership of a file or folder you don't own" : "Sahibi olmadığınız bir dosya ya da klasörün sahipliğini aktaramazsınız",
     "Tags" : "Etiketler",
     "Error while loading the file data" : "Dosya verileri yüklenirken sorun çıktı",
     "Unable to change the favourite state of the file" : "Dosyanın sık kullanılan durumu değiştirilemedi",
@@ -168,7 +167,7 @@ OC.L10N.register(
     "Settings" : "Ayarlar",
     "Show hidden files" : "Gizli dosyaları görüntüle",
     "WebDAV" : "WebDAV",
-    "Use this address to access your Files via WebDAV" : "Dosyalarınıza WebDAV üzerinden erişmek için bu adresi kullanın",
+    "Use this address to <a href=\"%s\" target=\"_blank\" rel=\"noreferrer noopener\">access your Files via WebDAV</a>" : "Dosyalarınıza WebDAV üzerinden erişmek için <a href=\"%s\" target=\"_blank\" rel=\"noreferrer noopener\">bu adresi kullanın</a>",
     "Toggle grid view" : "Tablo görünümünü değiştir",
     "No files in here" : "Burada herhangi bir dosya yok",
     "Upload some content or sync with your devices!" : "Bir şeyler yükleyin ya da aygıtlarınızla eşitleyin!",
@@ -189,7 +188,6 @@ OC.L10N.register(
     "New text file.txt" : "Yeni metin dosyası.txt",
     "%s of %s used" : "%s / %s kullanılıyor",
     "%1$s%% of %2$s used" : "%1$s%% / %2$s kullanılmış",
-    "Use this address to <a href=\"%s\" target=\"_blank\" rel=\"noreferrer noopener\">access your Files via WebDAV</a>" : "Dosyalarınıza WebDAV üzerinden erişmek için <a href=\"%s\" target=\"_blank\" rel=\"noreferrer noopener\">bu adresi kullanın</a>",
     "Cannot transfter ownership of a file or folder you don't own" : "Sahibi olmadığınız bir dosya ya da klasörün sahipliğini aktaramazsınız"
 },
 "nplurals=2; plural=(n > 1);");

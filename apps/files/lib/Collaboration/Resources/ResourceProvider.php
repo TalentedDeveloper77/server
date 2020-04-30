@@ -27,6 +27,7 @@ declare(strict_types=1);
 
 namespace OCA\Files\Collaboration\Resources;
 
+
 use OCP\Collaboration\Resources\IProvider;
 use OCP\Collaboration\Resources\IResource;
 use OCP\Collaboration\Resources\ResourceException;

@@ -20,7 +20,7 @@
  *  * use RST syntax
  */
 
-$CONFIG = [
+$CONFIG = array(
 
 
 /**
@@ -65,16 +65,12 @@ $CONFIG = [
  *   This disallows all other ports on this host
  * - use * as a wildcard, e.g. ubos-raspberry-pi*.local will allow
  *   ubos-raspberry-pi.local and ubos-raspberry-pi-2.local
- * - the IP address with or without permitted port, e.g. [2001:db8::1]:8080
- *   Using TLS certificates where commonName=<IP address> is deprecated
  */
 'trusted_domains' =>
-   [
+  array (
     'demo.example.org',
     'otherdomain.example.org',
-    '10.111.112.113',
-    '[2001:db8::1]'
-  ],
+  ),
 
 
 /**
@@ -270,11 +266,6 @@ $CONFIG = [
 'auth.bruteforce.protection.enabled' => true,
 
 /**
- * By default WebAuthn is available but it can be explicitly disabled by admins
- */
-'auth.webauthn.enabled' => true,
-
-/**
  * The directory where the skeleton files are located. These files will be
  * copied to the data directory of new users. Leave empty to not copy any
  * skeleton files.
@@ -423,7 +414,7 @@ $CONFIG = [
  * will be passed to underlying Swift mailer implementation.
  * Defaults to an empty array.
  */
-'mail_smtpstreamoptions' => [],
+'mail_smtpstreamoptions' => array(),
 
 /**
  * Which mode is used for sendmail/qmail: ``smtp`` or ``pipe``.
@@ -529,12 +520,6 @@ $CONFIG = [
 /**
  * The URL of your proxy server, for example ``proxy.example.com:8081``.
  *
- * Note: Guzzle (the http library used by Nextcloud) is reading the environment
- * variables HTTP_PROXY (only for cli request), HTTPS_PROXY, and NO_PROXY by default.
- *
- * If you configure proxy with Nextcloud any default configuration by Guzzle
- * is overwritten. Make sure to set ``proxyexclude`` accordingly if necessary.
- *
  * Defaults to ``''`` (empty string)
  */
 'proxy' => '',
@@ -547,16 +532,6 @@ $CONFIG = [
  */
 'proxyuserpwd' => '',
 
-/**
- * List of host names that should not be proxied to.
- * For example: ``['.mit.edu', 'foo.com']``.
- *
- * Hint: Use something like ``explode(',', getenv('NO_PROXY'))`` to sync this
- * value with the global NO_PROXY option.
- *
- * Defaults to empty array.
- */
-'proxyexclude' => [],
 
 /**
  * Deleted Items (trash bin)
@@ -701,12 +676,12 @@ $CONFIG = [
  *  - www.eff.org
  *  - www.edri.org
  */
-'connectivity_check_domains' => [
+'connectivity_check_domains' => array(
 	'www.nextcloud.com',
 	'www.startpage.com',
 	'www.eff.org',
 	'www.edri.org'
-],
+),
 
 /**
  * Allows Nextcloud to verify a working .well-known URL redirects. This is done
@@ -905,13 +880,13 @@ $CONFIG = [
  * to that folder, starting from the Nextcloud webroot. The key ``writable``
  * indicates if a Web server can write files to that folder.
  */
-'apps_paths' => [
-	[
+'apps_paths' => array(
+	array(
 		'path'=> '/var/www/nextcloud/apps',
 		'url' => '/apps',
 		'writable' => true,
-	],
-],
+	),
+),
 
 /**
  * @see appcodechecker
@@ -989,6 +964,7 @@ $CONFIG = [
  *  - OC\Preview\MSOffice2003
  *  - OC\Preview\MSOffice2007
  *  - OC\Preview\MSOfficeDoc
+ *  - OC\Preview\OpenDocument
  *  - OC\Preview\PDF
  *  - OC\Preview\Photoshop
  *  - OC\Preview\Postscript
@@ -997,6 +973,14 @@ $CONFIG = [
  *  - OC\Preview\TIFF
  *  - OC\Preview\Font
  *
+ * The following providers are not available in Microsoft Windows:
+ *
+ *  - OC\Preview\Movie
+ *  - OC\Preview\MSOfficeDoc
+ *  - OC\Preview\MSOffice2003
+ *  - OC\Preview\MSOffice2007
+ *  - OC\Preview\OpenDocument
+ *  - OC\Preview\StarOffice
  *
  * Defaults to the following providers:
  *
@@ -1009,10 +993,8 @@ $CONFIG = [
  *  - OC\Preview\PNG
  *  - OC\Preview\TXT
  *  - OC\Preview\XBitmap
- *  - OC\Preview\OpenDocument
- *  - OC\Preview\Krita
  */
-'enabledPreviewProviders' => [
+'enabledPreviewProviders' => array(
 	'OC\Preview\PNG',
 	'OC\Preview\JPEG',
 	'OC\Preview\GIF',
@@ -1021,10 +1003,8 @@ $CONFIG = [
 	'OC\Preview\XBitmap',
 	'OC\Preview\MP3',
 	'OC\Preview\TXT',
-	'OC\Preview\MarkDown',
-	'OC\Preview\OpenDocument',
-	'OC\Preview\Krita',
-],
+	'OC\Preview\MarkDown'
+),
 
 /**
  * LDAP
@@ -1102,9 +1082,9 @@ $CONFIG = [
   *
  * Defaults to an empty array.
  */
-'openssl' => [
+'openssl' => array(
 	'config' => '/absolute/location/of/openssl.cnf',
-],
+),
 
 /**
  * Memory caching backend configuration
@@ -1198,18 +1178,18 @@ $CONFIG = [
 /**
  * Server details for one or more memcached servers to use for memory caching.
  */
-'memcached_servers' => [
+'memcached_servers' => array(
 	// hostname, port and optional weight. Also see:
 	// http://www.php.net/manual/en/memcached.addservers.php
 	// http://www.php.net/manual/en/memcached.addserver.php
-	['localhost', 11211],
+	array('localhost', 11211),
 	//array('other.host.local', 11211),
-],
+),
 
 /**
- * Connection options for memcached
+ * Connection options for memcached, see http://apprize.info/php/scaling/15.html
  */
-'memcached_options' => [
+'memcached_options' => array(
 	// Set timeouts to 50ms
 	\Memcached::OPT_CONNECT_TIMEOUT => 50,
 	\Memcached::OPT_RETRY_TIMEOUT =>   50,
@@ -1228,7 +1208,7 @@ $CONFIG = [
 
 	// Binary serializer vill be enabled if the igbinary PECL module is available
 	//\Memcached::OPT_SERIALIZER => \Memcached::SERIALIZER_IGBINARY,
-],
+),
 
 
 /**
@@ -1378,10 +1358,10 @@ $CONFIG = [
  * Additional driver options for the database connection, eg. to enable SSL
  * encryption in MySQL or specify a custom wait timeout on a cheap hoster.
  */
-'dbdriveroptions' => [
+'dbdriveroptions' => array(
 	PDO::MYSQL_ATTR_SSL_CA => '/file/path/to/ca_cert.pem',
 	PDO::MYSQL_ATTR_INIT_COMMAND => 'SET wait_timeout = 28800'
-],
+),
 
 /**
  * sqlite3 journal mode can be specified using this configuration parameter -
@@ -1436,12 +1416,12 @@ $CONFIG = [
  *  - mysql (MySQL)
  *  - pgsql (PostgreSQL)
  */
-'supportedDatabases' => [
+'supportedDatabases' => array(
 	'sqlite',
 	'mysql',
 	'pgsql',
 	'oci',
-],
+),
 
 /**
  * Override where Nextcloud stores temporary files. Useful in situations where
@@ -1507,7 +1487,7 @@ $CONFIG = [
  *
  * Defaults to ``array('.htaccess')``
  */
-'blacklisted_files' => ['.htaccess'],
+'blacklisted_files' => array('.htaccess'),
 
 /**
  * Define a default folder for shared files and folders other than root.
@@ -1634,7 +1614,7 @@ $CONFIG = [
  *
  * Defaults to an empty array.
  */
-'trusted_proxies' => ['203.0.113.45', '198.51.100.128', '192.168.2.0/24'],
+'trusted_proxies' => array('203.0.113.45', '198.51.100.128', '192.168.2.0/24'),
 
 /**
  * Headers that should be trusted as client IP address in combination with
@@ -1646,7 +1626,7 @@ $CONFIG = [
  *
  * Defaults to ``'HTTP_X_FORWARDED_FOR'``
  */
-'forwarded_for_headers' => ['HTTP_X_FORWARDED', 'HTTP_FORWARDED_FOR'],
+'forwarded_for_headers' => array('HTTP_X_FORWARDED', 'HTTP_FORWARDED_FOR'),
 
 /**
  * max file size for animating gifs on public-sharing-site.
@@ -1767,10 +1747,10 @@ $CONFIG = [
  *
  * WARNING: only use this if you know what you are doing
  */
-'csrf.optout' => [
+'csrf.optout' => array(
 	'/^WebDAVFS/', // OS X Finder
 	'/^Microsoft-WebDAV-MiniRedir/', // Windows webdav drive
-],
+),
 
 /**
  * By default there is on public pages a link shown that allows users to
@@ -1789,4 +1769,4 @@ $CONFIG = [
  */
 
 'login_form_autocomplete' => true,
-];
+);

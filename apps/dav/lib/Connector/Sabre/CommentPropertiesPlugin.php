@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -68,7 +67,7 @@ class CommentPropertiesPlugin extends ServerPlugin {
 	 */
 	function initialize(\Sabre\DAV\Server $server) {
 		$this->server = $server;
-		$this->server->on('propFind', [$this, 'handleGetProperties']);
+		$this->server->on('propFind', array($this, 'handleGetProperties'));
 	}
 
 	/**

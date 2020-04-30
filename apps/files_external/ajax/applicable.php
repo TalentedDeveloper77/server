@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Robin McCorkell <robin@mccorkell.me.uk>
@@ -52,6 +51,6 @@ foreach (\OC::$server->getUserManager()->searchDisplayName($pattern, $limit, $of
 	$users[$user->getUID()] = $user->getDisplayName();
 }
 
-$results = ['groups' => $groups, 'users' => $users];
+$results = array('groups' => $groups, 'users' => $users);
 
 \OC_JSON::success($results);

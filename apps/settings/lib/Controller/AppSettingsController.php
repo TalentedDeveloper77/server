@@ -3,9 +3,7 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  * @copyright Copyright (c) 2016, Lukas Reschke <lukas@statuscode.ch>
  *
- * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Christoph Wurst <christoph@winzerhof-wurst.at>
- * @author Daniel Kesselberg <mail@danielkesselberg.de>
  * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Julius Härtl <jus@bitgrid.net>
@@ -260,7 +258,7 @@ class AppSettingsController extends Controller {
 			}
 
 			// fix groups to be an array
-			$groups = [];
+			$groups = array();
 			if (is_string($appData['groups'])) {
 				$groups = json_decode($appData['groups']);
 			}
@@ -273,10 +271,6 @@ class AppSettingsController extends Controller {
 			}
 
 			$ignoreMaxApps = $this->config->getSystemValue('app_install_overwrite', []);
-			if (!is_array($ignoreMaxApps)) {
-				$this->logger->warning('The value given for app_install_overwrite is not an array. Ignoring...');
-				$ignoreMaxApps = [];
-			}
 			$ignoreMax = in_array($appData['id'], $ignoreMaxApps);
 
 			// analyse dependencies

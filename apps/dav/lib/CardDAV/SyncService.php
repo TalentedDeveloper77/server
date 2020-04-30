@@ -7,7 +7,7 @@
  * @author Björn Schießle <bjoern@schiessle.org>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Morris Jobke <hey@morrisjobke.de>
- * @author Thomas Citharel <nextcloud@tcit.fr>
+ * @author Thomas Citharel <tcit@tcit.fr>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
  *
  * @license AGPL-3.0
@@ -202,7 +202,7 @@ class SyncService {
 		 $body = $this->buildSyncCollectionRequestBody($syncToken);
 
 		 $response = $client->request('REPORT', $addressBookUrl, $body, [
-		 	'Content-Type' => 'application/xml'
+			 'Content-Type' => 'application/xml'
 		 ]);
 
 		 return $this->parseMultiStatus($response['body']);

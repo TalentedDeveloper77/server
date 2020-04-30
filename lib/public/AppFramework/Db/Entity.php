@@ -25,6 +25,7 @@
 
 namespace OCP\AppFramework\Db;
 
+
 use function lcfirst;
 use function substr;
 
@@ -37,8 +38,8 @@ abstract class Entity {
 
 	public $id;
 
-	private $_updatedFields = [];
-	private $_fieldTypes = ['id' => 'integer'];
+	private $_updatedFields = array();
+	private $_fieldTypes = array('id' => 'integer');
 
 
 	/**
@@ -94,7 +95,7 @@ abstract class Entity {
 	 * @since 7.0.0
 	 */
 	public function resetUpdatedFields(){
-		$this->_updatedFields = [];
+		$this->_updatedFields = array();
 	}
 
 	/**

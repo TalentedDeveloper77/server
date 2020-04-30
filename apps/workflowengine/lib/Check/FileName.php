@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2018 Daniel Kesselberg <mail@danielkesselberg.de>

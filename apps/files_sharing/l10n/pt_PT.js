@@ -12,7 +12,6 @@ OC.L10N.register(
     "Files and folders you share by link will show up here" : "Os ficheiros e as pastas que partilha com esta hiperligação, serão mostrados aqui",
     "Shares" : "Partilhas",
     "Restore" : "Restaurar",
-    "error" : "erro",
     "Move or copy" : "Mover ou copiar",
     "Download" : "Transferir",
     "Delete" : "Apagar",
@@ -143,8 +142,8 @@ OC.L10N.register(
     "Upload files to %s" : "Enviar ficheiros para %s",
     "Note" : "Nota",
     "Select or drop files" : "Seleccione ou solte ficheiros",
+    "Uploading files…" : "A enviar ficheiros...",
     "Uploaded files:" : "Ficheiros enviados:",
-    "could not delete share" : "Não foi possível eliminar a partilha",
-    "Uploading files…" : "A enviar ficheiros..."
+    "could not delete share" : "Não foi possível eliminar a partilha"
 },
 "nplurals=2; plural=(n != 1);");

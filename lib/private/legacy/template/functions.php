@@ -4,7 +4,6 @@
  *
  * @author Bart Visscher <bartv@thisnet.nl>
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Julius Härtl <jus@bitgrid.net>
@@ -45,7 +44,7 @@ function p($string) {
  * Prints a <link> tag for loading css
  * @param string $href the source URL, ignored when empty
  * @param string $opts, additional optional options
- */
+*/
 function emit_css_tag($href, $opts = '') {
 	$s='<link rel="stylesheet"';
 	if (!empty($href)) {
@@ -60,7 +59,7 @@ function emit_css_tag($href, $opts = '') {
 /**
  * Prints all tags for CSS loading
  * @param array $obj all the script information from template
- */
+*/
 function emit_css_loading_tags($obj) {
 	foreach($obj['cssfiles'] as $css) {
 		emit_css_tag($css);
@@ -74,7 +73,7 @@ function emit_css_loading_tags($obj) {
  * Prints a <script> tag with nonce and defer depending on config
  * @param string $src the source URL, ignored when empty
  * @param string $script_content the inline script content, ignored when empty
- */
+*/
 function emit_script_tag($src, $script_content='') {
 	$defer_str=' defer';
 	$s='<script nonce="' . \OC::$server->getContentSecurityPolicyNonceManager()->getNonce() . '"';
@@ -95,7 +94,7 @@ function emit_script_tag($src, $script_content='') {
 /**
  * Print all <script> tags for loading JS
  * @param array $obj all the script information from template
- */
+*/
 function emit_script_loading_tags($obj) {
 	foreach($obj['jsfiles'] as $jsfile) {
 		emit_script_tag($jsfile, '');
@@ -197,11 +196,11 @@ function component($app, $file) {
 	if(is_array($file)) {
 		foreach($file as $f) {
 			$url = link_to($app, 'component/' . $f . '.html');
-			OC_Util::addHeader('link', ['rel' => 'import', 'href' => $url]);
+			OC_Util::addHeader('link', array('rel' => 'import', 'href' => $url));
 		}
 	} else {
 		$url = link_to($app, 'component/' . $file . '.html');
-		OC_Util::addHeader('link', ['rel' => 'import', 'href' => $url]);
+		OC_Util::addHeader('link', array('rel' => 'import', 'href' => $url));
 	}
 }
 
@@ -214,7 +213,7 @@ function component($app, $file) {
  *
  * For further information have a look at \OCP\IURLGenerator::linkTo
  */
-function link_to( $app, $file, $args = [] ) {
+function link_to( $app, $file, $args = array() ) {
 	return \OC::$server->getURLGenerator()->linkTo($app, $file, $args);
 }
 
@@ -306,9 +305,9 @@ function relative_modified_date($timestamp, $fromTime = null, $dateOnly = false)
 	return $formatter->formatTimeSpan($timestamp, $fromTime);
 }
 
-function html_select_options($options, $selected, $params=[]) {
+function html_select_options($options, $selected, $params=array()) {
 	if (!is_array($selected)) {
-		$selected=[$selected];
+		$selected=array($selected);
 	}
 	if (isset($params['combine']) && $params['combine']) {
 		$options = array_combine($options, $options);

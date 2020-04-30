@@ -149,8 +149,6 @@ OC.L10N.register(
     "Last login" : "ბოლო ავტორიზაცია",
     "Default quota" : "საწყისი კვოტა",
     "All languages" : "ყველა ენა",
-    "Add" : "დამატება",
-    "Unnamed device" : "უსახელო მოწყობილობა",
     "Your apps" : "თქვენი აპლიკაციები",
     "Disabled apps" : "არამოქმედი აპლიკაციები",
     "Updates" : "განახლებები",

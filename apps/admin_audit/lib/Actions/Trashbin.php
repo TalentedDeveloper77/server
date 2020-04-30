@@ -28,6 +28,7 @@ declare(strict_types=1);
 
 namespace OCA\AdminAudit\Actions;
 
+
 class Trashbin extends Action {
 
 	public function delete(array $params) {

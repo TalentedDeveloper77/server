@@ -23,6 +23,7 @@
 
 namespace OC\GlobalScale;
 
+
 use OCP\IConfig;
 
 class Config implements \OCP\GlobalScale\IConfig {

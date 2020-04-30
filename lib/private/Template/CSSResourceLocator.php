@@ -4,7 +4,6 @@
  *
  * @author Axel Helmert <axel.helmert@luka.de>
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Kyle Fazzari <kyrofa@ubuntu.com>
@@ -146,7 +145,7 @@ class CSSResourceLocator extends ResourceLocator {
 				}
 			}
 
-			$this->resources[] = [$webRoot? : \OC::$WEBROOT, $webRoot, $file];
+			$this->resources[] = array($webRoot? : \OC::$WEBROOT, $webRoot, $file);
 		}
 	}
 }

@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Julius Härtl <jus@bitgrid.net>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -32,6 +31,7 @@
  */
 
 namespace OCP\AppFramework\Http;
+
 
 /**
  * Response for a normal template
@@ -75,8 +75,8 @@ class TemplateResponse extends Response {
 	 * @param string $renderAs how the page should be rendered, defaults to user
 	 * @since 6.0.0 - parameters $params and $renderAs were added in 7.0.0
 	 */
-	public function __construct($appName, $templateName, array $params=[],
-								$renderAs='user') {
+	public function __construct($appName, $templateName, array $params=array(),
+	                            $renderAs='user') {
 		parent::__construct();
 
 		$this->templateName = $templateName;

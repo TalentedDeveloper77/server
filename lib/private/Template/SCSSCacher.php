@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, John Molakvoæ (skjnldsv@protonmail.com)
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Julius Haertl <jus@bitgrid.net>
  * @author Julius Härtl <jus@bitgrid.net>
@@ -30,8 +29,13 @@
 
 namespace OC\Template;
 
+use Leafo\ScssPhp\Compiler;
+use Leafo\ScssPhp\Exception\ParserException;
+use Leafo\ScssPhp\Formatter\Crunched;
+use Leafo\ScssPhp\Formatter\Expanded;
 use OC\Files\AppData\Factory;
 use OC\Memcache\NullCache;
+use OC\Template\IconsCacher;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Files\IAppData;
 use OCP\Files\NotFoundException;
@@ -44,10 +48,6 @@ use OCP\IConfig;
 use OCP\ILogger;
 use OCP\IMemcache;
 use OCP\IURLGenerator;
-use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\Exception\ParserException;
-use ScssPhp\ScssPhp\Formatter\Crunched;
-use ScssPhp\ScssPhp\Formatter\Expanded;
 
 class SCSSCacher {
 
@@ -499,7 +499,7 @@ class SCSSCacher {
 	}
 
 	/**
-	 * Add the icons css cache in the header if needed
+	 * Add the icons css cache in the header if needed 
 	 *
 	 * @return boolean true
 	 */

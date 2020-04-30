@@ -4,7 +4,6 @@
  *
  * @author Andrew Brown <andrew@casabrown.com>
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Jakob Sack <mail@jakobsack.de>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -50,7 +49,7 @@ abstract class Provider {
 	 * @param array $options as key => value
 	 * @since 7.0.0 - default value for $options was added in 8.0.0
 	 */
-	public function __construct($options = []) {
+	public function __construct($options = array()) {
 		$this->options = $options;
 	}
 
@@ -77,7 +76,7 @@ abstract class Provider {
 	 * @return bool
 	 * @since 8.0.0
 	 */
-	public function providesResultsFor(array $apps = []) {
+	public function providesResultsFor(array $apps = array()) {
 		$forApps = $this->getOption(self::OPTION_APPS);
 		return empty($apps) || empty($forApps) || array_intersect($forApps, $apps);
 	}

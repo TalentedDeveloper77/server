@@ -25,7 +25,6 @@ OC.L10N.register(
     "Something happened. Unable to accept the share." : "Kažkas nutiko. Nepavyko priimti viešinio.",
     "Reject share" : "Atmesti viešinį",
     "Something happened. Unable to reject the share." : "Kažkas nutiko. Nepavyko atmesti viešinį.",
-    "error" : "klaida",
     "This will stop your current uploads." : "Tai sustabdys dabartinius įkėlimus.",
     "Move or copy" : "Perkelti ar kopijuoti",
     "Download" : "Atsisiųsti",
@@ -139,7 +138,6 @@ OC.L10N.register(
     "Only works for users with access to this folder" : "Veikia tik naudotojams, turintiems prieigą prie šio aplanko",
     "Only works for users with access to this file" : "Veikia tik naudotojams, turintiems prieigą prie šio failo",
     "Please enter the following required information before creating the share" : "Prieš sukurdami viešinį, įveskite šią reikiamą informaciją",
-    "Password protection (enforced)" : "Apsauga slaptažodžiu (priverstinė)",
     "Password protection" : "Apsauga slaptažodžiu",
     "Enter a password" : "Enter a password",
     "Cancel" : "Atsisakyti",
@@ -193,9 +191,9 @@ OC.L10N.register(
     "Upload files to %s" : "Įkelkite failus gavėjui %s",
     "Note" : "Pastaba",
     "Select or drop files" : "Pasirinkite arba vilkite failus",
+    "Uploading files…" : "Įkeliami failai…",
     "Uploaded files:" : "Įkelti failai:",
     "By uploading files, you agree to the %1$sterms of service%2$s." : "Įkeldami failus, sutinkate su %1$snaudojimosi sąlygomis%2$s.",
-    "could not delete share" : "nepavyko nustoti dalintis duomenimis",
-    "Uploading files…" : "Įkeliami failai…"
+    "could not delete share" : "nepavyko nustoti dalintis duomenimis"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");

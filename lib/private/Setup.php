@@ -25,7 +25,6 @@
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  * @author Sean Comeau <sean@ftlnetworks.ca>
  * @author Serge Martin <edb@sigluy.net>
- * @author Simounet <contact@simounet.net>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
  * @author Vincent Petry <pvince81@owncloud.com>
  *
@@ -60,6 +59,7 @@ use OCP\Defaults;
 use OCP\IGroup;
 use OCP\IL10N;
 use OCP\ILogger;
+use OCP\IUser;
 use OCP\Security\ISecureRandom;
 
 class Setup {
@@ -182,7 +182,7 @@ class Setup {
 			throw new Exception('Supported databases are not properly configured.');
 		}
 
-		$supportedDatabases = [];
+		$supportedDatabases = array();
 
 		foreach ($configuredDatabases as $database) {
 			if (array_key_exists($database, $availableDatabases)) {
@@ -263,7 +263,7 @@ class Setup {
 			];
 		}
 
-		return [
+		return array(
 			'hasSQLite' => isset($databases['sqlite']),
 			'hasMySQL' => isset($databases['mysql']),
 			'hasPostgreSQL' => isset($databases['pgsql']),
@@ -272,7 +272,7 @@ class Setup {
 			'directory' => $dataDir,
 			'htaccessWorking' => $htAccessWorking,
 			'errors' => $errors,
-		];
+		);
 	}
 
 	/**
@@ -282,7 +282,7 @@ class Setup {
 	public function install($options) {
 		$l = $this->l10n;
 
-		$error = [];
+		$error = array();
 		$dbType = $options['dbtype'];
 
 		if (empty($options['adminlogin'])) {
@@ -310,7 +310,7 @@ class Setup {
 
 		// validate the data directory
 		if ((!is_dir($dataDir) && !mkdir($dataDir)) || !is_writable($dataDir)) {
-			$error[] = $l->t("Can't create or write into the data directory %s", [$dataDir]);
+			$error[] = $l->t("Can't create or write into the data directory %s", array($dataDir));
 		}
 
 		if (!empty($error)) {

@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace OCA\Files\Collaboration\Resources;
 
+
 use OCP\Collaboration\Resources\IManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

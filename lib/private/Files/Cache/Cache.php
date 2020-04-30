@@ -274,9 +274,7 @@ class Cache implements ICache {
 		}
 
 		$data['path'] = $file;
-		if (!isset($data['parent'])) {
-			$data['parent'] = $this->getParentId($file);
-		}
+		$data['parent'] = $this->getParentId($file);
 		$data['name'] = basename($file);
 
 		[$values, $extensionValues] = $this->normalizeData($data);
@@ -309,10 +307,6 @@ class Cache implements ICache {
 			}
 		} catch (UniqueConstraintViolationException $e) {
 			// entry exists already
-			if ($this->connection->inTransaction()) {
-				$this->connection->commit();
-				$this->connection->beginTransaction();
-			}
 		}
 
 		// The file was created in the mean time
@@ -615,8 +609,8 @@ class Cache implements ICache {
 			$sourceId = $sourceData['fileid'];
 			$newParentId = $this->getParentId($targetPath);
 
-			[$sourceStorageId, $sourcePath] = $sourceCache->getMoveInfo($sourcePath);
-			[$targetStorageId, $targetPath] = $this->getMoveInfo($targetPath);
+			list($sourceStorageId, $sourcePath) = $sourceCache->getMoveInfo($sourcePath);
+			list($targetStorageId, $targetPath) = $this->getMoveInfo($targetPath);
 
 			if (is_null($sourceStorageId) || $sourceStorageId === false) {
 				throw new \Exception('Invalid source storage id: ' . $sourceStorageId);
@@ -886,7 +880,7 @@ class Cache implements ICache {
 				->whereParent($id);
 
 			if ($row = $query->execute()->fetch()) {
-				[$sum, $min] = array_values($row);
+				list($sum, $min) = array_values($row);
 				$sum = 0 + $sum;
 				$min = 0 + $min;
 				if ($min === -1) {

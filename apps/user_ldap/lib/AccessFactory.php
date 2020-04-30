@@ -23,6 +23,7 @@
 
 namespace OCA\User_LDAP;
 
+
 use OCA\User_LDAP\User\Manager;
 use OCP\IConfig;
 use OCP\IUserManager;

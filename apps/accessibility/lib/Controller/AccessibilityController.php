@@ -7,13 +7,11 @@ declare(strict_types=1);
  * @copyright Copyright (c) 2019 Janis Köhr <janiskoehr@icloud.com>
  *
  * @author Alexey Pyltsyn <lex61rus@gmail.com>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Janis Köhr <janis.koehr@novatec-gmbh.de>
- * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Julius Härtl <jus@bitgrid.net>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
- * @author Thomas Citharel <nextcloud@tcit.fr>
+ * @author Thomas Citharel <tcit@tcit.fr>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -34,6 +32,9 @@ declare(strict_types=1);
 
 namespace OCA\Accessibility\Controller;
 
+use Leafo\ScssPhp\Compiler;
+use Leafo\ScssPhp\Exception\ParserException;
+use Leafo\ScssPhp\Formatter\Crunched;
 use OC\Template\IconsCacher;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Controller;
@@ -47,9 +48,6 @@ use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\IUserSession;
-use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\Exception\ParserException;
-use ScssPhp\ScssPhp\Formatter\Crunched;
 
 class AccessibilityController extends Controller {
 

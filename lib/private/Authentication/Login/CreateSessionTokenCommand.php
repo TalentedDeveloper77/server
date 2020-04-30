@@ -51,31 +51,17 @@ class CreateSessionTokenCommand extends ALoginCommand {
 			$tokenType = IToken::DO_NOT_REMEMBER;
 		}
 
-		if ($loginData->getPassword() === '') {
-			$this->userSession->createSessionToken(
-				$loginData->getRequest(),
-				$loginData->getUser()->getUID(),
-				$loginData->getUsername(),
-				null,
-				$tokenType
-			);
-			$this->userSession->updateTokens(
-				$loginData->getUser()->getUID(),
-				''
-			);
-		} else {
-			$this->userSession->createSessionToken(
-				$loginData->getRequest(),
-				$loginData->getUser()->getUID(),
-				$loginData->getUsername(),
-				$loginData->getPassword(),
-				$tokenType
-			);
-			$this->userSession->updateTokens(
-				$loginData->getUser()->getUID(),
-				$loginData->getPassword()
-			);
-		}
+		$this->userSession->createSessionToken(
+			$loginData->getRequest(),
+			$loginData->getUser()->getUID(),
+			$loginData->getUsername(),
+			$loginData->getPassword(),
+			$tokenType
+		);
+		$this->userSession->updateTokens(
+			$loginData->getUser()->getUID(),
+			$loginData->getPassword()
+		);
 
 		return $this->processNextOrFinishSuccessfully($loginData);
 	}

@@ -137,8 +137,7 @@ class Session implements IUserSession, Emitter {
 								ISecureRandom $random,
 								ILockdownManager $lockdownManager,
 								ILogger $logger,
-								IEventDispatcher $dispatcher
-	) {
+								IEventDispatcher $dispatcher) {
 		$this->manager = $manager;
 		$this->session = $session;
 		$this->timeFactory = $timeFactory;
@@ -318,7 +317,7 @@ class Session implements IUserSession, Emitter {
 	}
 
 	/**
-	 * @return null|string
+	 * @return mixed
 	 */
 	public function getImpersonatingUserID(): ?string {
 
@@ -441,7 +440,7 @@ class Session implements IUserSession, Emitter {
 		$currentDelay = $throttler->sleepDelay($request->getRemoteAddress(), 'login');
 
 		if ($this->manager instanceof PublicEmitter) {
-			$this->manager->emit('\OC\User', 'preLogin', [$user, $password]);
+			$this->manager->emit('\OC\User', 'preLogin', array($user, $password));
 		}
 
 		try {
@@ -468,9 +467,6 @@ class Session implements IUserSession, Emitter {
 				$this->logger->warning('Login failed: \'' . $user . '\' (Remote IP: \'' . \OC::$server->getRequest()->getRemoteAddress() . '\')', ['app' => 'core']);
 
 				$throttler->registerAttempt('login', $request->getRemoteAddress(), ['user' => $user]);
-
-				$this->dispatcher->dispatchTyped(new OC\Authentication\Events\LoginFailed($user));
-
 				if ($currentDelay === 0) {
 					$throttler->sleepDelay($request->getRemoteAddress(), 'login');
 				}
@@ -504,7 +500,7 @@ class Session implements IUserSession, Emitter {
 		Util::emitHook(
 			'\OCA\Files_Sharing\API\Server2Server',
 			'preLoginNameUsedAsUserName',
-			['uid' => &$username]
+			array('uid' => &$username)
 		);
 		$user = $this->manager->get($username);
 		if (is_null($user)) {
@@ -644,7 +640,7 @@ class Session implements IUserSession, Emitter {
 			// Ignore and use empty string instead
 		}
 
-		$this->manager->emit('\OC\User', 'preLogin', [$uid, $password]);
+		$this->manager->emit('\OC\User', 'preLogin', array($uid, $password));
 
 		$user = $this->manager->get($uid);
 		if (is_null($user)) {
@@ -845,7 +841,7 @@ class Session implements IUserSession, Emitter {
 	 */
 	public function loginWithCookie($uid, $currentToken, $oldSessionId) {
 		$this->session->regenerateId();
-		$this->manager->emit('\OC\User', 'preRememberedLogin', [$uid]);
+		$this->manager->emit('\OC\User', 'preRememberedLogin', array($uid));
 		$user = $this->manager->get($uid);
 		if (is_null($user)) {
 			// user does not exist

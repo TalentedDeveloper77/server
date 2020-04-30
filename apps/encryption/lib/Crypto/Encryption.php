@@ -4,7 +4,6 @@
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Clark Tomlinson <fallen013@gmail.com>
  * @author Jan-Christoph Borchardt <hey@jancborchardt.net>
  * @author Joas Schilling <coding@schilljs.com>
@@ -30,6 +29,7 @@
  */
 
 namespace OCA\Encryption\Crypto;
+
 
 use OC\Encryption\Exceptions\DecryptionFailedException;
 use OC\Files\Cache\Scanner;
@@ -236,7 +236,7 @@ class Encryption implements IEncryptionModule {
 			$this->cipher = $this->crypt->getLegacyCipher();
 		}
 
-		return ['cipher' => $this->cipher, 'signed' => 'true'];
+		return array('cipher' => $this->cipher, 'signed' => 'true');
 	}
 
 	/**
@@ -266,7 +266,7 @@ class Encryption implements IEncryptionModule {
 				$result = $this->crypt->symmetricEncryptFileContent($this->writeCache, $this->fileKey, $this->version + 1, $position);
 				$this->writeCache = '';
 			}
-			$publicKeys = [];
+			$publicKeys = array();
 			if ($this->useMasterPassword === true) {
 				$publicKeys[$this->keyManager->getMasterKeyId()] = $this->keyManager->getPublicMasterKey();
 			} else {
@@ -402,7 +402,7 @@ class Encryption implements IEncryptionModule {
 
 		if (!empty($fileKey)) {
 
-			$publicKeys = [];
+			$publicKeys = array();
 			if ($this->useMasterPassword === true) {
 				$publicKeys[$this->keyManager->getMasterKeyId()] = $this->keyManager->getPublicMasterKey();
 			} else {
@@ -425,7 +425,7 @@ class Encryption implements IEncryptionModule {
 
 		} else {
 			$this->logger->debug('no file key found, we assume that the file "{file}" is not encrypted',
-				['file' => $path, 'app' => 'encryption']);
+				array('file' => $path, 'app' => 'encryption'));
 
 			return false;
 		}

@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
@@ -38,7 +37,7 @@ abstract class ResourceLocator {
 	protected $thirdpartyroot;
 	protected $webroot;
 
-	protected $resources = [];
+	protected $resources = array();
 
 	/** @var \OCP\ILogger */
 	protected $logger;
@@ -186,7 +185,7 @@ abstract class ResourceLocator {
 				]);
 			}
 		}
-		$this->resources[] = [$root, $webRoot, $file];
+		$this->resources[] = array($root, $webRoot, $file);
 
 		if ($throw && !is_file($root . '/' . $file)) {
 			throw new ResourceNotFoundException($file, $webRoot);

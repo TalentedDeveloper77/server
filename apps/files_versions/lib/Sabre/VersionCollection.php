@@ -27,6 +27,7 @@ declare(strict_types=1);
 
 namespace OCA\Files_Versions\Sabre;
 
+use OCA\Files_Versions\Storage;
 use OCA\Files_Versions\Versions\IVersion;
 use OCA\Files_Versions\Versions\IVersionManager;
 use OCP\Files\File;

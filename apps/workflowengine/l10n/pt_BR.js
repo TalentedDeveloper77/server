@@ -127,7 +127,7 @@ OC.L10N.register(
     "Start" : "Iniciar",
     "End" : "Fim",
     "Select timezone…" : "Selecionar fuso horário...",
-    "Sync clients" : "Clientes de sincronização",
+    "Sync clients" : "Sincronizar clientes",
     "Tag management" : "Gerenciamento de rótulos",
     "Files workflow engine" : "Sistema de fluxo de trabalho de arquivos",
     "Open documentation" : "Abrir documentação",

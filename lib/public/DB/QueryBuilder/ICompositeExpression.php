@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  *
@@ -37,7 +36,7 @@ interface ICompositeExpression {
 	 * @return ICompositeExpression
 	 * @since 8.2.0
 	 */
-	public function addMultiple(array $parts = []);
+	public function addMultiple(array $parts = array());
 
 	/**
 	 * Adds an expression to composite expression.

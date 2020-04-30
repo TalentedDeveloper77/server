@@ -10,7 +10,7 @@
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin Appelman <robin@icewind.nl>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
- * @author Thomas Citharel <nextcloud@tcit.fr>
+ * @author Thomas Citharel <tcit@tcit.fr>
  * @author Victor Dubiniuk <dubiniuk@owncloud.com>
  *
  * @license AGPL-3.0
@@ -39,12 +39,12 @@ use OC\Authentication\Listeners\RemoteWipeNotificationsListener;
 use OC\Authentication\Listeners\UserDeletedStoreCleanupListener;
 use OC\Authentication\Notifications\Notifier as AuthenticationNotifier;
 use OC\Core\Notification\RemoveLinkSharesNotifier;
-use OC\DB\MissingColumnInformation;
 use OC\DB\MissingIndexInformation;
 use OC\DB\SchemaWrapper;
 use OCP\AppFramework\App;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IDBConnection;
+use OCP\IServerContainer;
 use OCP\User\Events\UserDeletedEvent;
 use OCP\Util;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -163,23 +163,6 @@ class Application extends App {
 					$table = $schema->getTable('schedulingobjects');
 					if (!$table->hasIndex('schedulobj_principuri_index')) {
 						$subject->addHintForMissingSubject($table->getName(), 'schedulobj_principuri_index');
-					}
-				}
-			}
-		);
-
-		$eventDispatcher->addListener(IDBConnection::CHECK_MISSING_COLUMNS_EVENT,
-			function (GenericEvent $event) use ($container) {
-				/** @var MissingColumnInformation $subject */
-				$subject = $event->getSubject();
-
-				$schema = new SchemaWrapper($container->query(IDBConnection::class));
-
-				if ($schema->hasTable('comments')) {
-					$table = $schema->getTable('comments');
-
-					if (!$table->hasColumn('reference_id')) {
-						$subject->addHintForMissingColumn($table->getName(), 'reference_id');
 					}
 				}
 			}

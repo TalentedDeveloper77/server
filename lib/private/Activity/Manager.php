@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  * @copyright Copyright (c) 2016 Joas Schilling <coding@schilljs.com>
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Daniel Kesselberg <mail@danielkesselberg.de>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -27,6 +26,7 @@
  */
 
 namespace OC\Activity;
+
 
 use OCP\Activity\IConsumer;
 use OCP\Activity\IEvent;
@@ -76,10 +76,10 @@ class Manager implements IManager {
 	}
 
 	/** @var \Closure[] */
-	private $consumersClosures = [];
+	private $consumersClosures = array();
 
 	/** @var IConsumer[] */
-	private $consumers = [];
+	private $consumers = array();
 
 	/**
 	 * @return \OCP\Activity\IConsumer[]

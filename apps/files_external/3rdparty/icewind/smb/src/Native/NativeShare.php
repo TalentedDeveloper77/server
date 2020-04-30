@@ -94,7 +94,9 @@ class NativeShare extends AbstractShare {
 			$name = $file['name'];
 			if ($name !== '.' and $name !== '..') {
 				$fullPath = $path . '/' . $name;
-				$files [] = new NativeFileInfo($this, $fullPath, $name);
+				$files [] = new NativeFileInfo($this, $fullPath, $name, function () use ($fullPath) {
+					return $this->getStat($fullPath);
+				});
 			}
 		}
 
@@ -107,12 +109,7 @@ class NativeShare extends AbstractShare {
 	 * @return \Icewind\SMB\IFileInfo
 	 */
 	public function stat($path) {
-		$info = new NativeFileInfo($this, $path, self::mb_basename($path));
-
-		// trigger attribute loading
-		$info->getSize();
-
-		return $info;
+		return new NativeFileInfo($this, $path, self::mb_basename($path), $this->getStat($path));
 	}
 
 	/**
@@ -130,6 +127,10 @@ class NativeShare extends AbstractShare {
 		}
 
 		return '';
+	}
+
+	private function getStat($path) {
+		return $this->getState()->stat($this->buildUrl($path));
 	}
 
 	/**
@@ -197,14 +198,12 @@ class NativeShare extends AbstractShare {
 	 */
 	public function put($source, $target) {
 		$sourceHandle = fopen($source, 'rb');
-		$targetUrl = $this->buildUrl($target);
-
-		$targetHandle = $this->getState()->create($targetUrl);
+		$targetHandle = $this->getState()->create($this->buildUrl($target));
 
 		while ($data = fread($sourceHandle, NativeReadStream::CHUNK_SIZE)) {
-			$this->getState()->write($targetHandle, $data, $targetUrl);
+			$this->getState()->write($targetHandle, $data);
 		}
-		$this->getState()->close($targetHandle, $targetUrl);
+		$this->getState()->close($targetHandle);
 		return true;
 	}
 
@@ -224,12 +223,6 @@ class NativeShare extends AbstractShare {
 		if (!$target) {
 			throw new InvalidPathException('Invalid target path: Filename cannot be empty');
 		}
-
-		$sourceHandle = $this->getState()->open($this->buildUrl($source), 'r');
-		if (!$sourceHandle) {
-			throw new InvalidResourceException('Failed opening remote file "' . $source . '" for reading');
-		}
-
 		$targetHandle = @fopen($target, 'wb');
 		if (!$targetHandle) {
 			$error = error_get_last();
@@ -238,14 +231,19 @@ class NativeShare extends AbstractShare {
 			} else {
 				$reason = 'Unknown error';
 			}
-			$this->getState()->close($sourceHandle, $this->buildUrl($source));
 			throw new InvalidResourceException('Failed opening local file "' . $target . '" for writing: ' . $reason);
+		}
+
+		$sourceHandle = $this->getState()->open($this->buildUrl($source), 'r');
+		if (!$sourceHandle) {
+			fclose($targetHandle);
+			throw new InvalidResourceException('Failed opening remote file "' . $source . '" for reading');
 		}
 
 		while ($data = $this->getState()->read($sourceHandle, NativeReadStream::CHUNK_SIZE)) {
 			fwrite($targetHandle, $data);
 		}
-		$this->getState()->close($sourceHandle, $this->buildUrl($source));
+		$this->getState()->close($sourceHandle);
 		return true;
 	}
 
@@ -291,7 +289,7 @@ class NativeShare extends AbstractShare {
 	 */
 	public function append($source) {
 		$url = $this->buildUrl($source);
-		$handle = $this->getState()->open($url, "a+");
+		$handle = $this->getState()->open($url, "a");
 		return NativeWriteStream::wrap($this->getState(), $handle, "a", $url);
 	}
 

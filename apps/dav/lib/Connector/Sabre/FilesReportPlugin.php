@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -155,7 +154,7 @@ class FilesReportPlugin extends ServerPlugin {
 		$server->xml->namespaceMap[self::NS_OWNCLOUD] = 'oc';
 
 		$this->server = $server;
-		$this->server->on('report', [$this, 'onReport']);
+		$this->server->on('report', array($this, 'onReport'));
 	}
 
 	/**

@@ -27,6 +27,7 @@ declare(strict_types=1);
 
 namespace OC\Authentication\Listeners;
 
+use OC\Authentication\Events\ARemoteWipeEvent;
 use OC\Authentication\Events\RemoteWipeFinished;
 use OC\Authentication\Events\RemoteWipeStarted;
 use OC\Authentication\Token\IToken;

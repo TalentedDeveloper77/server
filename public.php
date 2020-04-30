@@ -4,7 +4,6 @@
  *
  * @author Björn Schießle <bjoern@schiessle.org>
  * @author Christopher Schäpers <kondou@ts.unde.re>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Lukas Reschke <lukas@statuscode.ch>
@@ -67,8 +66,8 @@ try {
 
 	// Load all required applications
 	\OC::$REQUESTEDAPP = $app;
-	OC_App::loadApps(['authentication']);
-	OC_App::loadApps(['filesystem', 'logging']);
+	OC_App::loadApps(array('authentication'));
+	OC_App::loadApps(array('filesystem', 'logging'));
 
 	if (!\OC::$server->getAppManager()->isInstalled($app)) {
 		http_response_code(404);

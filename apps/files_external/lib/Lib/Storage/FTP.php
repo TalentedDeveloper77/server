@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Felix Moeller <mail@felixmoeller.de>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
@@ -110,7 +109,7 @@ class FTP extends StreamWrapper{
 			case 'a':
 			case 'ab':
 				//these are supported by the wrapper
-				$context = stream_context_create(['ftp' => ['overwrite' => true]]);
+				$context = stream_context_create(array('ftp' => array('overwrite' => true)));
 				$handle = fopen($this->constructUrl($path), $mode, false, $context);
 				return RetryWrapper::wrap($handle);
 			case 'r+':
@@ -151,7 +150,7 @@ class FTP extends StreamWrapper{
 		if (function_exists('ftp_login')) {
 			return true;
 		} else {
-			return ['ftp'];
+			return array('ftp');
 		}
 	}
 

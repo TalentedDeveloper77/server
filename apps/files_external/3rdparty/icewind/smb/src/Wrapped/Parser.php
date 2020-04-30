@@ -33,6 +33,7 @@ class Parser {
 	 */
 	private $host;
 
+	// todo replace with static once <5.6 support is dropped
 	// see error.h
 	const EXCEPTION_MAP = [
 		ErrorCodes::LogonFailure      => AuthenticationException::class,
@@ -145,12 +146,12 @@ class Parser {
 		}
 		return [
 			'mtime' => strtotime($data['write_time']),
-			'mode'  => hexdec(substr($data['attributes'], strpos($data['attributes'], '(') + 1, -1)),
+			'mode'  => hexdec(substr($data['attributes'], strpos($data['attributes'], '('), -1)),
 			'size'  => isset($data['stream']) ? (int)(explode(' ', $data['stream'])[1]) : 0
 		];
 	}
 
-	public function parseDir($output, $basePath, callable $aclCallback) {
+	public function parseDir($output, $basePath) {
 		//last line is used space
 		array_pop($output);
 		$regex = '/^\s*(.*?)\s\s\s\s+(?:([NDHARS]*)\s+)?([0-9]+)\s+(.*)$/';
@@ -162,10 +163,7 @@ class Parser {
 				if ($name !== '.' and $name !== '..') {
 					$mode = $this->parseMode($mode);
 					$time = strtotime($time . ' ' . $this->timeZone);
-					$path = $basePath . '/' . $name;
-					$content[] = new FileInfo($path, $name, $size, $time, $mode, function () use ($aclCallback, $path) {
-						return $aclCallback($path);
-					});
+					$content[] = new FileInfo($basePath . '/' . $name, $name, $size, $time, $mode);
 				}
 			}
 		}

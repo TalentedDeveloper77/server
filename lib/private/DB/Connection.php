@@ -3,7 +3,7 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
+ * @author Daniel Kesselberg <mail@danielkesselberg.de>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -41,6 +41,7 @@ use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Exception\ConstraintViolationException;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\TransactionIsolationLevel;
 use OC\DB\QueryBuilder\QueryBuilder;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
@@ -150,6 +151,8 @@ class Connection extends ReconnectWrapper implements IDBConnection {
 		parent::__construct($params, $driver, $config, $eventManager);
 		$this->adapter = new $params['adapter']($this);
 		$this->tablePrefix = $params['tablePrefix'];
+
+		$this->setTransactionIsolation(TransactionIsolationLevel::READ_COMMITTED);
 	}
 
 	/**
@@ -189,7 +192,7 @@ class Connection extends ReconnectWrapper implements IDBConnection {
 	 *
 	 * @throws \Doctrine\DBAL\DBALException
 	 */
-	public function executeQuery($query, array $params = [], $types = [], QueryCacheProfile $qcp = null)
+	public function executeQuery($query, array $params = array(), $types = array(), QueryCacheProfile $qcp = null)
 	{
 		$query = $this->replaceTablePrefix($query);
 		$query = $this->adapter->fixupStatement($query);
@@ -210,7 +213,7 @@ class Connection extends ReconnectWrapper implements IDBConnection {
 	 *
 	 * @throws \Doctrine\DBAL\DBALException
 	 */
-	public function executeUpdate($query, array $params = [], array $types = [])
+	public function executeUpdate($query, array $params = array(), array $types = array())
 	{
 		$query = $this->replaceTablePrefix($query);
 		$query = $this->adapter->fixupStatement($query);
@@ -372,7 +375,7 @@ class Connection extends ReconnectWrapper implements IDBConnection {
 	public function dropTable($table) {
 		$table = $this->tablePrefix . trim($table);
 		$schema = $this->getSchemaManager();
-		if($schema->tablesExist([$table])) {
+		if($schema->tablesExist(array($table))) {
 			$schema->dropTable($table);
 		}
 	}
@@ -386,7 +389,7 @@ class Connection extends ReconnectWrapper implements IDBConnection {
 	public function tableExists($table){
 		$table = $this->tablePrefix . trim($table);
 		$schema = $this->getSchemaManager();
-		return $schema->tablesExist([$table]);
+		return $schema->tablesExist(array($table));
 	}
 
 	// internal use

@@ -9,7 +9,6 @@ declare(strict_types=1);
  * @author Daniel Calviño Sánchez <danxuliu@gmail.com>
  * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
- * @author Julius Härtl <jus@bitgrid.net>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Maxence Lange <maxence@artificial-owl.com>
  * @author Maxence Lange <maxence@nextcloud.com>
@@ -768,16 +767,6 @@ class ShareAPIController extends OCSController {
 		$known = $formatted = $miniFormatted = [];
 		$resharingRight = false;
 		foreach ($shares as $share) {
-			try {
-				$share->getNode();
-			} catch (NotFoundException $e) {
-				/*
-				 * Ignore shares where we can't get the node
-				 * For example delted shares
-				 */
-				continue;
-			}
-
 			if (in_array($share->getId(), $known) || $share->getSharedWith() === $this->currentUser) {
 				continue;
 			}

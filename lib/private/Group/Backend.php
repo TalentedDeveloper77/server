@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Knut Ahlers <knut@ahlers.me>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  * @author Vincent Petry <pvince81@owncloud.com>
@@ -45,12 +44,12 @@ abstract class Backend implements \OCP\GroupInterface {
 	];
 
 	/**
-	 * Get all supported actions
-	 * @return int bitwise-or'ed actions
-	 *
-	 * Returns the supported actions as int to be
-	 * compared with \OC\Group\Backend::CREATE_GROUP etc.
-	 */
+	* Get all supported actions
+	* @return int bitwise-or'ed actions
+	*
+	* Returns the supported actions as int to be
+	* compared with \OC\Group\Backend::CREATE_GROUP etc.
+	*/
 	public function getSupportedActions() {
 		$actions = 0;
 		foreach($this->possibleActions AS $action => $methodName) {
@@ -63,13 +62,13 @@ abstract class Backend implements \OCP\GroupInterface {
 	}
 
 	/**
-	 * Check if backend implements actions
-	 * @param int $actions bitwise-or'ed actions
-	 * @return bool
-	 *
-	 * Returns the supported actions as int to be
-	 * compared with \OC\Group\Backend::CREATE_GROUP etc.
-	 */
+	* Check if backend implements actions
+	* @param int $actions bitwise-or'ed actions
+	* @return bool
+	*
+	* Returns the supported actions as int to be
+	* compared with \OC\Group\Backend::CREATE_GROUP etc.
+	*/
 	public function implementsActions($actions) {
 		return (bool)($this->getSupportedActions() & $actions);
 	}
@@ -95,7 +94,7 @@ abstract class Backend implements \OCP\GroupInterface {
 	 * if the user exists at all.
 	 */
 	public function getUserGroups($uid) {
-		return [];
+		return array();
 	}
 
 	/**
@@ -109,7 +108,7 @@ abstract class Backend implements \OCP\GroupInterface {
 	 */
 
 	public function getGroups($search = '', $limit = -1, $offset = 0) {
-		return [];
+		return array();
 	}
 
 	/**
@@ -130,6 +129,6 @@ abstract class Backend implements \OCP\GroupInterface {
 	 * @return array an array of user ids
 	 */
 	public function usersInGroup($gid, $search = '', $limit = -1, $offset = 0) {
-		return [];
+		return array();
 	}
 }

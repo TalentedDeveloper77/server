@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Julius Härtl <jus@bitgrid.net>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -174,21 +173,15 @@ class Folder extends Node implements \OCP\Files\Folder {
 
 	/**
 	 * @param string $path
-	 * @param string | resource | null $content
 	 * @return \OC\Files\Node\File
 	 * @throws \OCP\Files\NotPermittedException
 	 */
-	public function newFile($path, $content = null) {
+	public function newFile($path) {
 		if ($this->checkPermissions(\OCP\Constants::PERMISSION_CREATE)) {
 			$fullPath = $this->getFullPath($path);
 			$nonExisting = new NonExistingFile($this->root, $this->view, $fullPath);
 			$this->sendHooks(['preWrite', 'preCreate'], [$nonExisting]);
-			if ($content !== null) {
-				$result = $this->view->file_put_contents($fullPath, $content);
-			} else {
-				$result = $this->view->touch($fullPath);
-			}
-			if (!$result) {
+			if (!$this->view->touch($fullPath)) {
 				throw new NotPermittedException('Could not create path');
 			}
 			$node = new File($this->root, $this->view, $fullPath);
@@ -206,9 +199,9 @@ class Folder extends Node implements \OCP\Files\Folder {
 	 */
 	public function search($query) {
 		if (is_string($query)) {
-			return $this->searchCommon('search', ['%' . $query . '%']);
+			return $this->searchCommon('search', array('%' . $query . '%'));
 		} else {
-			return $this->searchCommon('searchQuery', [$query]);
+			return $this->searchCommon('searchQuery', array($query));
 		}
 	}
 
@@ -219,7 +212,7 @@ class Folder extends Node implements \OCP\Files\Folder {
 	 * @return Node[]
 	 */
 	public function searchByMime($mimetype) {
-		return $this->searchCommon('searchByMime', [$mimetype]);
+		return $this->searchCommon('searchByMime', array($mimetype));
 	}
 
 	/**
@@ -230,7 +223,7 @@ class Folder extends Node implements \OCP\Files\Folder {
 	 * @return Node[]
 	 */
 	public function searchByTag($tag, $userId) {
-		return $this->searchCommon('searchByTag', [$tag, $userId]);
+		return $this->searchCommon('searchByTag', array($tag, $userId));
 	}
 
 	/**
@@ -244,7 +237,7 @@ class Folder extends Node implements \OCP\Files\Folder {
 			throw new \InvalidArgumentException('searching by owner is only allows on the users home folder');
 		}
 
-		$files = [];
+		$files = array();
 		$rootLength = strlen($this->path);
 		$mount = $this->root->getMount($this->path);
 		$storage = $mount->getStorage();
@@ -257,7 +250,7 @@ class Folder extends Node implements \OCP\Files\Folder {
 
 		$cache = $storage->getCache('');
 
-		$results = call_user_func_array([$cache, $method], $args);
+		$results = call_user_func_array(array($cache, $method), $args);
 		foreach ($results as $result) {
 			if ($internalRootLength === 0 or substr($result['path'], 0, $internalRootLength) === $internalPath) {
 				$result['internalPath'] = $result['path'];
@@ -395,7 +388,7 @@ class Folder extends Node implements \OCP\Files\Folder {
 
 	public function delete() {
 		if ($this->checkPermissions(\OCP\Constants::PERMISSION_DELETE)) {
-			$this->sendHooks(['preDelete']);
+			$this->sendHooks(array('preDelete'));
 			$fileInfo = $this->getFileInfo();
 			$this->view->rmdir($this->path);
 			$nonExisting = new NonExistingFolder($this->root, $this->view, $this->path, $fileInfo);

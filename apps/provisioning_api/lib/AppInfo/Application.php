@@ -2,7 +2,6 @@
 /**
  *
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -37,7 +36,7 @@ use OCP\Defaults;
 use OCP\Util;
 
 class Application extends App {
-	public function __construct(array $urlParams = []) {
+	public function __construct(array $urlParams = array()) {
 		parent::__construct('provisioning_api', $urlParams);
 
 		$container = $this->getContainer();

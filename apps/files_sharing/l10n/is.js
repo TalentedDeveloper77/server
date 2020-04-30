@@ -19,7 +19,6 @@ OC.L10N.register(
     "Restore" : "Endurheimta",
     "Restore share" : "Endurheimta sameign",
     "Something happened. Unable to restore the share." : "Eitthvað skrýtið gerðist. Gat ekki endurheimt sameignina.",
-    "error" : "villa",
     "This will stop your current uploads." : "Þetta mun stöðva núverandi innsendingar þínar.",
     "Move or copy" : "Færa eða afrita",
     "Download" : "Sækja",
@@ -178,9 +177,9 @@ OC.L10N.register(
     "Upload files to %s" : "Senda inn skrár á %s",
     "Note" : "Minnispunktur",
     "Select or drop files" : "Veldu eða slepptu skrám",
+    "Uploading files…" : "Sendi inn skrár…",
     "Uploaded files:" : "Innsendar skrár:",
     "By uploading files, you agree to the %1$sterms of service%2$s." : "Með því að senda inn skrár, samþykkir þú %1$sþjónustuskilmálana%2$s.",
-    "could not delete share" : "tókst ekki að eyða sameign",
-    "Uploading files…" : "Sendi inn skrár…"
+    "could not delete share" : "tókst ekki að eyða sameign"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

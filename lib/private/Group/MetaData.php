@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
@@ -44,7 +43,7 @@ class MetaData {
 	/** @var bool */
 	protected $isAdmin;
 	/** @var array */
-	protected $metaData = [];
+	protected $metaData = array();
 	/** @var IGroupManager */
 	protected $groupManager;
 	/** @var bool */
@@ -87,12 +86,12 @@ class MetaData {
 			return $this->metaData[$key];
 		}
 
-		$adminGroups = [];
-		$groups = [];
+		$adminGroups = array();
+		$groups = array();
 		$sortGroupsIndex = 0;
-		$sortGroupsKeys = [];
+		$sortGroupsKeys = array();
 		$sortAdminGroupsIndex = 0;
-		$sortAdminGroupsKeys = [];
+		$sortAdminGroupsKeys = array();
 
 		foreach($this->getGroups($groupSearch) as $group) {
 			$groupMetaData = $this->generateGroupMetaData($group, $userSearch);
@@ -118,7 +117,7 @@ class MetaData {
 		$this->sort($groups, $sortGroupsKeys);
 		$this->sort($adminGroups, $sortAdminGroupsKeys);
 
-		$this->metaData[$key] = [$adminGroups, $groups];
+		$this->metaData[$key] = array($adminGroups, $groups);
 		return $this->metaData[$key];
 	}
 
@@ -164,14 +163,14 @@ class MetaData {
 	 * @return array with the keys 'id', 'name', 'usercount' and 'disabled'
 	 */
 	private function generateGroupMetaData(\OCP\IGroup $group, $userSearch) {
-		return [
-			'id' => $group->getGID(),
-			'name' => $group->getDisplayName(),
-			'usercount' => $this->sorting === self::SORT_USERCOUNT ? $group->count($userSearch) : 0,
-			'disabled' => $group->countDisabled(),
-			'canAdd' => $group->canAddUser(),
-			'canRemove' => $group->canRemoveUser(),
-		];
+		return array(
+				'id' => $group->getGID(),
+				'name' => $group->getDisplayName(),
+				'usercount' => $this->sorting === self::SORT_USERCOUNT ? $group->count($userSearch) : 0,
+				'disabled' => $group->countDisabled(),
+				'canAdd' => $group->canAddUser(),
+				'canRemove' => $group->canRemoveUser(),
+			);
 	}
 
 	/**

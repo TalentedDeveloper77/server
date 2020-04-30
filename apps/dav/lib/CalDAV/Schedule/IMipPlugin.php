@@ -5,7 +5,6 @@
  *
  * @author brad2014 <brad2014@users.noreply.github.com>
  * @author Brad Rubenstein <brad@wbr.tech>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Leon Klingele <leon@struktur.de>
@@ -43,7 +42,6 @@ use OCP\L10N\IFactory as L10NFactory;
 use OCP\Mail\IEMailTemplate;
 use OCP\Mail\IMailer;
 use OCP\Security\ISecureRandom;
-use OCP\Util;
 use Sabre\CalDAV\Schedule\IMipPlugin as SabreIMipPlugin;
 use Sabre\VObject\Component\VCalendar;
 use Sabre\VObject\Component\VEvent;
@@ -239,15 +237,15 @@ class IMipPlugin extends SabreIMipPlugin {
 				break;
 		}
 
-		$data = [
+		$data = array(
 			'attendee_name' => (string)$meetingAttendeeName ?: $defaultVal,
 			'invitee_name' => (string)$meetingInviteeName ?: $defaultVal,
 			'meeting_title' => (string)$meetingTitle ?: $defaultVal,
 			'meeting_description' => (string)$meetingDescription ?: $defaultVal,
 			'meeting_url' => (string)$meetingUrl ?: $defaultVal,
-		];
+		);
 
-		$fromEMail = Util::getDefaultEmailAddress('invitations-noreply');
+		$fromEMail = \OCP\Util::getDefaultEmailAddress('invitations-noreply');
 		$fromName = $l10n->t('%1$s via %2$s', [$senderName, $this->defaults->getName()]);
 
 		$message = $this->mailer->createMessage()
@@ -257,8 +255,6 @@ class IMipPlugin extends SabreIMipPlugin {
 
 		$template = $this->mailer->createEMailTemplate('dav.calendarInvite.' . $method, $data);
 		$template->addHeader();
-
-		$summary = ((string) $summary !== '') ? (string) $summary : $l10n->t('Untitled event');
 
 		$this->addSubjectAndHeading($template, $l10n, $method, $summary,
 			$meetingAttendeeName, $meetingInviteeName);

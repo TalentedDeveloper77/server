@@ -6,7 +6,6 @@ declare(strict_types=1);
  * @copyright Copyright (c) 2018 John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @copyright Copyright (c) 2019 Janis Köhr <janiskoehr@icloud.com>
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Janis Köhr <janis.koehr@novatec-gmbh.de>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -31,6 +30,7 @@ declare(strict_types=1);
 namespace OCA\Accessibility\Controller;
 
 use OCA\Accessibility\AccessibilityProvider;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCSController;
@@ -113,7 +113,7 @@ class ConfigController extends OCSController {
 			}
 
 			$themes = $this->accessibilityProvider->getThemes();
-			$highcontrast = [$this->accessibilityProvider->getHighContrast()];
+			$highcontrast = array($this->accessibilityProvider->getHighContrast());
 			$fonts  = $this->accessibilityProvider->getFonts();
 
 			$availableOptions = array_map(function($option) {

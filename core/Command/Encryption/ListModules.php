@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Ruben Homs <ruben@homs.codes>
  *
@@ -70,7 +69,7 @@ class ListModules extends Base {
 		$encryptionModules = $this->encryptionManager->getEncryptionModules();
 		$defaultEncryptionModuleId = $this->encryptionManager->getDefaultEncryptionModuleId();
 
-		$encModules = [];
+		$encModules = array();
 		foreach ($encryptionModules as $module) {
 			$encModules[$module['id']]['displayName'] = $module['displayName'];
 			$encModules[$module['id']]['default'] = $module['id'] === $defaultEncryptionModuleId;

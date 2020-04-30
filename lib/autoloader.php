@@ -7,7 +7,6 @@ declare(strict_types=1);
  *
  * @author Andreas Fischer <bantu@owncloud.com>
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
@@ -159,7 +158,7 @@ class Autoloader {
 
 		if (!is_array($pathsToRequire)) {
 			// No cache or cache miss
-			$pathsToRequire = [];
+			$pathsToRequire = array();
 			foreach ($this->findClass($class) as $path) {
 				$fullPath = stream_resolve_include_path($path);
 				if ($fullPath && $this->isValidPath($fullPath)) {

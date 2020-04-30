@@ -5,7 +5,6 @@
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bart Visscher <bartv@thisnet.nl>
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
@@ -343,7 +342,7 @@ class Manager extends PublicEmitter implements IGroupManager {
 	 */
 	public function getUserGroupNames(IUser $user) {
 		return array_map(function ($group) {
-			return ['displayName' => $group->getDisplayName()];
+			return array('displayName' => $group->getDisplayName());
 		}, $this->getUserGroups($user));
 	}
 

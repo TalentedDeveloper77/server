@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Laurens Post <Crote@users.noreply.github.com>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -56,13 +55,13 @@ class ShowConfig extends Command {
 					'configID',
 					InputArgument::OPTIONAL,
 					'will show the configuration of the specified id'
-					 )
+				     )
 			->addOption(
 					'show-password',
 					null,
 					InputOption::VALUE_NONE,
 					'show ldap bind password'
-					 )
+				     )
 		;
 	}
 
@@ -95,8 +94,8 @@ class ShowConfig extends Command {
 			ksort($configuration);
 
 			$table = new Table($output);
-			$table->setHeaders(['Configuration', $id]);
-			$rows = [];
+			$table->setHeaders(array('Configuration', $id));
+			$rows = array();
 			foreach($configuration as $key => $value) {
 				if($key === 'ldapAgentPassword' && !$withPassword) {
 					$value = '***';
@@ -104,7 +103,7 @@ class ShowConfig extends Command {
 				if(is_array($value)) {
 					$value = implode(';', $value);
 				}
-				$rows[] = [$key, $value];
+				$rows[] = array($key, $value);
 			}
 			$table->setRows($rows);
 			$table->render($output);

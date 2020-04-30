@@ -5,7 +5,6 @@
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bart Visscher <bartv@thisnet.nl>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Frank Karlitschek <frank@karlitschek.de>
  * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author Individual IT Services <info@individual-it.net>
@@ -216,7 +215,7 @@ class Util {
 	 * @return string the url
 	 * @since 4.0.0 - parameter $args was added in 4.5.0
 	 */
-	public static function linkToAbsolute( $app, $file, $args = [] ) {
+	public static function linkToAbsolute( $app, $file, $args = array() ) {
 		$urlGenerator = \OC::$server->getURLGenerator();
 		return $urlGenerator->getAbsoluteURL(
 			$urlGenerator->linkTo($app, $file, $args)
@@ -261,7 +260,7 @@ class Util {
 		$host_name = \OC::$server->getRequest()->getServerHost();
 		// strip away port number (if existing)
 		$colon_pos = strpos($host_name, ':');
-		if ($colon_pos != false) {
+		if ($colon_pos != FALSE) {
 			$host_name = substr($host_name, 0, $colon_pos);
 		}
 		return $host_name;
@@ -349,7 +348,7 @@ class Util {
 	 * TODO: write example
 	 * @since 4.0.0
 	 */
-	static public function emitHook($signalclass, $signalname, $params = []) {
+	static public function emitHook($signalclass, $signalname, $params = array()) {
 		return \OC_Hook::emit($signalclass, $signalname, $params);
 	}
 

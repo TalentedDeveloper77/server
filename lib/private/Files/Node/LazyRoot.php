@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Robin Appelman <robin@icewind.nl>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  *
@@ -90,14 +89,14 @@ class LazyRoot implements IRootFolder {
 	/**
 	 * @inheritDoc
 	 */
-	public function emit($scope, $method, $arguments = []) {
+	public function emit($scope, $method, $arguments = array()) {
 		$this->__call(__FUNCTION__, func_get_args());
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function mount($storage, $mountPoint, $arguments = []) {
+	public function mount($storage, $mountPoint, $arguments = array()) {
 		$this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -395,7 +394,7 @@ class LazyRoot implements IRootFolder {
 	/**
 	 * @inheritDoc
 	 */
-	public function newFile($path, $content = null) {
+	public function newFile($path) {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 

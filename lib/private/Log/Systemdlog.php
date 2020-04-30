@@ -27,6 +27,7 @@ namespace OC\Log;
 
 use OC\HintException;
 use OC\SystemConfig;
+use OCP\IConfig;
 use OCP\ILogger;
 use OCP\Log\IWriter;
 

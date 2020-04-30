@@ -25,6 +25,7 @@
 
 namespace OCA\Encryption\Controller;
 
+
 use OCA\Encryption\Session;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\DataResponse;

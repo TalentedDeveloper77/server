@@ -2,9 +2,9 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
+ * @author Andrius <andrius.kulbis@ktu.lt>
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Daniel Calviño Sánchez <danxuliu@gmail.com>
  * @author Jan-Philipp Litza <jplitza@users.noreply.github.com>
  * @author Joas Schilling <coding@schilljs.com>
@@ -53,6 +53,7 @@ use OCP\IUserManager;
 use OCP\Mail\IMailer;
 use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IShare;
+use OCP\Share\IShareHelper;
 use OCP\Share\IShareProvider;
 
 /**
@@ -838,7 +839,7 @@ class DefaultShareProvider implements IShareProvider {
 		$pathSections = explode('/', $data['path'], 2);
 		// FIXME: would not detect rare md5'd home storage case properly
 		if ($pathSections[0] !== 'files'
-				&& in_array(explode(':', $data['storage_string_id'], 2)[0], ['home', 'object'])) {
+		    	&& in_array(explode(':', $data['storage_string_id'], 2)[0], array('home', 'object'))) {
 			return false;
 		}
 		return true;
@@ -961,8 +962,8 @@ class DefaultShareProvider implements IShareProvider {
 			}
 
 			/*
-			 * Resolve all group shares to user specific shares
-			 */
+ 			 * Resolve all group shares to user specific shares
+ 			 */
 			$shares = $this->resolveGroupShares($shares2, $userId);
 		} else {
 			throw new BackendError('Invalid backend');

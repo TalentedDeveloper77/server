@@ -4,7 +4,6 @@
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -30,8 +29,8 @@
 namespace OCA\User_LDAP;
 
 class WizardResult {
-	protected $changes = [];
-	protected $options = [];
+	protected $changes = array();
+	protected $options = array();
 	protected $markedChange = false;
 
 	/**
@@ -53,7 +52,7 @@ class WizardResult {
 	 */
 	public function addOptions($key, $values) {
 		if(!is_array($values)) {
-			$values = [$values];
+			$values = array($values);
 		}
 		$this->options[$key] = $values;
 	}
@@ -69,7 +68,7 @@ class WizardResult {
 	 * @return array
 	 */
 	public function getResultArray() {
-		$result = [];
+		$result = array();
 		$result['changes'] = $this->changes;
 		if(count($this->options) > 0) {
 			$result['options'] = $this->options;

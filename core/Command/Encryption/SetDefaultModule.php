@@ -23,6 +23,7 @@
 
 namespace OC\Core\Command\Encryption;
 
+
 use OCP\Encryption\IManager;
 use OCP\IConfig;
 use Symfony\Component\Console\Command\Command;

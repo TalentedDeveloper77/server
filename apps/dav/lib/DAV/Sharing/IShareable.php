@@ -22,7 +22,6 @@
  */
 
 namespace OCA\DAV\DAV\Sharing;
-
 use Sabre\DAV\INode;
 
 /**

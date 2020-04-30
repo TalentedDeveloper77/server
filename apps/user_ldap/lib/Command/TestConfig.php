@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -44,7 +43,7 @@ class TestConfig extends Command {
 					'configID',
 					InputArgument::REQUIRED,
 					'the configuration ID'
-					 )
+				     )
 		;
 	}
 
@@ -81,9 +80,9 @@ class TestConfig extends Command {
 		//ensure validation is run before we attempt the bind
 		$connection->getConfiguration();
 
-		if(!$connection->setConfiguration([
+		if(!$connection->setConfiguration(array(
 			'ldap_configuration_active' => 1,
-		])) {
+		))) {
 			return 1;
 		}
 		if($connection->bind()) {

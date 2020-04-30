@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  *
  * @license AGPL-3.0
@@ -45,7 +44,7 @@ class CompositeExpression implements ICompositeExpression, \Countable {
 	 *
 	 * @return \OCP\DB\QueryBuilder\ICompositeExpression
 	 */
-	public function addMultiple(array $parts = []) {
+	public function addMultiple(array $parts = array()) {
 		$this->compositeExpression->addMultiple($parts);
 
 		return $this;

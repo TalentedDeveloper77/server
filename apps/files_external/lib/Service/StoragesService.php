@@ -36,7 +36,6 @@ use OCA\Files_External\Lib\Auth\AuthMechanism;
 use OCA\Files_External\Lib\Auth\InvalidAuth;
 use OCA\Files_External\Lib\Backend\Backend;
 use OCA\Files_External\Lib\Backend\InvalidBackend;
-use OCA\Files_External\Lib\DefinitionParameter;
 use OCA\Files_External\Lib\StorageConfig;
 use OCA\Files_External\NotFoundException;
 use OCP\Files\Config\IUserMountCache;
@@ -428,9 +427,7 @@ abstract class StoragesService {
 		$changedOptions = array_diff_assoc($updatedStorage->getMountOptions(), $oldStorage->getMountOptions());
 
 		foreach ($changedConfig as $key => $value) {
-			if ($value !== DefinitionParameter::UNMODIFIED_PLACEHOLDER) {
-				$this->dbConfig->setConfig($id, $key, $value);
-			}
+			$this->dbConfig->setConfig($id, $key, $value);
 		}
 		foreach ($changedOptions as $key => $value) {
 			$this->dbConfig->setOption($id, $key, $value);

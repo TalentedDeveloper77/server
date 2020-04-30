@@ -999,11 +999,6 @@ MountConfigListView.prototype = _.extend({
 		} else {
 			newElement = $('<input type="text" class="'+classes.join(' ')+'" data-parameter="'+parameter+'" placeholder="'+ trimmedPlaceholder+'" />');
 		}
-
-		if (placeholder.tooltip) {
-			newElement.attr('title', placeholder.tooltip);
-		}
-
 		highlightInput(newElement);
 		$td.append(newElement);
 		return newElement;
@@ -1350,7 +1345,7 @@ $(document).ready(function() {
 		var user = $form.find('[name=username]').val();
 		var password = $form.find('[name=password]').val();
 		var $submit = $form.find('[type=submit]');
-		$submit.val(t('files_external', 'Saving …'));
+		$submit.val(t('files_external', 'Saving...'));
 		$.ajax({
 			type: 'POST',
 			contentType: 'application/json',

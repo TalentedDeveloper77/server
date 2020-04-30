@@ -25,6 +25,7 @@
 
 namespace OC\RichObjectStrings;
 
+
 use OCP\RichObjectStrings\Definitions;
 use OCP\RichObjectStrings\InvalidObjectExeption;
 use OCP\RichObjectStrings\IValidator;

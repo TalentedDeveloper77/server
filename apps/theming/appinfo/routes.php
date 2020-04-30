@@ -4,7 +4,6 @@
  * @copyright Copyright (c) 2016 Lukas Reschke <lukas@statuscode.ch>
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Joas Schilling <coding@schilljs.com>
  * @author Julius Haertl <jus@bitgrid.net>
  * @author Julius Härtl <jus@bitgrid.net>
@@ -63,25 +62,25 @@ return ['routes' => [
 		'name' => 'Theming#getManifest',
 		'url' => '/manifest/{app}',
 		'verb' => 'GET',
-		'defaults' => ['app' => 'core']
+		'defaults' => array('app' => 'core')
 	],
 	[
 		'name'	=> 'Icon#getFavicon',
 		'url' => '/favicon/{app}',
 		'verb' => 'GET',
-		'defaults' => ['app' => 'core'],
+		'defaults' => array('app' => 'core'),
 	],
 	[
 		'name'	=> 'Icon#getTouchIcon',
 		'url' => '/icon/{app}',
 		'verb' => 'GET',
-		'defaults' => ['app' => 'core'],
+		'defaults' => array('app' => 'core'),
 	],
 	[
 		'name'	=> 'Icon#getThemedIcon',
 		'url' => '/img/{app}/{image}',
 		'verb' => 'GET',
-		'requirements' => ['image' => '.+']
+		'requirements' => array('image' => '.+')
 	],
 ]];
 

@@ -4,7 +4,6 @@
  *
  * @author Andrew Brown <andrew@casabrown.com>
  * @author Bart Visscher <bartv@thisnet.nl>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Jakob Sack <mail@jakobsack.de>
  * @author Jörn Friedrich Dreyer <jfd@butonic.de>
  * @author Morris Jobke <hey@morrisjobke.de>
@@ -27,7 +26,6 @@
  */
 
 namespace OC\Search\Provider;
-
 use OC\Files\Filesystem;
 
 /**
@@ -42,7 +40,7 @@ class File extends \OCP\Search\Provider {
 	 */
 	public function search($query) {
 		$files = Filesystem::search($query);
-		$results = [];
+		$results = array();
 		// edit results
 		foreach ($files as $fileData) {
 			// skip versions

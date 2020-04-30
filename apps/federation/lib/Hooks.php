@@ -22,6 +22,8 @@
 
 namespace OCA\Federation;
 
+
+
 class Hooks {
 
 	/** @var TrustedServers */

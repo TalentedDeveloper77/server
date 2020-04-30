@@ -4,9 +4,8 @@
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Joas Schilling <coding@schilljs.com>
- * @author Julius Härtl <jus@bitgrid.net>
  * @author Morris Jobke <hey@morrisjobke.de>
- * @author Thomas Citharel <nextcloud@tcit.fr>
+ * @author Thomas Citharel <tcit@tcit.fr>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -27,23 +26,21 @@
 
 namespace OC\Collaboration\Collaborators;
 
+
 use OCP\Collaboration\Collaborators\ISearchPlugin;
 use OCP\Collaboration\Collaborators\ISearchResult;
 use OCP\Collaboration\Collaborators\SearchResultType;
 use OCP\IConfig;
-use OCP\IGroup;
 use OCP\IGroupManager;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\IUserSession;
 use OCP\Share;
-use OCP\Share\IShare;
 
 class UserPlugin implements ISearchPlugin {
 	/* @var bool */
 	protected $shareWithGroupOnly;
 	protected $shareeEnumeration;
-	protected $shareeEnumerationInGroupOnly;
 
 	/** @var IConfig */
 	private $config;
@@ -63,54 +60,30 @@ class UserPlugin implements ISearchPlugin {
 
 		$this->shareWithGroupOnly = $this->config->getAppValue('core', 'shareapi_only_share_with_group_members', 'no') === 'yes';
 		$this->shareeEnumeration = $this->config->getAppValue('core', 'shareapi_allow_share_dialog_user_enumeration', 'yes') === 'yes';
-		$this->shareeEnumerationInGroupOnly = $this->shareeEnumeration && $this->config->getAppValue('core', 'shareapi_restrict_user_enumeration_to_group', 'no') === 'yes';
 	}
 
 	public function search($search, $limit, $offset, ISearchResult $searchResult) {
 		$result = ['wide' => [], 'exact' => []];
 		$users = [];
-		$autoCompleteUsers = [];
 		$hasMoreResults = false;
 
 		$userGroups = [];
 		if ($this->shareWithGroupOnly) {
 			// Search in all the groups this user is part of
-			$userGroups = $this->groupManager->getUserGroups($this->userSession->getUser());
+			$userGroups = $this->groupManager->getUserGroupIds($this->userSession->getUser());
 			foreach ($userGroups as $userGroup) {
-				$usersInGroup = $userGroup->searchDisplayName($search, $limit, $offset);
-				foreach ($usersInGroup as $user) {
-					$users[$user->getUID()] = $user;
+				$usersTmp = $this->groupManager->displayNamesInGroup($userGroup, $search, $limit, $offset);
+				foreach ($usersTmp as $uid => $userDisplayName) {
+					$users[(string) $uid] = $userDisplayName;
 				}
 			}
 		} else {
 			// Search in all users
 			$usersTmp = $this->userManager->searchDisplayName($search, $limit, $offset);
-			$currentUserGroups = $this->groupManager->getUserGroupIds($this->userSession->getUser());
+
 			foreach ($usersTmp as $user) {
 				if ($user->isEnabled()) { // Don't keep deactivated users
-					$users[$user->getUID()] = $user;
-
-					$addToWideResults = false;
-					if ($this->shareeEnumeration && !$this->shareeEnumerationInGroupOnly) {
-						$addToWideResults = true;
-					}
-
-					if ($this->shareeEnumerationInGroupOnly) {
-						$commonGroups = array_intersect($currentUserGroups, $this->groupManager->getUserGroupIds($user));
-						if (!empty($commonGroups)) {
-							$addToWideResults = true;
-						}
-					}
-
-					if ($addToWideResults) {
-						$autoCompleteUsers[] = [
-							'label' => $user->getDisplayName(),
-							'value' => [
-								'shareType' => IShare::TYPE_USER,
-								'shareWith' => (string)$user->getUID(),
-							],
-						];
-					}
+					$users[(string) $user->getUID()] = $user->getDisplayName();
 				}
 			}
 		}
@@ -123,15 +96,9 @@ class UserPlugin implements ISearchPlugin {
 
 		$foundUserById = false;
 		$lowerSearch = strtolower($search);
-		foreach ($users as $uid => $user) {
-			$userDisplayName = $user->getDisplayName();
-			$userEmail = $user->getEMailAddress();
+		foreach ($users as $uid => $userDisplayName) {
 			$uid = (string) $uid;
-			if (
-				strtolower($uid) === $lowerSearch ||
-				strtolower($userDisplayName) === $lowerSearch ||
-				strtolower($userEmail) === $lowerSearch
-			) {
+			if (strtolower($uid) === $lowerSearch || strtolower($userDisplayName) === $lowerSearch) {
 				if (strtolower($uid) === $lowerSearch) {
 					$foundUserById = true;
 				}
@@ -162,10 +129,7 @@ class UserPlugin implements ISearchPlugin {
 
 				if ($this->shareWithGroupOnly) {
 					// Only add, if we have a common group
-					$userGroupIds = array_map(function(IGroup $group) {
-						return $group->getGID();
-					}, $userGroups);
-					$commonGroups = array_intersect($userGroupIds, $this->groupManager->getUserGroupIds($user));
+					$commonGroups = array_intersect($userGroups, $this->groupManager->getUserGroupIds($user));
 					$addUser = !empty($commonGroups);
 				}
 
@@ -181,16 +145,12 @@ class UserPlugin implements ISearchPlugin {
 			}
 		}
 
-		// overwrite wide matches if they are limited
-		if (!$this->shareeEnumeration || $this->shareeEnumerationInGroupOnly) {
-			$result['wide'] = $autoCompleteUsers;
+		if (!$this->shareeEnumeration) {
+			$result['wide'] = [];
 		}
 
 		$type = new SearchResultType('users');
 		$searchResult->addResultSet($type, $result['wide'], $result['exact']);
-		if (count($result['exact'])) {
-			$searchResult->markExactIdMatch($type);
-		}
 
 		return $hasMoreResults;
 	}

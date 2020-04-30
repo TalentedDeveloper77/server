@@ -2,11 +2,10 @@
 /**
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  * @author Sergio Bertolín <sbertolin@solidgear.es>
- * @author Thomas Citharel <nextcloud@tcit.fr>
+ * @author Thomas Citharel <tcit@tcit.fr>
  * @author Thomas Müller <thomas.mueller@tmit.eu>
  * @author Vincent Petry <pvince81@owncloud.com>
  *
@@ -99,7 +98,7 @@ class TagsPlugin extends \Sabre\DAV\ServerPlugin
 		$this->tree = $tree;
 		$this->tagManager = $tagManager;
 		$this->tagger = null;
-		$this->cachedTags = [];
+		$this->cachedTags = array();
 	}
 
 	/**
@@ -119,8 +118,8 @@ class TagsPlugin extends \Sabre\DAV\ServerPlugin
 		$server->xml->elementMap[self::TAGS_PROPERTYNAME] = TagList::class;
 
 		$this->server = $server;
-		$this->server->on('propFind', [$this, 'handleGetProperties']);
-		$this->server->on('propPatch', [$this, 'handleUpdateProperties']);
+		$this->server->on('propFind', array($this, 'handleGetProperties'));
+		$this->server->on('propPatch', array($this, 'handleUpdateProperties'));
 	}
 
 	/**
@@ -152,7 +151,7 @@ class TagsPlugin extends \Sabre\DAV\ServerPlugin
 				unset($tags[$favPos]);
 			}
 		}
-		return [$tags, $isFav];
+		return array($tags, $isFav);
 	}
 
 	/**
@@ -165,10 +164,10 @@ class TagsPlugin extends \Sabre\DAV\ServerPlugin
 		if (isset($this->cachedTags[$fileId])) {
 			return $this->cachedTags[$fileId];
 		} else {
-			$tags = $this->getTagger()->getTagsForObjects([$fileId]);
+			$tags = $this->getTagger()->getTagsForObjects(array($fileId));
 			if ($tags !== false) {
 				if (empty($tags)) {
-					return [];
+					return array();
 				}
 				return current($tags);
 			}
@@ -233,7 +232,7 @@ class TagsPlugin extends \Sabre\DAV\ServerPlugin
 			$tags = $this->getTagger()->getTagsForObjects($fileIds);
 			if ($tags === false) {
 				// the tags API returns false on error...
-				$tags = [];
+				$tags = array();
 			}
 
 			$this->cachedTags = $this->cachedTags + $tags;

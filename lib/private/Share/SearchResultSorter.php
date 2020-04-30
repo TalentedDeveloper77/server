@@ -3,7 +3,6 @@
  * @copyright Copyright (c) 2016, ownCloud, Inc.
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Robin McCorkell <robin@mccorkell.me.uk>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -57,7 +56,7 @@ class SearchResultSorter {
 		if(!isset($a[$this->key]) || !isset($b[$this->key])) {
 			if(!is_null($this->log)) {
 				$this->log->error('Sharing dialogue: cannot sort due to ' .
-								  'missing array key', ['app' => 'core']);
+								  'missing array key', array('app' => 'core'));
 			}
 			return 0;
 		}

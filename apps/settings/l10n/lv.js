@@ -99,7 +99,6 @@ OC.L10N.register(
     "Last login" : "Pēdējā pieteikšanās",
     "Default quota" : "Apjoms pēc noklusējuma",
     "All languages" : "Visas valodas",
-    "Add" : "Pievienot",
     "Updates" : "Atjauninājumi",
     "Add group" : "Pievienot grupu",
     "Everyone" : "Visi",

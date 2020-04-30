@@ -26,6 +26,8 @@
 
 namespace OC\DB;
 
+use Doctrine\DBAL\DBALException;
+
 class AdapterPgSql extends Adapter {
 	protected $compatModePre9_5 = null;
 

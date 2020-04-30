@@ -23,6 +23,7 @@
 
 namespace OCA\CloudFederationAPI;
 
+
 use OCP\Capabilities\ICapability;
 use OCP\IURLGenerator;
 

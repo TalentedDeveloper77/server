@@ -4,7 +4,6 @@
  *
  * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Daniel Kesselberg <mail@danielkesselberg.de>
- * @author Joas Schilling <coding@schilljs.com>
  * @author John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -109,7 +108,7 @@ class PhotoCache {
 		$data = $this->getPhoto($card);
 
 		if ($data === false || !isset($data['Content-Type'])) {
-			$folder->newFile('nophoto', '');
+			$folder->newFile('nophoto');
 			return;
 		}
 
@@ -117,7 +116,7 @@ class PhotoCache {
 		$extension = self::ALLOWED_CONTENT_TYPES[$contentType] ?? null;
 
 		if ($extension === null) {
-			$folder->newFile('nophoto', '');
+			$folder->newFile('nophoto');
 			return;
 		}
 

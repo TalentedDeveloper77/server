@@ -4,7 +4,6 @@
  *
  * @author Bjoern Schiessle <bjoern@schiessle.org>
  * @author Björn Schießle <bjoern@schiessle.org>
- * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Jan-Christoph Borchardt <hey@jancborchardt.net>
  * @author Morris Jobke <hey@morrisjobke.de>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
@@ -165,8 +164,8 @@ class Util {
 	 * @return array with list of files relative to the users files folder
 	 */
 	public function getAllFiles($dir) {
-		$result = [];
-		$dirList = [$dir];
+		$result = array();
+		$dirList = array($dir);
 
 		while ($dirList) {
 			$dir = array_pop($dirList);
@@ -240,7 +239,7 @@ class Util {
 
 		$ownerPath = implode('/', array_slice($parts, 2));
 
-		return [$uid, Filesystem::normalizePath($ownerPath)];
+		return array($uid, Filesystem::normalizePath($ownerPath));
 
 	}
 
@@ -326,7 +325,7 @@ class Util {
 	 * @return boolean
 	 */
 	private function isMountPointApplicableToUser($mount, $uid) {
-		$acceptedUids = ['all', $uid];
+		$acceptedUids = array('all', $uid);
 		// check if mount point is applicable for the user
 		$intersection = array_intersect($acceptedUids, $mount['applicable']['users']);
 		if (!empty($intersection)) {

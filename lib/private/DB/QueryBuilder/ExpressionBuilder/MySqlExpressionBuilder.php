@@ -24,6 +24,7 @@
 
 namespace OC\DB\QueryBuilder\ExpressionBuilder;
 
+
 use OC\DB\Connection;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;

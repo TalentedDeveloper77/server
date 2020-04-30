@@ -5,7 +5,6 @@
  *
  * @author Christoph Wurst <christoph@winzerhof-wurst.at>
  * @author Georg Ehrke <oc.list@georgehrke.com>
- * @author Julius Härtl <jus@bitgrid.net>
  * @author Lukas Reschke <lukas@statuscode.ch>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  * @author Tobia De Koninck <tobia@ledfan.be>
@@ -108,13 +107,12 @@ class ContactsStore implements IContactsStore {
 									array $entries,
 									$filter) {
 		$disallowEnumeration = $this->config->getAppValue('core', 'shareapi_allow_share_dialog_user_enumeration', 'yes') !== 'yes';
-		$restrictEnumeration = $this->config->getAppValue('core', 'shareapi_restrict_user_enumeration_to_group', 'no') === 'yes';
 		$excludedGroups = $this->config->getAppValue('core', 'shareapi_exclude_groups', 'no') === 'yes';
 
 		// whether to filter out local users
 		$skipLocal = false;
 		// whether to filter out all users which doesn't have the same group as the current user
-		$ownGroupsOnly = $this->config->getAppValue('core', 'shareapi_only_share_with_group_members', 'no') === 'yes' || $restrictEnumeration;
+		$ownGroupsOnly = $this->config->getAppValue('core', 'shareapi_only_share_with_group_members', 'no') === 'yes';
 
 		$selfGroups = $this->groupManager->getUserGroupIds($self);
 
@@ -160,7 +158,7 @@ class ContactsStore implements IContactsStore {
 			if ($ownGroupsOnly && $entry->getProperty('isLocalSystemBook') === true) {
 				$uid = $this->userManager->get($entry->getProperty('UID'));
 
-				if ($uid === null) {
+				if ($uid === NULL) {
 					return false;
 				}
 

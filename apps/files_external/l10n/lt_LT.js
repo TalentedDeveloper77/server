@@ -70,7 +70,7 @@ OC.L10N.register(
     "Domain" : "Domenas",
     "Rackspace" : "Rackspace",
     "API key" : "API raktas",
-    "Global credentials" : "Visuotiniai prisijungimo duomenys",
+    "Global credentials" : "Globalūs prisijungimo duomenys",
     "Log-in credentials, save in database" : "Prisijungimo duomenys, saugoti duomenų bazėje",
     "Username and password" : "Naudotojo vardas ir slaptažodis",
     "Log-in credentials, save in session" : "Prisijungimo duomenys, saugoti sesijoje",

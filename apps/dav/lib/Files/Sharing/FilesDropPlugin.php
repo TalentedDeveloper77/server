@@ -2,7 +2,6 @@
 /**
  * @copyright Copyright (c) 2016, Roeland Jago Douma <roeland@famdouma.nl>
  *
- * @author Georg Ehrke <oc.list@georgehrke.com>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  *
  * @license GNU AGPL version 3 or any later version
@@ -62,7 +61,7 @@ class FilesDropPlugin extends ServerPlugin {
 	 * @throws MethodNotAllowed
 	 */
 	public function initialize(\Sabre\DAV\Server $server) {
-		$server->on('beforeMethod:*', [$this, 'beforeMethod'], 999);
+		$server->on('beforeMethod', [$this, 'beforeMethod'], 999);
 		$this->enabled = false;
 	}
 

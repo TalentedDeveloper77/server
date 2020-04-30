@@ -26,9 +26,6 @@ OC.L10N.register(
     "Something happened. Unable to accept the share." : "Die Freigabe konnte nicht akzeptiert werden.",
     "Reject share" : "Freigabe ablehnen",
     "Something happened. Unable to reject the share." : "Die Freigabe konnte nicht abgelehnt werden.",
-    "Waiting…" : "Warte…",
-    "error" : "Fehler",
-    "finished" : "Abgeschlossen",
     "This will stop your current uploads." : "Hiermit werden die aktuellen Uploads angehalten.",
     "Move or copy" : "Verschieben oder kopieren",
     "Download" : "Herunterladen",
@@ -161,7 +158,7 @@ OC.L10N.register(
     "Link copied" : "Link kopiert",
     "Cannot copy, please copy the link manually" : "Kopieren fehlgeschlagen. Bitte kopiere den Link manuell.",
     "Copy to clipboard" : "In die Zwischenablage kopieren",
-    "Only works for users with access to this folder" : "Funktioniert nur für Benutzer, die Zugriff auf diesen Ordner haben",
+    "Only works for users with access to this folder" : "Funktioniert nur für Nutzer, die Zugriff auf diesen Ordner haben",
     "Only works for users with access to this file" : "Funktioniert nur für Benutzer, die Zugriff auf diese Datei haben",
     "Please enter the following required information before creating the share" : "Bitte gebe die benötigten Informationen ein bevor die Freigabe erstellt wird",
     "Password protection (enforced)" : "Passwortschutz (erzwungen)",
@@ -225,10 +222,9 @@ OC.L10N.register(
     "Upload files to %s" : "Dateien für %s hochladen",
     "Note" : "Notiz",
     "Select or drop files" : "Dateien auswählen oder hierher ziehen",
-    "Uploading files" : "Dateien werden hochgeladen",
+    "Uploading files…" : "Dateien werden hochgeladen…",
     "Uploaded files:" : "Hochgeladene Dateien: ",
     "By uploading files, you agree to the %1$sterms of service%2$s." : "Durch das Hochladen von Dateien stimmst Du den %1$sNutzungsbedingungen%2$szu.",
-    "could not delete share" : "Freigabe konnte nicht gelöscht werden",
-    "Uploading files…" : "Dateien werden hochgeladen…"
+    "could not delete share" : "Freigabe konnte nicht gelöscht werden"
 },
 "nplurals=2; plural=(n != 1);");

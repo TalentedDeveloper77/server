@@ -37,7 +37,13 @@ use OC\AppFramework\Utility\TimeFactory;
 use OC\Authentication\Token\IProvider;
 use OC\Authentication\Token\IToken;
 use OC\Server;
+use OCA\Settings\Activity\GroupProvider;
+use OCA\Settings\Activity\GroupSetting;
 use OCA\Settings\Activity\Provider;
+use OCA\Settings\Activity\SecurityFilter;
+use OCA\Settings\Activity\SecurityProvider;
+use OCA\Settings\Activity\SecuritySetting;
+use OCA\Settings\Activity\Setting;
 use OCA\Settings\Hooks;
 use OCA\Settings\Mailer\NewUserMailHelper;
 use OCA\Settings\Middleware\SubadminMiddleware;
@@ -55,13 +61,12 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 
 class Application extends App {
 
-	const APP_ID = 'settings';
 
 	/**
 	 * @param array $urlParams
 	 */
 	public function __construct(array $urlParams=[]){
-		parent::__construct(self::APP_ID, $urlParams);
+		parent::__construct('settings', $urlParams);
 
 		$container = $this->getContainer();
 
@@ -144,6 +149,15 @@ class Application extends App {
 	}
 
 	public function register() {
+		$activityManager = $this->getContainer()->getServer()->getActivityManager();
+		$activityManager->registerSetting(Setting::class); // FIXME move to info.xml
+		$activityManager->registerProvider(Provider::class); // FIXME move to info.xml
+		$activityManager->registerFilter(SecurityFilter::class); // FIXME move to info.xml
+		$activityManager->registerSetting(SecuritySetting::class); // FIXME move to info.xml
+		$activityManager->registerProvider(SecurityProvider::class); // FIXME move to info.xml
+		$activityManager->registerSetting(GroupSetting::class); // FIXME move to info.xml
+		$activityManager->registerProvider(GroupProvider::class); // FIXME move to info.xml
+
 		Util::connectHook('OC_User', 'post_setPassword', $this, 'onChangePassword');
 		Util::connectHook('OC_User', 'changeUser', $this, 'onChangeInfo');
 
